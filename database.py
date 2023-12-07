@@ -1,6 +1,6 @@
 import pymongo
 
-myclient = pymongo.MongoClient("mongodb+srv://merajnushin01:rSlzrlaRkmAVzat8@cluster0.lptxj1r.mongodb.net/?authMechanism=DEFAULT")
+myclient = pymongo.MongoClient("mongodb+srv://merajnushin01:LeezKhnkmnTbF9LT@cluster0.lptxj1r.mongodb.net/?authMechanism=DEFAULT")
 mydb = myclient["Text-To-Database"]
 mycol = mydb["Database"]
  
