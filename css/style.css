@@ -3,61 +3,65 @@
    }
    
    body {
-       font-family: Arial, Helvetica, sans-serif;
-       margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
    }
    
    /*Aesthetic Options*/
    .header {
    /*Spacing*/
-       padding: 30px;
-       text-align: center;
+	padding: 30px;
+	text-align: center;
    /*Background color*/
-       background: #368DEF;
+	background: #368DEF;
    /*Text color*/
-       color: black
+	color: black
    }
    
    .header h1 {
-       font-size: 40px;
+	font-size: 40px;
    }
    
    .navbar {
-       overflow: hidden;
-       background-color: 33DDFF
+	overflow: hidden;
+	background-color: 33DDFF
    }
    
    .navbar n1 {
-       float: left;
-       display: block;
-       color: black;
-       text-align:center;
-       padding: 10px 20px;
-       text-decoration: none;
+	float: left;
+	display: block;
+	color: black;
+	text-align:center;
+	padding: 10px 20px;
+	text-decoration: none;
    }
    
    .row {
-       display: flex;
-       flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
    }
    
    /*Left column*/
    .side {
-       flex: 50%;
-       background-color: #95ADB2;
-       padding: 20px
+	background-color: #95ADB2;
+	padding: 20px
    }
    
    /*right column*/
    .main {
-       flex: 50%;
-       background-color: #95ADB2;
-       padding: 20px
+	flex: 50%;
+	background-color: #95ADB2;
+	padding: 20px
    }
    
    .img{
-       background-color: white;
-       width: 100%;
-       padding: 20px;
+	background-color: purple;
+	width: 100%;	
+	padding: 20px;
            
+   }
+
+   .table-center{
+	margin-left: auto;
+ 	margin-right: auto;
    }
