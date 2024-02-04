@@ -24,7 +24,7 @@
    
    .navbar {
 	overflow: hidden;
-	background-color: 33DDFF
+	background-color: 33DDFF;
    }
    
    .navbar n1 {
@@ -36,6 +36,24 @@
 	text-decoration: none;
    }
    
+   .account {
+      overflow: hidden;
+      background-color: blue;
+      height: 150px;
+      display: flex;
+      justify-content: right;
+      align-items: center;
+   }
+
+   .account profile_picture {
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      vertical-align: center;
+      border-radius: 50%;
+      border-color: red;
+      background-color: red;
+   }
    .row {
 	display: flex;
 	flex-wrap: wrap;
