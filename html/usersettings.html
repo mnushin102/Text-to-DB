@@ -8,13 +8,55 @@
 </head>
 <body>
     
-    <div class="account">
-        <profile_picture href="#">red</profile_picture>
+    <div class="account_banner">
+        <div class="account_left_section">
+            <img src="logo.jpg" alt="Logo">
+        </div>
+        <div class="account_right_section">
+            <div class="profile_picture_holder">
+                <img src="../profile_picture.jpg" alt="Profile Picture">
+            </div>
+        </div>
     </div>
 
     <div class="main">
-        <h2>Text here</h2>
+        <h2>User Information</h2>
     </div>
+    <form>
+        <div>
+            <label for="firstname">First Name:</label>
+            <input type="text" id="fistname" name="firstname">
+        </div>
+
+        <div>
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname">
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email">
+        </div>
+
+        <div>
+            <label for="phonenumber">Phone Number:</label>
+            <input type="text" id="phonenumber" name="phonenumber">
+        </div>
+
+        <div>
+            <label for="tole">Role:</label>
+            <input type="text" id="role" name="role">
+        </div>
+
+        <div>
+            <label for="bio">User Bio:</label>
+            <input type="text" id="bio" name="bio">
+        </div>
+
+        <div>
+            <input type="submit" value="submit">
+        </div>
+    </form>
 
 </body>
 </html>

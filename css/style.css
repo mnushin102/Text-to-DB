@@ -36,24 +36,40 @@
 	text-decoration: none;
    }
    
-   .account {
-      overflow: hidden;
+   .account_banner {
       background-color: blue;
-      height: 150px;
+      height: 180px;
       display: flex;
-      justify-content: right;
+      align-items: center;
+      padding: 15px 15px;
+   }
+
+   .account_left_section{
+      flex: 1;
+   }
+   .account_right_section{
+      margin-left: auto;
+   }
+
+   .profile_picture_holder {
+      display: flex;
+      justify-content: center;
+      width: 125px;
+      height: 125px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid black;
       align-items: center;
    }
 
-   .account profile_picture {
-      width: 100px;
-      height: 100px;
-      padding: 10px;
-      vertical-align: center;
-      border-radius: 50%;
-      border-color: red;
-      background-color: red;
+   .profile_picture{
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      object-fit: contain;
+      object-position: center;
    }
+
    .row {
 	display: flex;
 	flex-wrap: wrap;
