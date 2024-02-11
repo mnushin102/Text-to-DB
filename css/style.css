@@ -54,7 +54,13 @@
    }
 
    .account_left_section{
-      flex: 1;
+      max-height: 100px;
+      width: auto;
+   }
+   
+   .account_left_section img{
+      width: 200px;
+      height: 120px;
    }
    .account_right_section{
       margin-left: auto;
@@ -69,6 +75,15 @@
       overflow: hidden;
       border: 2px solid black;
       align-items: center;
+   }
+
+   .logo_holder{
+      display: flex;
+      justify-content: center;
+      width: 50 px;
+      height: 50 px;
+      overflow: hidden;
+      border: 2px solid black;
    }
 
    .profile_picture{
