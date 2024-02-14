@@ -4,24 +4,36 @@
 <link rel="stylesheet" href="../css/style.css" />
 <body>
 
-<div class="header">
-	<h1>User Page</h1>
+<div class="account_banner">
+	<div class="account_left_section">
+            <div class="logo_holder">
+                <img src="../img/logo.jpg" alt="Logo">
+            </div>
+        </div>
+	<a>
+		<input type="text" id="search_project" placeholder="Search Project">
+	</a>
+        <div class="account_right_section">
+            <div class="profile_picture_holder">
+                <img src="../img/profile_picture.jpg" alt="Profile Picture">
+            </div>
+        </div>
 </div>
 
 <div class="navbar">
-	<n1 href="#">Home</n1>
-	<n1 href="#">Login</n1>
-	<n1 href="#">About</n1>
-	<n1 href="#">FAQ</n1>
-</div>	
+	<a href="../index.html">Home</a>
+	<a href="login.html">Login</a>
+	<a href="about.html">About</a>
+	<a href="faq.html">FAQ</a>
+</div>
 
 <div class="navbar">
-	<n2 href="#">Create New Database</n2>
-	<n2 href="#">Delete Database</n2>
-	<n2 href="#">Edit Database</n2>
-	<n2 href="#">Import File</n2>
-	<n2 href="#">Export File</n2>
-	<n2 href="#">Collaborate</n2>
+	<a><button onclick="generateDatabase">Create New Database</button></a>
+	<a><button onclick="generateDatabase">Delete Database</button></a>
+	<a><button onclick="generateDatabase">Edit Database</button></a>
+	<a><button onclick="generateDatabase">Import File</button></a>
+	<a><button onclick="generateDatabase">Export File</button></a>
+	<a><button onclick="generateDatabase">Collaborate</button></a>
 </div>
 
 <div class="row">
@@ -49,7 +61,7 @@
 		<div class="img" style="height:200px;"></div>
 		<br>
 		<p>Project 5</p>
-	</div>	
+</div>	
 <div class="row">
 		<div class="main2">
 			<div class="img" style="height:200px;"></div>
@@ -67,9 +79,7 @@
 			<!-- Text boxes for attribute names -->
 			<input type="text" id="project1_attributeName1" placeholder="Attribute 1 Name">
 			<input type="text" id="project1_attributeName2" placeholder="Attribute 2 Name">
-			<!-- Button for generating database -->
-			<button onclick="generateDatabase('Project 1')">Create New Database</button>
 		</div>
-	</div>
+</div>
 </body>
 </html>
