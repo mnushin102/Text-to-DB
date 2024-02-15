@@ -4,8 +4,17 @@
 <link rel="stylesheet" href="../css/style.css" />
 <body>
 
-<div class="header">
-	<h1>My Website</h1>
+<div class="account_banner">
+	<div class="account_left_section">
+            <div class="logo_holder">
+                <img src="../img/logo.jpg" alt="Logo">
+            </div>
+        </div>
+        <div class="account_right_section">
+            <div class="profile_picture_holder">
+                <img src="../img/profile_picture.jpg" alt="Profile Picture">
+            </div>
+        </div>
 </div>
 
 <div class="navbar">
@@ -13,19 +22,17 @@
 	<a href="login.html">Login</a>
 	<a href="about.html">About</a>
 	<a href="faq.html">FAQ</a>
-</div>	
-		
-<img src="../img/database.jpg">
+</div>
 
 <p style="text-align: center;">Email/Username</p>
 
-/*email/username plain text box goes here*/
+<p style="text-align: center;"><input type="text" id="email_username"></p>
 
 <p style="text-align: center;">Password</p>
 
-/*password plain text box goes here*/
+<p style="text-align: center;"><input type="text" id="password"></p>
 
-<p style="text-align: center;">Login</p>
+<p style="text-align: center;"><button onclick="login">Login</button></p>
 
-<p style="text-align: center;">Create Account</p>
+<p style="text-align: center;"><button onclick="create_account">Create Account</button></p>
 </div>
