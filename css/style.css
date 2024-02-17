@@ -7,7 +7,7 @@
 	margin: 0;
    }
    
-   /*Aesthetic Options*/
+   /*Zoe White, Aesthetic Options for the header*/
    .header {
    /*Spacing*/
 	padding: 30px;
@@ -22,6 +22,7 @@
 	font-size: 40px;
    }
    
+
    .navbar {
 	overflow: hidden;
 	background-color: 33DDFF;
@@ -36,6 +37,7 @@
 	text-align:center;
    }
    
+   /* Zoe White, navbar for top of the pages*/
    .navbar n1 {
 	float: left;
 	display: block;
@@ -94,19 +96,20 @@
       object-position: center;
    }
 
+   /*Zoe White, used to create rows in the html files*/
    .row {
 	display: flex;
 	flex-wrap: wrap;
    }
    
-   /*Left column*/
+   /*Zoe White, Left column*/
    .side {
 	flex: 50%;
 	background-color: #95ADB2;
 	padding: 20px
    }
    
-   /*right column*/
+   /*Zoe White, right column*/
    .main {
 	flex: 50%;
 	background-color: #95ADB2;
