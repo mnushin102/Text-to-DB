@@ -1,0 +1,24 @@
+{
+  "name": "text2db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnushin102/Text-to-DB.git"
+  },
+  "author": "Maitham Harb, Daniel Moreno, Meraj Nushin, Zoe White",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mnushin102/Text-to-DB/issues"
+  },
+  "homepage": "https://github.com/mnushin102/Text-to-DB#readme",
+  "dependencies": {
+    "install": "^0.13.0",
+    "mongoose": "^8.1.3",
+    "npm": "^10.4.0"
+  }
+}
