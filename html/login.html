@@ -39,3 +39,20 @@
 </div>
 
 <script src="dbConnect.js"></script>
+
+<script src="create_account.js"></script>
+
+<script>
+	async function createAccount() {
+		const emailUsername = document.getElementById('email_username').value;
+		const password = document.getElementById('password').value;
+
+		const create = await createAccount(emailUsername, password);
+
+		if(create) {
+			alert("The account was successfully created!")
+		} else {
+			alert("Creation of account failed. Please re-enter your information")
+		}
+	}
+</script>
