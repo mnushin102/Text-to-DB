@@ -5,6 +5,8 @@ const user = new mongoose.Schema({
     password: { type: String, required: true },
 });
 
+const Database = mongoose.model('Database', user);
+
 const createAccount = async (email, password) => {
     try {
         const new_user = new Database({ email, password });
