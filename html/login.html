@@ -37,7 +37,12 @@
 <p style="text-align: center;"><button onclick="login()">Login</button></p>
 <script>
 	function login() {
-		alert("Hello! I am an alert box!");
+		const tempUsername = "guest";
+		const tempPassword = "password";
+		const usernameInput = document.getElementById("email_username");
+		const username = usernameInput.value;
+		alert(username);
+		//alert("Hello! I am an alert box!");
 	}
 </script>
 
