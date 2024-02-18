@@ -24,3 +24,6 @@ print(mycol.find_one({"_id" : "1"}))
 print(mycol.find_one({"_id" : "2"}))
 print(mycol.find_one({"_id" : "3"}))
 print(mycol.find_one({"_id" : "4"})) 
+
+# remove a data from MongoDB database
+#x.delete_one({"_id" : "1"})
