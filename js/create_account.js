@@ -5,11 +5,11 @@ const user = new mongoose.Schema({
     password: { type: String, required: true },
 });
 
-const Database = mongoose.model('Database', user);
+const user_info = mongoose.model('user_info', user);
 
 const createAccount = async (email, password) => {
     try {
-        const new_user = new Database({ email, password });
+        const new_user = new user_info({ email, password });
         await new_user.save();
         console.log("The account was successfully created!");
         return true;
