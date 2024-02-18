@@ -18,17 +18,15 @@ const SUCCESS_201 = 201; // Successfully created (an object)
 async function userRetrieve(req, res, next) {
     let user;
     try {
-        user = await User.findOne(req.params.email)
-        console.log("HERE")
-        if (user == null){
+        user = await User.findOne({email:req.params.email})
+        if (!user){
             return res.status(ERROR_400).json({message:"USER NOT FOUND!"})
         }
     } catch (err) {
-        console.log("HERE2")
         return res.status(ERROR_500).json({err:err.message})
     }
-    console.log("HERE3")
     res.user = user;
+
     next();
 }
 
@@ -37,7 +35,6 @@ router.get('/', async (req,res) => {
     try {
         // Gathers all the users, and if found, returns all users within the collection
         const users = await User.find();
-        console.log("Here are all the users!")
         res.json(users)
     } catch (err) {
         res.status(ERROR_500).json({err:err.message});
@@ -95,8 +92,8 @@ router.patch('/email/:email', userRetrieve, async(req,res) => {
 // Deletes an existing user
 router.delete('/email/:email', userRetrieve, async(req,res) => {
     try {
-        await res.user.remove();
-        res.json({message:"USER DELETED"})
+        await User.findOneAndDelete({ email: req.params.email });
+        res.json({ message: "User deleted" });
     } catch (err) {
         res.status(ERROR_500).json({message:err.message})
     }
