@@ -41,8 +41,19 @@
 		const tempPassword = "password";
 		const usernameInput = document.getElementById("email_username");
 		const username = usernameInput.value;
-		alert(username);
-		//alert("Hello! I am an alert box!");
+		const passwordInput = document.getElementById("password");
+		const password = passwordInput.value;
+		if(tempUsername == username){
+			if(tempPassword == password){
+				alert("Successfully logged in");
+			} else {
+				alert("Invalid password");
+			}
+		} else {
+			alert("Not a valid Username");
+		}
+		//alert(username);
+		
 	}
 </script>
 
