@@ -27,5 +27,9 @@ print(mycol.find_one({"_id" : "3"}))
 print(mycol.find_one({"_id" : "4"})) 
 
 # Choose any data and delete it from Mongo 
-n = input("Please choose an _id to delete from the Mongo database: ")
+id = input("Please choose an _id to delete from the Mongo database: ")
+
+query = {"_id": id} 
+
+print(query)
 
