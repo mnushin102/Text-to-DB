@@ -66,36 +66,7 @@
 		<p>Project 5</p>
 </div>	
 
-<script>
-	const schema = {
-	// This is where the JSON schema should be
-	};
-
-	const databaseSchema = new mongoose.Schema(schema);
-
-	const Database = mongoose.model("Database", databaseSchema)
-
-	async function createNewDatabase() {
-		try
-		{
-			await mongoose.connect("mongodb+srv://merajnushin01:2ucgHvXV722ZUiwa@cluster0.lptxj1r.mongodb.net/Text-To-Database", {
-				useNewUrlParser: true,
-				useUnifiedTopology: true
-			});
-
-			const newDatabase = new Database({
-				tables: []
-			});
-
-			await newDatabase.save();
-			console.log("The new database was created successfully!");
-		} catch (error) {
-			console.error("There was an error in creating the new database:", error);
-		} finally {
-			await mongoose.disconnect();
-		}
-	}
-</script>
+<script src="create_database.js"></script>
 	
 <div class="row">
 		<div class="main2">
