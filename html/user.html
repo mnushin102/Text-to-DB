@@ -30,7 +30,7 @@
 
 <!-- Zoe White, the navbar allows users to click buttons that have different functions-->
 <div class="navbar">
-	<a><button onclick="create_new_database">Create New Database</button></a>
+	<a><button onclick="createNewDatabase()">Create New Database</button></a>
 	<a><button onclick="delete_database">Delete Database</button></a>
 	<a><button onclick="edit_database">Edit Database</button></a>
 	<a><button onclick="import_file">Import File</button></a>
@@ -65,6 +65,38 @@
 		<br>
 		<p>Project 5</p>
 </div>	
+
+<script>
+	const schema = {
+	// This is where the JSON schema should be
+	};
+
+	const databaseSchema = new mongoose.Schema(schema);
+
+	const Database = mongoose.model("Database", databaseSchema)
+
+	async function createNewDatabase() {
+		try
+		{
+			await mongoose.connect("mongodb+srv://merajnushin01:2ucgHvXV722ZUiwa@cluster0.lptxj1r.mongodb.net/Text-To-Database", {
+				useNewUrlParser: true,
+				useUnifiedTopology: true
+			});
+
+			const newDatabase = new Database({
+				tables: []
+			});
+
+			await newDatabase.save();
+			console.log("The new database was created successfully!");
+		} catch (error) {
+			console.error("There was an error in creating the new database:", error);
+		} finally {
+			await mongoose.disconnect();
+		}
+	}
+</script>
+	
 <div class="row">
 		<div class="main2">
 			<div class="img" style="height:200px;"></div>
