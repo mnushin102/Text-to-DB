@@ -1,7 +1,5 @@
 const db = require("./databaseApp");
 
-const Database = mongoose.model("Database", databaseSchema)
-
 async function createNewDatabase() {
 	try
 	{
