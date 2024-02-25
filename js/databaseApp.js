@@ -6,14 +6,6 @@ const app = express();
 
 mongoose.connect("mongodb+srv://merajnushin01:2ucgHvXV722ZUiwa@cluster0.lptxj1r.mongodb.net/user_info"); 
 
-// Construct a schema with the following data attributes
-const schema = {
-    student_id: {type: int, required: true, maxLength: 8}, 
-    first_name: {type: String, required: true, maxLength: 50}, 
-    last_name: {type: String, required: true, maxLength: 50}, 
-    major: {type: String, required: true, maxLength: 50} 
-}; 
-
 const databaseSchema = new mongoose.model(schema); 
 
 // This function lets the user input the following data to upload to Mongo
