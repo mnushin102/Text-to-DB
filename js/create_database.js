@@ -1,21 +1,27 @@
-const schema = {
-	// This is where the JSON schema should be
-	};
-
-const databaseSchema = new mongoose.Schema(schema);
-
-const Database = mongoose.model("Database", databaseSchema)
+const db = require("./databaseApp");
+const mongoose = require("mongoose");
 
 async function createNewDatabase() {
-		try
-		{
-			const newDatabase = new Database({
-				tables: []
-			});
+	try
+	{
+		const databaseSchema = new mongoose.Schema({
+			name: { type: String, required: true },
+			description: { type: String }
+		});
 
-			await newDatabase.save();
-			console.log("The new database was created successfully!");
-		} catch (error) {
-			console.error("There was an error in creating the new database:", error);
-		}
+		const Database = mongoose.model("Database", databaseSchema);
+
+		const newdb = new Database({
+			name: "DatabaseName",
+			description: "DatabaseDescription"
+		});
+
+		await newDatabase.save();
+		
+		console.log("The new database was created successfully!");
+	} catch (error) {
+		console.error("There was an error in creating the new database:", error);
+	}
 }
+
+module.exports = createNewDatabase;
