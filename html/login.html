@@ -1,81 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-</head>
-<link rel="stylesheet" href="../css/style.css" />
-<body>
+	</head>
+	<link rel="stylesheet" href="../css/style.css" />
+	<body>
+		<div class="account_banner">
+			<div class="account_left_section">
+					<div class="logo_holder">
+						<img src="../img/logo.jpg" alt="Logo">
+					</div>
+				</div>
+				<div class="account_right_section">
+					<div class="profile_picture_holder">
+						<img src="../img/profile_picture.jpg" alt="Profile Picture">
+					</div>
+				</div>
+		</div>
 
-<div class="account_banner">
-	<div class="account_left_section">
-            <div class="logo_holder">
-                <img src="../img/logo.jpg" alt="Logo">
-            </div>
-        </div>
-        <div class="account_right_section">
-            <div class="profile_picture_holder">
-                <img src="../img/profile_picture.jpg" alt="Profile Picture">
-            </div>
-        </div>
-</div>
+		<!-- Zoe White, the navbar allows users to click links to other pages in an organized space-->
+		<div class="navbar">
+			<a href="../index.html">Home</a>
+			<a href="login.html">Login</a>
+			<a href="about.html">About</a>
+			<a href="faq.html">FAQ</a>
+		</div>
 
-<!-- Zoe White, the navbar allows users to click links to other pages in an organized space-->
-<div class="navbar">
-	<a href="../index.html">Home</a>
-	<a href="login.html">Login</a>
-	<a href="about.html">About</a>
-	<a href="faq.html">FAQ</a>
-</div>
+		<!-- Zoe White, the paragraphs without input types are just basic paragraphs prompting for user info-->
+		<p style="text-align: center;">Email/Username</p>
 
-<!-- Zoe White, the paragraphs without input types are just basic paragraphs prompting for user info-->
-<p style="text-align: center;">Email/Username</p>
+		<p style="text-align: center;"><input type="text" id="email_username" name="email_username" required></p>
 
-<p style="text-align: center;"><input type="text" id="email_username" name="email_username" required></p>
+		<p style="text-align: center;">Password</p>
 
-<p style="text-align: center;">Password</p>
+		<p style="text-align: center;"><input type="text" id="password" name="password" required></p>
 
-<p style="text-align: center;"><input type="password" id="password" name="password" required></p>
+		<p style="text-align: center;"><button id="login">Login</button></p>
 
-<p style="text-align: center;"><button onclick="login()">Login</button></p>
-<script>
-	function login() {
-		const tempUsername = "guest";
-		const tempPassword = "password";
-		const usernameInput = document.getElementById("email_username");
-		const username = usernameInput.value;
-		const passwordInput = document.getElementById("password");
-		const password = passwordInput.value;
-		if(tempUsername == username){
-			if(tempPassword == password){
-				alert("Successfully logged in");
-			} else {
-				alert("Invalid password");
+		<script type="module">
+			// Importing the login function from the loginAccount js file
+			// so it can be used to handle when the login button is clicked
+			import {login} from "../js/loginAccount.js";
+
+			// Calls the function login() from loginAccount, and using DOMContentLoaded
+			// so function is ready to go, when user wants to use login
+			// https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
+			document.addEventListener("DOMContentLoaded", function(){
+				login();
+			});
+		</script>
+
+<!---
+		<script>
+			function login() {
+				const tempUsername = "guest";
+				const tempPassword = "password";
+				const usernameInput = document.getElementById("email_username");
+				const username = usernameInput.value;
+				const passwordInput = document.getElementById("password");
+				const password = passwordInput.value;
+				if(tempUsername == username){
+					if(tempPassword == password){
+						alert("Successfully logged in");
+					} else {
+						alert("Invalid password");
+					}
+				} else {
+					alert("Not a valid Username");
+				}
+				//alert(username);
+				
 			}
-		} else {
-			alert("Not a valid Username");
-		}
-		//alert(username);
-		
-	}
-</script>
+		</script>
 
-<p style="text-align: center;"><button onclick="createAccount()" type="submit">Create Account</button></p>
+		<p style="text-align: center;"><button onclick="createAccount()" type="submit">Create Account</button></p>
 
-</div>
+		</div>
 
-<script src="dbConnect.js"></script>
+		<script src="dbConnect.js"></script>
 
-<script src="create_account.js"></script>
+		<script src="create_account.js"></script>
 
-<script>
-	async function createAccount() {
-		const emailUsername = document.getElementById('email_username').value;
-		const password = document.getElementById('password').value;
+		<script>
+			async function createAccount() {
+				const emailUsername = document.getElementById('email_username').value;
+				const password = document.getElementById('password').value;
 
-		const create = await createAccount(emailUsername, password);
+				const create = await createAccount(emailUsername, password);
 
-		if(create) {
-			alert("The account was successfully created!")
-		} else {
-			alert("Creation of account failed. Please re-enter your information")
-		}
-	}
-</script>
+				if(create) {
+					alert("The account was successfully created!")
+				} else {
+					alert("Creation of account failed. Please re-enter your information")
+				}
+			}
+		</script> -->
+	</body>
+</html>

@@ -44,18 +44,7 @@ router.get('/', async (req,res) => {
 // Retrieves ONE user given a username as parameter
 router.get('/email/:email', userRetrieve, async (req,res) => {
     res.json(res.user);
-    /*
-    try {
-        const user = await User.findOne({email : req.params.email});
-        if (!user){
-            return res.status(ERROR_404).json({message:"USER NOT FOUND!"});
-        } 
-        else{
-            res.status(SUCCESS_200).json(user);
-        }
-    } catch (err) {
-        res.status(ERROR_500).json({err:err.message});
-    } */
+    
 });
 
 // Creates a new user, using post
