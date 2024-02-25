@@ -1,7 +1,10 @@
+import "./models/dataSchema.js"
+
 // Import the dependencies for backend
 const mongoose = require('mongoose'); 
 const express = require('express'); 
 const app = express();
+const insertRoute = require("../routes/databaseApp");
 
 
 mongoose.connect("mongodb+srv://merajnushin01:2ucgHvXV722ZUiwa@cluster0.lptxj1r.mongodb.net/user_info"); 

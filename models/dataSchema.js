@@ -1,3 +1,5 @@
+const mongoose = require("mongoose"); 
+
 // Construct a schema with the following data attributes
 const schema = {
     student_id: {type: Number, required: true, maxLength: 8}, 
@@ -7,4 +9,6 @@ const schema = {
 }; 
 
 // Create a model to fill 
-const databaseSchema = new mongoose.model(schema); 
+const databaseSchema = new mongoose.model("databaseSchema", schema); 
+
+module.export = databaseSchema; 
