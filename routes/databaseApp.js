@@ -3,5 +3,4 @@ const router = express.Router();
 const insertRouting = require("../models/dataSchema"); 
 
 async function insertData(){
-
 }

@@ -9,6 +9,7 @@ const insertRoute = require("../routes/databaseApp");
 // Set up a connection to MongoDB 
 mongoose.connect("mongodb+srv://merajnushin01:2ucgHvXV722ZUiwa@cluster0.lptxj1r.mongodb.net/user_info"); 
 
+// Assign a schema to the model
 const databaseSchema = new mongoose.model(schema); 
 
 // This function lets the user input the following data to upload to Mongo
