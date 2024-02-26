@@ -8,7 +8,7 @@ const schema = {
     major: {type: String, required: true, maxLength: 50} 
 }; 
 
-// Create a model to fill 
+// Create a model to insert the schema for all of the data attributes 
 const databaseSchema = new mongoose.model("databaseSchema", schema); 
 
 module.export = databaseSchema; 
