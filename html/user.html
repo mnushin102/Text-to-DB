@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="../css/style.css" />
 <body>
 
-<script src="create_database.js"></script>
+<script src="./create_database.js"></script>
 
 <div class="account_banner">
 	<div class="account_left_section">
@@ -87,5 +87,33 @@
 			<input type="text" id="project1_attributeName2" placeholder="Attribute 2 Name">
 		</div>
 </div>
+
+<script>
+	function createNewDatabase() {
+		const attribute1 = document.getElementById("project1_attribute1").value;
+		const attribute2 = document.getElementById("project1_attribute2").value;
+		const attributeName1 = document.getElementById("project1_attributeName1").value;
+		const attributeName2 = document.getElementById("project1_attributeName2").value;
+
+		const attributes = [
+			{ name: attributeName1, type: convertAttributeToSQLType(attribute1) },
+			{ name: attributeName2, type: convertAttributeToSQLType(attribute2) }
+		];
+
+		createNewDatabase(attributes);
+	}
+
+	function convertAttributeToSQLType(attributeOption) {
+		switch (attributeOption) {
+			case "attribute1_option1":
+				return "VARCHAR(200)";
+			case "attribute1_option2":
+				return "INT";
+			default:
+				return "VARCHAR(200)";
+		}
+	}		
+</script>
+	
 </body>
 </html>
