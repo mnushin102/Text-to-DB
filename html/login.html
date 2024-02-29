@@ -35,6 +35,8 @@
 
 		<p style="text-align: center;"><button id="login">Login</button></p>
 
+		<p style="text-align: center;"><button id="create_account">Create Account</button></p>
+
 		<script type="module">
 			// Importing the login function from the loginAccount js file
 			// so it can be used to handle when the login button is clicked
@@ -47,51 +49,18 @@
 				login();
 			});
 		</script>
+		<script type="module">
+			// Importing the create account function from the create-new-account.js file
+			// so it can be used to handle when the create account button is clicked
+			import {create_account} from "../js/create-new-account.js";
 
-<!---
-		<script>
-			function login() {
-				const tempUsername = "guest";
-				const tempPassword = "password";
-				const usernameInput = document.getElementById("email_username");
-				const username = usernameInput.value;
-				const passwordInput = document.getElementById("password");
-				const password = passwordInput.value;
-				if(tempUsername == username){
-					if(tempPassword == password){
-						alert("Successfully logged in");
-					} else {
-						alert("Invalid password");
-					}
-				} else {
-					alert("Not a valid Username");
-				}
-				//alert(username);
-				
-			}
+			// Calls the function create_account() from create-new-account, and using DOMContentLoaded
+			// so function is ready to go, when user wants to create a new account
+			// https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
+			document.addEventListener("DOMContentLoaded", function(){
+				create_account();
+			});
 		</script>
 
-		<p style="text-align: center;"><button onclick="createAccount()" type="submit">Create Account</button></p>
-
-		</div>
-
-		<script src="dbConnect.js"></script>
-
-		<script src="create_account.js"></script>
-
-		<script>
-			async function createAccount() {
-				const emailUsername = document.getElementById('email_username').value;
-				const password = document.getElementById('password').value;
-
-				const create = await createAccount(emailUsername, password);
-
-				if(create) {
-					alert("The account was successfully created!")
-				} else {
-					alert("Creation of account failed. Please re-enter your information")
-				}
-			}
-		</script> -->
 	</body>
 </html>
