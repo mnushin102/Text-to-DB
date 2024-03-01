@@ -15,8 +15,8 @@ app.use(express.json())
 
 // Gets access to our user routes, which is responsible
 // for making HTTPS requests regarding users
-const userRouting = require("../routes/Users")
-app.use("/users", userRouting)
+const userRouting = require("../routes/Users");
+app.use("/users", userRouting);
 
 
 

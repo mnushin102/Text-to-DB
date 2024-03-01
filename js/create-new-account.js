@@ -29,7 +29,7 @@ export function create_account() {
                 // User is found and now retrieving the user's data
                 responseData = await resp.json();
                 userFound = true;
-            }
+            };
 
             // If email already in use, will not create account
             if (userFound){
@@ -48,16 +48,16 @@ export function create_account() {
                 body: JSON.stringify(userInfo)
             });
             if (resp.ok){
-                alert("USER CREATED! YOU CAN NOW LOG IN!")
+                alert("USER CREATED! YOU CAN NOW LOG IN!");
             }
                } catch (error) {
-                console.error("POST not working",error) 
+                console.error("POST not working",error);
                } 
             }
             
                         
         } catch (error) {
-            console.error("FETCH not working", error)           
+            console.error("FETCH not working", error);         
         }
     });
 }

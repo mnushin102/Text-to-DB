@@ -4,7 +4,7 @@
 // Importing all the dependencies needed for this RESTAPI
 const express = require("express");
 const router = express.Router();
-const User = require("../models/Users")
+const User = require("../models/Users");
 
 // Statuses defined by https://expressjs.com/en/guide/error-handling.html
 const ERROR_400 = 400; // User inputs incorrect data
@@ -35,7 +35,7 @@ router.get('/', async (req,res) => {
     try {
         // Gathers all the users, and if found, returns all users within the collection
         const users = await User.find();
-        res.json(users)
+        res.json(users);
     } catch (err) {
         res.status(ERROR_500).json({err:err.message});
     }
@@ -84,7 +84,7 @@ router.delete('/email/:email', userRetrieve, async(req,res) => {
         await User.findOneAndDelete({ email: req.params.email });
         res.json({ message: "User deleted" });
     } catch (err) {
-        res.status(ERROR_500).json({message:err.message})
+        res.status(ERROR_500).json({message:err.message});
     }
 });
 

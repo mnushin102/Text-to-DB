@@ -1,6 +1,6 @@
 // Author of this file: Maitham Harb
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 // Creates a schema to define user
 const user = new mongoose.Schema({
