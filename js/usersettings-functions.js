@@ -1,10 +1,12 @@
+// FUNCTION IS NOT WORKING YET
 export async function display_collaborators(){
     try {
         // Making a GET request using the user's cookies
-        const response = await fetch("/users", {
+        const response = await fetch("/Users/user", {
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Cookie": document.cookie
             }
         })
             // Check if the response is NOT successful

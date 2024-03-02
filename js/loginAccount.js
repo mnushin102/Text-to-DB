@@ -17,11 +17,12 @@ export function login() {
 
         try {
             // Fetching the user using HTTPS request given email as a parameter
-            const resp = await fetch(`http://localhost:3000/Users/email/${encodeURIComponent(userInfo.email)}`, {
-                method:"GET",
+            const resp = await fetch(`http://localhost:3000/Users/login`, {
+                method:"POST",
                 headers:{
                     "Content-Type":"application/json"
-                }
+                },
+                body: JSON.stringify(userInfo)
             });
             if (resp.ok){
                 // User is found and now retrieving the user's data
@@ -29,16 +30,15 @@ export function login() {
                 userFound = true;
             }
             else{
-                alert("USER NOT FOUND");
+                const errorMsg = await resp.json();
+                alert(errorMsg.message);
+                return;
             }
 
             if (userFound){
-                if (responseData.password == userInfo.password){
+                if (responseData.user.password == userInfo.password){
                     // If User is correctly authenticated, user will be able to go to the user page
                     window.location.href = '../html/user.html';
-                }
-                else{
-                    alert("Password Incorrect");
                 }
             }
                         

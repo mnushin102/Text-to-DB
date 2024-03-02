@@ -1,9 +1,9 @@
 // Implementing CRUD (Create, Read, Update, Delete) for a user defined by a schema model
 // Used https://www.youtube.com/watch?v=fgTGADljAeg for reference
-
 // Importing all the dependencies needed for this RESTAPI
 const express = require("express");
 const router = express.Router();
+const session = require("express-session")
 const uuid = require("uuid");
 const User = require("../models/Users");
 
@@ -31,6 +31,40 @@ function generateSessionToken(req, res, next) {
     next(); // Proceed to the next middleware
 }
 
+// Session management middleware
+// Used to "attach" to a user that is logged in
+router.use(session({
+    secret: '123456', //Will make more secure later, for testing at the moment
+    resave: false,
+    saveUninitialized: false
+}));
+
+// Server Side Login function to validate user's credentials
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user){
+            return res.status(401).json({ message: 'Email Not Found' });
+        }
+        if (user && user.password !== password) {
+            return res.status(401).json({ message: 'Incorrect Password' });
+        }
+
+        // Set user session, this way we can make HTTPS requests with the currently logged-in user
+        req.session.user = user;
+        res.json({ message: 'Login successful', user:user });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// Logout route, removes user's session, they are no longer logged in
+router.post('/logout', async (req, res) => {
+    req.session.destroy();
+    res.json({ message: 'Logged out successfully' });
+});
 // Creates a middleware function that uses request and response, as well as Express's next
 // function to continue to the next request
 async function userRetrieve(req, res, next) {
@@ -46,7 +80,7 @@ async function userRetrieve(req, res, next) {
     res.user = user;
 
     next();
-}
+} 
 
 // Retrieves all users in the database
 router.get('/', async (req,res) => {
@@ -60,10 +94,20 @@ router.get('/', async (req,res) => {
 });
 
 // Retrieves ONE user given a username as parameter
-router.get('/email/:email', userRetrieve, async (req,res) => {
+router.get('/user', async (req,res) => {
+    try{
+    const userId = req.session.user.userId;
+
+    const user = await User.findById(userId)
+    if(!user){
+        return res.status(404).json({ message: 'User not found' });
+    }
     res.json(res.user);
+    }catch (error){
+        res.status(500).json({message:"Server Error"})
+    }
     
-});
+}); 
 
 // Creates a new user, using post
 router.post('/', async (req,res) => {
@@ -104,6 +148,6 @@ router.delete('/email/:email', userRetrieve, async(req,res) => {
     } catch (err) {
         res.status(ERROR_500).json({message:err.message});
     }
-});
+}); 
 
 module.exports = router;
