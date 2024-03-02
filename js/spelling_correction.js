@@ -1,4 +1,4 @@
-const natural = require("natural);
+const natural = require("natural");
 
 const textSpelling = new natural.Spellcheck();
 
