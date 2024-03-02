@@ -1,70 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Importing stylesheet so components can be adjusted on the page-->
-    <link rel="stylesheet" href="../css/style.css" />
+    <!--Meta Tags needed for bootstrap-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Importing stylesheet so components can be adjusted on the page-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="../css/style.css" rel="stylesheet">
+
     <!--On the web browser tab, this is the title-->
     <title>Account Management</title>
 </head>
 <body>
-    <!--In CSS file, declared these classes with specific values, to format how they appear on website-->
-    <div class="account_banner">
-        <!--Split the top section into left and right, logo on left, profile picture on right-->
-        <div class="account_left_section">
-            <div class="logo_holder">
-                <img src="../img/logo.jpg" alt="Logo">
+    <!--Creates a container defined for the logo and the profile picture-->
+    <div class="container-fluid bg-primary">
+        <!--Profile Picture and Logo on same row-->
+        <div class="row align-items-center justify-content-between no-gutters">
+                <!--Diffenrent Columns however, taking up only 4 columns each (bootstrap uses a 12 column system)-->
+                <div class="col-4">
+                    <img src="../img/logo.jpg" class="img-fluid w-50 h-auto float-start" alt="Logo">
+                </div>
+                <div class="col-4">
+                    <img src="../img/profile_picture.jpg" class="img-fluid w-25 h-auto float-end rounded-circle" alt="Profile Picture">
+                </div>
             </div>
-        </div>
-        <div class="account_right_section">
-            <!--User's profile picture, option for user to change later along development-->
-            <div class="profile_picture_holder">
-                <img src="../img/profile_picture.jpg" alt="Profile Picture">
+        </div>     
+    </div>
+                
+    <!--Creating a sidebar so user can choose what they want on their page-->
+    <div class="container-fluid">
+        <div class="row no-gutters">
+            <div class="col-md-3">
+                <ul class="list-group mt-3">
+                    <!--Lists out all the available options, data-target used to make information appear-->
+                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-1" id="user">Return Home</li>
+                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-2">Profile</li>
+                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-3">Account Settings</li>
+                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-4">Help and Support</li>
+                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-5">All Collaborators</li>
+                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-6" style="margin-bottom: 15px;" id="login">Log Out</li>
+                </ul>
+            </div>
+
+            <div class="col-md-9">
+                <div class="p-3">
+                    <!--Information that will pop up when it's corresponding option is clicked-->
+                    <div id="item-2" class="item" style="display: none;">
+                        <h2>User Information</h2>
+                        <form>
+                            <div class="mb-3">
+                                <label for="firstname" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstname" placeholder="Hitori">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="lastname" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastname" placeholder="Gotoh">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="hitori_gotoh@gmail.com">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phonenumber" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="phonenumber" placeholder="(555)-555-5555">
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="bio" class="form-label">User Biography</label>
+                                <textarea class="form-control" id="bio" rows="6" placeholder="Bocchi is literally me. No other character can come close to relating to me like her. There is no way you can convince me that I’m not Bocchi. Bocchi could not possibly be any more me. It’s me, and nobody can convince me otherwise. If anyone approached me about this not possibly being me, I immediately shut them down with overwhelming evidence that Bocchi was me. Bocchi is absolutely me; it is indisputable. Why anyone would try to argue that Bocchi is not me is beyond me. If you held two pictures of me and Bocchi side by side, you’d see no difference. I can safely look at Bocchi every day and say, “Yup, she’s me.” I can practically see Bocchi whenever I look at myself in the mirror. I go outside, and people stop me from commenting on how similar I look and act as Bocchi is. I chuckle softly as I’m assured every day Bocchi is me in every way. I can smile each time I get out of bed each morning, knowing that I’ve found my identity with Bocchi and I know my place in this world. It’s amusing how similar she is to me; it’s almost like identical twins. When I first saw Bocchi, I had an existential crisis. What it Bocchi was the real me and I was the fictional being? What if she actually became aware of my existence? Did she have the ability to become self-aware? "></textarea>
+                            </div>
+
+                            <div> 
+                                <!--Once Operational, user's changes will be saved-->
+                                <button type="submit" class="btn btn-primary mb-3">Confirm Update</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="item-3" class="item" style="display: none;">
+                        Content for Item 3
+                    </div>
+                    <div id="item-4" class="item" style="display: none;">
+                        Content for Item 4
+                    </div>
+                    <div id="item-5" class="item" style="display: none;">
+                        Content for Item 5
+                    </div>
+                    <div id="item-6" class="item" style="display: none;">
+                        Content for Item 6
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!--Really Simple form that hasn't been properly formatted yet-->
-    <div class="main">
-        <h2>User Information</h2>
-    </div>
-    <form>
-        <div>
-            <label for="firstname">First Name:</label>
-            <input type="text" id="fistname" name="firstname">
-        </div>
+    
+    <!--Importing the function, when an option is clicked, it reveals information-->
+    <script type="module">
+        import { sidebar_selector } from '../js/sidebar-selection.js';
+        sidebar_selector();
+    </script>
 
-        <div>
-            <label for="lastname">Last Name:</label>
-            <input type="text" id="lastname" name="lastname">
-        </div>
 
-        <div>
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email">
-        </div>
 
-        <div>
-            <label for="phonenumber">Phone Number:</label>
-            <input type="text" id="phonenumber" name="phonenumber">
-        </div>
-
-        <div>
-            <label for="tole">Role:</label>
-            <input type="text" id="role" name="role">
-        </div>
-
-        <div>
-            <label for="bio">User Bio:</label>
-            <input type="text" id="bio" name="bio">
-        </div>
-
-        <div>
-            <!--Once Operational, user's changes will be saved-->
-            <input type="submit" value="Submit">
-        </div>
-    </form>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

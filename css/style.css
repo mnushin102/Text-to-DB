@@ -102,6 +102,10 @@
       object-fit: contain;
       object-position: center;
    }
+
+   .border-darkening{
+      border: 2px solid rgba(0,0,0,0.5);
+   }
    /*Daniel Moreno, end of my section*/
 
    /*Zoe White, used to create rows in the html files*/
@@ -138,5 +142,6 @@
 	background-color: #95ADB2;
 	padding: 20px
    }
+
 
    
