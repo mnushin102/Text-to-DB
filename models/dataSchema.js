@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // Construct a schema with the following data attributes
 const schema = {
-    student_id: {type: Number, required: true, maxLength: 8}, 
+    title: {type: String, required: true, maxLength: 50}, 
     first_name: {type: String, required: true, maxLength: 50}, 
     last_name: {type: String, required: true, maxLength: 50}, 
     major: {type: String, required: true, maxLength: 50} 

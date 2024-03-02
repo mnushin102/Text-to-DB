@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title> 
+</head>
+
+<body>
+    
+    <div class="account_banner">
+        <div class="account_left_section">
+            <div class="logo_holder">
+                <img src="../img/logo.jpg" alt="logo">
+            </div>
+        </div>
+        <div class="account_right_section">
+            <div class="profile_picture_holder">
+                <img src="../img/profile_picture.jpg" alt="Profile Picture">
+            </div>
+        </div>
+    </div>
+
+    <div class="projects">
+        <h2>Projects</h2>
+    </div>
+
+    <!-- Drop Down Menu --> 
+    <!-- User will choose an existing database to insert the fields to the project-->
+    <div class="existing_projects"> 
+        <label for="projects">Choose an existing project:</label>
+        <select name="list-of-projects" id="list-of-projects">
+            <option value="project1">Project1</option>
+            <option value="project2">Project2</option>
+            <option value="project3">Project3</option>
+            <option value="project4">Project4</option>
+            <option value="project5">Project5</option>
+        </select> 
+    </div>
+    
+    <div class="attributes1">
+        <div class="datatype1">
+
+            <!-- The selection of attributes from the first drop down menus-->
+            <label for="labels">Create two variables with a datatype for each:</label>
+            <div><!-- New line --></div>
+            <select name="list_of_datatypes1" id="1stBox">
+                <option value="String">String</option>
+            </select>
+
+            <!-- Check boxes -->
+            <input type="text" id="datatype1" class="Name of the 1st datatype">
+        </div>
+    </div>
+
+    <div class="attributes2">
+        <div class="datatype2">
+
+            <!-- The selection of attributes from the second drop down menus-->
+            <select name="list_of_datatypes2" id="2ndBox">
+                <option value="String">String</option>
+            </select>
+
+            <!-- Check boxes -->
+            <input type="text" id="datatype2" class="Name of the 2st datatype">
+        </div>
+    </div>
+    <div class="project_submission"><button type="button" id="submit">Submit</button></div>
+</body>
+</html>
