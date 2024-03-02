@@ -46,8 +46,9 @@
             <div class="col-md-9">
                 <div class="p-3">
                     <!--Information that will pop up when it's corresponding option is clicked-->
+                    <!--This page allows users to make modifications to their public profile-->
                     <div id="item-2" class="item" style="display: none;">
-                        <h2>User Information</h2>
+                        <h2 style="text-align: center;">User Information</h2>
                         <form>
                             <div class="mb-3">
                                 <label for="firstname" class="form-label">First Name</label>
@@ -82,8 +83,47 @@
                         </form>
                     </div>
 
+                    <!--THis page will allow users to make adjustments to their account, such as change password, change profile picture or delete account -->
                     <div id="item-3" class="item" style="display: none;">
-                        Content for Item 3
+                        <h2 style="text-align: center;">Account Settings</h2>
+                        <div class="row">
+                            <form>
+                                <h3>Change User Name</h3>
+                                <div class="col-auto">
+                                    <label for="new_username">New Username</label>
+                                    <input type="text" class="form-control" id="new_username" placeholder="New Usename">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary mb-3" id="update_username_button">Confirm Username Change</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!--Button Will delete account forever (until new account is made)-->
+                        <div class="row">
+                            <form>
+                                <!--User Can Change Password-->
+                                <h3>Change Password</h3>
+                                <div class="col-auto">
+                                    <label for="oldpass" class="visually-hidden">Old Password</label>
+                                    <input type="password" class="form-control" id="oldpass" placeholder="OldPassword">
+                                </div>
+                                
+                                <div class="col-auto">
+                                    <label for="newpass" class="visually-hidden">New Password</label>
+                                    <input type="password" class="form-control" id="newpass" placeholder="NewPassword">
+                                </div>
+                                
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary mb-3" id="update_password_button">Confirm Password Change</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="row">
+                            <div class="d-grid gap-2 col-4 mx-auto">
+                                <button type="button" class="btn btn-danger" id="delete_account_button">Delete Account FOREVER</button>
+                            </div>
+                        </div>
                     </div>
                     <div id="item-4" class="item" style="display: none;">
                         Content for Item 4
