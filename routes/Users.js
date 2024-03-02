@@ -4,6 +4,7 @@
 // Importing all the dependencies needed for this RESTAPI
 const express = require("express");
 const router = express.Router();
+const uuid = require("uuid");
 const User = require("../models/Users");
 
 // Statuses defined by https://expressjs.com/en/guide/error-handling.html
@@ -12,6 +13,23 @@ const ERROR_404 = 404; // Not found error
 const ERROR_500 = 500; // Server side error
 const SUCCESS_200 = 200; // Request was successful
 const SUCCESS_201 = 201; // Successfully created (an object)
+
+// Middleware function for session token generation
+// Adds a session token to the user that is logged in, this way easier to retrieve information
+function generateSessionToken(req, res, next) {
+    // Check if the user has a session token cookie
+    let sessionId = req.cookies.sessionId;
+
+    // If the user doesn't have a session token, generate one and attach it to the user
+    if (!sessionId) {
+        sessionId = uuid.v4(); // Generate a unique session token
+
+        // Set the session token as a cookie with an expiry time (e.g., 1 day)
+        res.cookie('sessionId', sessionId, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
+    }
+
+    next(); // Proceed to the next middleware
+}
 
 // Creates a middleware function that uses request and response, as well as Express's next
 // function to continue to the next request

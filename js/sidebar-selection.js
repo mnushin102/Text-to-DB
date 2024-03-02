@@ -1,3 +1,5 @@
+import { display_collaborators } from "./usersettings-functions.js";
+
 export function sidebar_selector(){
     document.querySelectorAll('.sidebar-item').forEach(item => {
         item.addEventListener('click', event => {
@@ -19,6 +21,12 @@ export function sidebar_selector(){
                     return; // Exit the function to prevent further execution
                 }
             }
+
+            // If All Collaborators tab is chosen, it will show all the collaborators that a user has worked with
+            if (event.target.id == "all_collaborators"){
+                display_collaborators();
+            }
+
             // Hide all content elements
             document.querySelectorAll('.item').forEach(content => {
                 content.style.display = 'none';

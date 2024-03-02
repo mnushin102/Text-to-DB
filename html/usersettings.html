@@ -34,12 +34,12 @@
             <div class="col-md-3">
                 <ul class="list-group mt-3">
                     <!--Lists out all the available options, data-target used to make information appear-->
-                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-1" id="user">Return Home</li>
-                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-2">Profile</li>
-                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-3">Account Settings</li>
-                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-4">Help and Support</li>
-                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-5">All Collaborators</li>
-                    <li class="list-group-item border-darkening sidebar-item" data-target="#item-6" style="margin-bottom: 15px;" id="login">Log Out</li>
+                    <li class="list-group-item border-darkening sidebar-item list-group-item-action" data-target="#item-1" id="user">Return Home</li>
+                    <li class="list-group-item border-darkening sidebar-item list-group-item-action" data-target="#item-2">Profile</li>
+                    <li class="list-group-item border-darkening sidebar-item list-group-item-action" data-target="#item-3">Account Settings</li>
+                    <li class="list-group-item border-darkening sidebar-item list-group-item-action" data-target="#item-4">Help and Support</li>
+                    <li class="list-group-item border-darkening sidebar-item list-group-item-action" data-target="#item-5" id="all_collaborators">All Collaborators</li>
+                    <li class="list-group-item border-darkening sidebar-item list-group-item-action" data-target="#item-6" style="margin-bottom: 15px;" id="login">Log Out</li>
                 </ul>
             </div>
 
@@ -78,7 +78,7 @@
 
                             <div> 
                                 <!--Once Operational, user's changes will be saved-->
-                                <button type="submit" class="btn btn-primary mb-3">Confirm Update</button>
+                                <button type="submit" class="btn btn-primary mb-3" id="update_bio_button">Confirm Update</button>
                             </div>
                         </form>
                     </div>
@@ -98,7 +98,7 @@
                                 </div>
                             </form>
                         </div>
-                        <!--Button Will delete account forever (until new account is made)-->
+                        <!--Button Will update User password if password isn't the same from previous, and new passwords match>-->
                         <div class="row">
                             <form>
                                 <!--User Can Change Password-->
@@ -112,13 +112,18 @@
                                     <label for="newpass" class="visually-hidden">New Password</label>
                                     <input type="password" class="form-control" id="newpass" placeholder="NewPassword">
                                 </div>
-                                
+
+                                <div class="col-auto">
+                                    <label for="newpassconfirm" class="visually-hidden">Confirm New Password</label>
+                                    <input type="password" class="form-control" id="newpassconfirm" placeholder="NewPassword">
+                                </div>
+
                                 <div class="col-auto">
                                     <button type="submit" class="btn btn-primary mb-3" id="update_password_button">Confirm Password Change</button>
                                 </div>
                             </form>
                         </div>
-
+                        <!--Button Will delete account forever (until new account is made)-->
                         <div class="row">
                             <div class="d-grid gap-2 col-4 mx-auto">
                                 <button type="button" class="btn btn-danger" id="delete_account_button">Delete Account FOREVER</button>
@@ -126,13 +131,13 @@
                         </div>
                     </div>
                     <div id="item-4" class="item" style="display: none;">
-                        Content for Item 4
+                        <div class="row">
+                            Content for item 4
+                        </div>
                     </div>
+                    <!--Will List all the collaborators a user has worked with-->
                     <div id="item-5" class="item" style="display: none;">
-                        Content for Item 5
-                    </div>
-                    <div id="item-6" class="item" style="display: none;">
-                        Content for Item 6
+                        <h3>All Collaborators</h3>
                     </div>
                 </div>
             </div>

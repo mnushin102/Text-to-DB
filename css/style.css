@@ -104,7 +104,13 @@
    }
 
    .border-darkening{
+      /*Border Darkening in general, used for tables (such as sidebar)*/
       border: 2px solid rgba(0,0,0,0.5);
+   }
+
+   .sidebar-item:hover{
+      /*Changing the background when sidebar item is hovered over*/
+      background-color: rgba(211,211,211,0.5);
    }
    /*Daniel Moreno, end of my section*/
 
