@@ -40,44 +40,48 @@
         </select> 
     </div>
     
-    <div class="attributes1">
-        <!-- <div style="text-align: center;"><p class="hello">Hello World</p></div> -->
-        <div class="datatype1">
+    <!-- The user will insert the data variables with the appropiate data types in the check boxes-->
+    <div class="attribute_insertion">
 
-            <!-- The selection of data type from the first drop down menus-->
-            <label for="labels">Create two variables with a datatype for each:</label>
-            <div><!-- New line --></div>
-            <p class="data_variable_1">Data variable 1:</p>
-            <select name="list_of_datatypes1" class="datatypes1" id="1stBox">
-                <option value="Array">Array</option>
-                <option value="Boolean">Boolean</option>
-                <option value="Double">Double</option>
-                <option value="Integer">Integer</option>
-                <option value="String">String</option>
-            </select>
+        <!-- The first set of selection of data type from the  drop down menus-->
+        <div class="attributes1">
+            <!-- <div style="text-align: center;"><p class="hello">Hello World</p></div> -->
+            <div class="datatype1">
+                <label for="labels">Create two variables with a datatype for each:</label>
+                <div><!-- New line --></div>
+                <p class="data_variable_1">Data variable 1:</p>
 
-            <!-- Check boxes for the insertion of the first data variable -->
-            <input type="text" id="datatype1" class="Name of the 1st datatype">
+                <select name="list_of_datatypes1" class="datatypes1" id="1stBox">
+                    <option value="Array">Array</option>
+                    <option value="Boolean">Boolean</option>
+                    <option value="Double">Double</option>
+                    <option value="Integer">Integer</option>
+                    <option value="String">String</option>
+                </select>
+                <!-- Check boxes for the insertion of the first data variable -->
+                <input type="text" id="datatype1" class="Name of the 1st datatype">
+            </div>
+        </div>
+
+        <!-- The second selection of data types from the drop down menus-->
+        <div class="attributes2">
+            <div class="datatype2">
+                <p class="data_variable_2">Data variable 2:</p>
+                <select name="list_of_datatypes2" class="datatypes2" id="2ndBox">
+                    <option value="Array">Array</option>
+                    <option value="Boolean">Boolean</option>
+                    <option value="Double">Double</option>
+                    <option value="Integer">Integer</option>
+                    <option value="String">String</option>
+                </select>
+
+                <!-- Check boxes for the insertion of the second data variable -->
+                <input type="text" id="datatype2" class="Name of the 2st datatype">
+            </div>
         </div>
     </div>
 
-    <div class="attributes2">
-        <div class="datatype2">
-
-            <p class="data_variable_2">Data variable 2:</p>
-            <!-- The selection of data types from the second drop down menus-->
-            <select name="list_of_datatypes2" class="datatypes2" id="2ndBox">
-                <option value="Array">Array</option>
-                <option value="Boolean">Boolean</option>
-                <option value="Double">Double</option>
-                <option value="Integer">Integer</option>
-                <option value="String">String</option>
-            </select>
-
-            <!-- Check boxes for the insertion of the second data variable -->
-            <input type="text" id="datatype2" class="Name of the 2st datatype">
-        </div>
-    </div>
-    <div class="d-flex justify-content-center"><button class="btn btn-primary mb-3" type="button" id="submit">Submit</button></div>
+    <!-- User will submit a buton to save those attributes and post these to the database -->
+    <div class="d-flex justify-content-center"><button class="btn btn-primary mb-3" type="button" id="submit">Submit</button></div></div>
 </body>
 </html>

@@ -24,10 +24,8 @@ async function insertData(){
 
         // Assign the schema within these fields
         let addData = new databaseSchema({
-            student_id: req.body.student_id,
-            first_name: req.body.first_name,
-            last_name: req.body.last_name, 
-            major: req.body.major 
+            data_variable_1: req.body.data_variable_1,
+            data_variable_2: req.body.data_variable_1 
         }); 
 
         // save the inputted fields to the database 
