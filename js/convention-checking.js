@@ -19,7 +19,7 @@ function convention_checker(text, type){
     // will format to be camel case
     if (type == "class"){
         // First word is lower case, rest of words have first letter capitalized
-        output += input[0].toLowerCase();
+        output += input[0].toUpperCase();
         for (var index = 1; index < input.length; index++){
             // Appending one word at a time
             // Making only first letter upper case
