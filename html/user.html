@@ -46,7 +46,7 @@
 
 <!-- Zoe White, the navbar allows users to click buttons that have different functions-->
 <div class="navbar">
-	<a><button onclick="createNewDatabase()">Create New Database</button></a>
+	<a><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createNewDatabaseModal">Create New Database</button></a>
 	<a><button onclick="delete_database">Delete Database</button></a>
 	<a><button onclick="edit_database">Edit Database</button></a>
 	<a><button onclick="import_file">Import File</button></a>
@@ -82,24 +82,40 @@
 		<p>Project 5</p>
 </div>
 	
-<div class="row">
-		<div class="main2">
-			<div class="img" style="height:200px;"></div>
-			<br>
-			<p>Project 1</p>
-			<!-- Drop-down menus for attribute selection -->
-			<select id="project1_attribute1">
+<div class="modal fade" id="createNewDatabaseModal" tabindex="-1" aria-labelledby="createNewDatabaseModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="createNewDatabaseModalLabel">Create New Database</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  <div class="row">
+			<div class="main2">
+			  <div class="img" style="height:200px;"></div>
+			  <br>
+			  <p>Project 1</p>
+			  <!-- Drop-down menus for attribute selection -->
+			  <select id="project1_attribute1">
 				<option value="attribute1_option1">Attribute 1 Option 1</option>
 				<option value="attribute1_option2">Attribute 1 Option 2</option>
-			</select>
-			<select id="project1_attribute2">
+			  </select>
+			  <select id="project1_attribute2">
 				<option value="attribute2_option1">Attribute 2 Option 1</option>
 				<option value="attribute2_option2">Attribute 2 Option 2</option>
-			</select>
-			<!-- Text boxes for attribute names -->
-			<input type="text" id="project1_attributeName1" placeholder="Attribute 1 Name">
-			<input type="text" id="project1_attributeName2" placeholder="Attribute 2 Name">
+			  </select>
+			  <!-- Text boxes for attribute names -->
+			  <input type="text" id="project1_attributeName1" placeholder="Attribute 1 Name">
+			  <input type="text" id="project1_attributeName2" placeholder="Attribute 2 Name">
+			</div>
+		  </div>
 		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create</button>
+		</div>
+	  </div>
+	</div>
 </div>
 
 <script>
