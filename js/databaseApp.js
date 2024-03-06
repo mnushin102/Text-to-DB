@@ -15,7 +15,7 @@ const databaseSchema = new mongoose.model(schema);
 // This function lets the user input the following data to upload to Mongo
 async function insertData(){
     app.get("/", function(requests, res) {
-        res.sendFile.apply(__dirname, + "/index.html"); 
+        res.sendFile(__dirname, + "/index.html"); 
     })
 
     // Manually let the user insert the following fields

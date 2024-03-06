@@ -7,7 +7,7 @@ const schema = {
 }; 
 
 // Create a model to insert the schema for all of the data attributes 
-const databaseSchema = new mongoose.model("databaseSchema", schema); 
+const databaseSchema = mongoose.model("databaseSchema", schema); 
 
 // Export this file to databaseSchema
-module.export = databaseSchema; 
+module.exports = databaseSchema; 
