@@ -46,13 +46,13 @@
 
 <!-- Zoe White, the navbar allows users to click buttons that have different functions-->
 <div class="navbar">
-	<a><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createNewDatabaseModal">Create New Database</button></a>
-	<a><button onclick="delete_database">Delete Database</button></a>
-	<a><button onclick="edit_database">Edit Database</button></a>
-	<a><button onclick="import_file">Import File</button></a>
-	<a><button onclick="export_file">Export File</button></a>
-	<a><button onclick="collaborate">Collaborate</button></a>
-</div> 
+    <a><button type="button" class="btn btn-primary create-btn" data-bs-toggle="modal" data-bs-target="#createNewDatabaseModal">Create New Database</button></a>
+    <a><button class="btn btn-danger delete-btn" onclick="delete_database">Delete Database</button></a>
+    <a><button class="btn btn-warning edit-btn" onclick="edit_database">Edit Database</button></a>
+    <a><button class="btn btn-success import-btn" onclick="import_file">Import File</button></a>
+    <a><button class="btn btn-info export-btn" onclick="export_file">Export File</button></a>
+    <a><button class="btn btn-secondary collaborate-btn" onclick="collaborate">Collaborate</button></a>
+</div>
 
 <!-- Zoe White, this uses table to have different rows and columns with projects for the user-->
 <div class="row">
