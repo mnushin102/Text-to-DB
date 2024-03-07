@@ -118,6 +118,7 @@
 	</div>
 </div>
 
+<!-- The pop-up menu will appear on the screen when a user clicks on the 'Delete Database' buttton -->
 <div class="modal fade" id="delete_database" tabindex="-1" role="dialog" aria-labelledby="delete_database_modal_label" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -129,7 +130,18 @@
 				<div class="row">
 					<div class="main2">
 						<div class="img" style="height: 200px;"></div>
-						<p>....</p>
+						<form class="form">
+							<div class="project">
+								<label for="existing_project">Choose one of the following projects to delete:</label>
+									<select id="existing_project">
+										<option value="P1"> Project 1</option>
+										<option value="P2">Project 2</option>
+										<option value="P3">Project 3</option>
+										<option value="P4">Project 4</option>
+										<option value="P5">Project 5</option>
+									</select>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
