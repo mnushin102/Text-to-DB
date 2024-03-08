@@ -9,6 +9,7 @@ const app = express();
 // CORS npm package so it is handled more reliably
 app.use(cors());
 
+
 // Makes sure that when the server is "listening",
 // it will accept json
 app.use(express.json())

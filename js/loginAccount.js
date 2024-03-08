@@ -27,6 +27,10 @@ export function login() {
             if (resp.ok){
                 // User is found and now retrieving the user's data
                 responseData = await resp.json();
+                const accessToken = responseData.accessToken;
+
+                // Storing JWT in browser's local storage to reference it for later use
+                localStorage.setItem("accessToken",accessToken);
                 userFound = true;
             }
             else{
@@ -36,10 +40,9 @@ export function login() {
             }
 
             if (userFound){
-                if (responseData.user.password == userInfo.password){
                     // If User is correctly authenticated, user will be able to go to the user page
+                    // Authentication is handled on the server side
                     window.location.href = '../html/user.html';
-                }
             }
                         
         } catch (error) {
