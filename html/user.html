@@ -57,7 +57,7 @@
 <!-- Zoe White, this uses table to have different rows and columns with projects for the user-->
 <div class="row">
 	<div class="main2">
-		<img src="../img/pi.jpg">
+		<!--<img src="../img/pi.jpg">-->
 		<br>
 		<p>Project 1</p>
 	</div>
@@ -112,7 +112,7 @@
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		  <button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create</button>
+		  <button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create SQL File</button>
 		  <button type="button" class="btn btn-success" onclick="createUML()">Create UML</button>
 		</div>
 	  </div>
@@ -179,8 +179,12 @@
             </div>
         `;
 
-        // Get the uml diagram with html in the document
-        document.querySelector('.row').innerHTML += umlDiagram;
+        // Search for "Project 1" and add the UML diagram in the html page
+        const project1Element = document.querySelector(".main2:nth-of-type(1)");
+	    
+        if (project1Element) {
+            project1Element.innerHTML += umlDiagram;
+        }
     }
 </script>
 
