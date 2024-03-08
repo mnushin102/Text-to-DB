@@ -113,6 +113,7 @@
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 		  <button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create</button>
+		  <button type="button" class="btn btn-success" onclick="createUML()">Create UML</button>
 		</div>
 	  </div>
 	</div>
@@ -152,6 +153,36 @@
 		</div>
 	</div>
 </div>
+
+<script>
+    function createUML() {
+        const attribute1 = document.getElementById("project1_attribute1").value;
+        const attribute2 = document.getElementById("project1_attribute2").value;
+        const attributeName1 = document.getElementById("project1_attributeName1").value;
+        const attributeName2 = document.getElementById("project1_attributeName2").value;
+
+        // Have some sort of shape for the uml diagram with squares for now, this will be changed
+        const umlDiagram = "
+            <div class="main2">
+                <div class="img" style="height:200px;">
+                    <svg width="200" height="200">
+                        <!-- Draw rectangles for attributes -->
+                        <rect x="10" y="10" width="80" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+                        <rect x="10" y="50" width="80" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+                        <!-- Attribute names -->
+                        <text x="20" y="30" font-family="Arial" font-size="12">${attributeName1}</text>
+                        <text x="20" y="70" font-family="Arial" font-size="12">${attributeName2}</text>
+                        <!-- Draw lines between attributes -->
+                        <line x1="50" y1="40" x2="50" y2="50" stroke="#000000" stroke-width="1"/>
+                    </svg>
+                </div>
+            </div>
+        ";
+
+        // Get the uml diagram with html in the document
+        document.querySelector('.row').innerHTML += umlDiagram;
+    }
+</script>
 
 <script>
 	function createNewDatabase() {
