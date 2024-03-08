@@ -47,59 +47,13 @@
 	text-decoration: none;
    }
   /* Daniel Moreno, used this section for the usersettings.html file*/ 
-   .account_banner {
-      background-color: blue;
-      height: 180px;
-      display: flex;
-      align-items: center;
-      padding: 15px 15px;
-   }
-   /* Divided the "account banner", this is the left portion*/
-   .account_left_section{
-      max-height: 100px;
-      width: auto;
-   }
-   
-   /* This changes the dimensions (properties) of the logo,
-   by modifying the properties of the img tag for this specific div */
-   .account_left_section img{
-      width: 200px;
-      height: 120px;
-   }
 
-   /* Divided the "account banner", this is the right portion*/
-   .account_right_section{
-      margin-left: auto;
-   }
-
-   /* This acts like a frame for the profile picture */
-   .profile_picture_holder {
-      display: flex;
-      justify-content: center;
-      width: 125px;
-      height: 125px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid black;
-      align-items: center;
-   }
-
-   /* This acts like a frame for the logo */
-   .logo_holder{
-      display: flex;
-      justify-content: center;
-      width: 50 px;
-      height: 50 px;
-      overflow: hidden;
-      border: 2px solid black;
-   }
-
-   /* Adds properties to profile picture to fit within the "frame" */
+   /* Adds properties to profile picture */
    .profile_picture{
       max-width: 100%;
       max-height: 100%;
+      border-radius: 50%;
       display: block;
-      object-fit: contain;
       object-position: center;
    }
 

@@ -5,222 +5,223 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 <body>
+	<!--Calls the funciton to retrieve the user's current profile picture function-->
+	<script type="module">
+		import { getUserProfilePicture } from "../js/usersettings-functions.js";
+		getUserProfilePicture();
+	</script>
 
-<!--<script src="./create_database.js"></script>-->
+	<!--<script src="./create_database.js"></script>-->
 
-<!--Same as the one from user settings, but with search bar as well-->
-<!--Creates a container defined for the logo and the profile picture-->
-<div class="container-fluid bg-primary">
-	<!--Profile Picture and Logo on same row-->
-	<div class="row align-items-center justify-content-between no-gutters">
-			<!--Diffenrent Columns however, taking up only 4 columns each (bootstrap uses a 12 column system)-->
-			<div class="col-4">
-				<img src="../img/logo.jpg" class="img-fluid w-50 h-auto float-start" alt="Logo">
-			</div>
+	<!--Same as the one from user settings, but with search bar as well-->
+	<!--Creates a container defined for the logo and the profile picture-->
+	<div class="container-fluid bg-primary">
+		<!--Profile Picture and Logo on same row-->
+		<div class="row align-items-center justify-content-between no-gutters">
+				<!--Diffenrent Columns however, taking up only 4 columns each (bootstrap uses a 12 column system)-->
+				<div class="col-4">
+					<img src="../img/logo.jpg" class="img-fluid w-50 h-auto float-start" alt="Logo">
+				</div>
 
-			<!--Search Bar-->
-			<div class="col-4">
-				<form class="form-inline">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search...">
-						<div class="input-group-append">
-							<button class="btn btn-outline-light" type="button">Search</button>
+				<!--Search Bar-->
+				<div class="col-4">
+					<form class="form-inline">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search...">
+							<div class="input-group-append">
+								<button class="btn btn-outline-light" type="button">Search</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="col-4">
+					<div class="dropdown">
+						<!--Profile Picture will be loaded with getUserProfilePicture function below-->
+						<img id="user_profile_picture" class="img-fluid w-25 h-auto float-end rounded-circle" data-bs-toggle="dropdown" alt="Profile Picture">
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="usersettings.html">Account Settings Page</a>
+							<a class="dropdown-item" href="login.html" id="logout">Logout</a>
 						</div>
 					</div>
-				</form>
-			</div>
-
-			<div class="col-4">
-				<div class="dropdown">
-					<!--Profile Picture will be loaded with getUserProfilePicture function below-->
-					<img id="user_profile_picture" class="img-fluid w-25 h-auto float-end rounded-circle dropdown-toggle" data-bs-toggle="dropdown" alt="Profile Picture">
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="usersettings.html">Account Settings Page</a>
-						<a class="dropdown-item" href="login.html" id="logout">Logout</a>
-					</div>
 				</div>
 			</div>
-		</div>
-	</div>     
-</div>
-
-
-<!-- Zoe White, the navbar allows users to click buttons that have different functions-->
-<div class="navbar">
-    <a><button type="button" class="btn btn-primary create-btn" data-bs-toggle="modal" data-bs-target="#createNewDatabaseModal">Create New Database</button></a>
-    <a><button type="button" class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#delete_database" onclick="delete_database">Delete Database</button></a>
-    <a><button class="btn btn-warning edit-btn" onclick="edit_database">Edit Database</button></a>
-    <a><button class="btn btn-success import-btn" onclick="import_file">Import File</button></a>
-    <a><button class="btn btn-info export-btn" onclick="export_file">Export File</button></a>
-    <a><button class="btn btn-secondary collaborate-btn" onclick="collaborate">Collaborate</button></a>
-</div>
-
-<!-- Zoe White, this uses table to have different rows and columns with projects for the user-->
-<div class="row">
-	<div class="main2">
-		<!--<img src="../img/pi.jpg">-->
-		<br>
-		<p>Project 1</p>
+		</div>     
 	</div>
-	<div class="main2">
-		<img src="../img/pi.jpg">
-		<br>
-		<p>Project 2</p>
-	</div>	
-	<div class="main2">
-		<img src="../img/pi.jpg">
-		<br>
-		<p>Project 3</p>
-	</div>	
-	<div class="main2">
-		<img src="../img/pi.jpg">
-		<br>
-		<p>Project 4</p>
-	</div>	
-	<div class="main2">
-		<img src="../img/pi.jpg">
-		<br>
-		<p>Project 5</p>
-</div>
-	
-<div class="modal fade" id="createNewDatabaseModal" tabindex="-1" aria-labelledby="createNewDatabaseModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="createNewDatabaseModalLabel">Create New Database</h5>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-		  <div class="row">
-			<div class="main2">
-			  <div class="img" style="height:200px;"></div>
-			  <br>
-			  <p>Project 1</p>
-			  <!-- Drop-down menus for attribute selection -->
-			  <select id="project1_attribute1">
-				<option value="attribute1_option1">Attribute 1 Option 1</option>
-				<option value="attribute1_option2">Attribute 1 Option 2</option>
-			  </select>
-			  <select id="project1_attribute2">
-				<option value="attribute2_option1">Attribute 2 Option 1</option>
-				<option value="attribute2_option2">Attribute 2 Option 2</option>
-			  </select>
-			  <!-- Text boxes for attribute names -->
-			  <input type="text" id="project1_attributeName1" placeholder="Attribute 1 Name">
-			  <input type="text" id="project1_attributeName2" placeholder="Attribute 2 Name">
-			</div>
-		  </div>
-		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		  <button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create SQL File</button>
-		  <button type="button" class="btn btn-success" onclick="createUML()">Create UML</button>
-		</div>
-	  </div>
-	</div>
-</div>
 
-<!-- The pop-up menu will appear on the screen when a user clicks on the 'Delete Database' buttton -->
-<div class="modal fade" id="delete_database" tabindex="-1" role="dialog" aria-labelledby="delete_database_modal_label" aria-hidden="true">
-	<div class="modal-dialog">
+
+	<!-- Zoe White, the navbar allows users to click buttons that have different functions-->
+	<div class="navbar">
+		<a><button type="button" class="btn btn-primary create-btn" data-bs-toggle="modal" data-bs-target="#createNewDatabaseModal">Create New Database</button></a>
+		<a><button type="button" class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#delete_database" onclick="delete_database">Delete Database</button></a>
+		<a><button class="btn btn-warning edit-btn" onclick="edit_database">Edit Database</button></a>
+		<a><button class="btn btn-success import-btn" onclick="import_file">Import File</button></a>
+		<a><button class="btn btn-info export-btn" onclick="export_file">Export File</button></a>
+		<a><button class="btn btn-secondary collaborate-btn" onclick="collaborate">Collaborate</button></a>
+	</div>
+
+	<!-- Zoe White, this uses table to have different rows and columns with projects for the user-->
+	<div class="row">
+		<div class="main2">
+			<!--<img src="../img/pi.jpg">-->
+			<br>
+			<p>Project 1</p>
+		</div>
+		<div class="main2">
+			<img src="../img/pi.jpg">
+			<br>
+			<p>Project 2</p>
+		</div>	
+		<div class="main2">
+			<img src="../img/pi.jpg">
+			<br>
+			<p>Project 3</p>
+		</div>	
+		<div class="main2">
+			<img src="../img/pi.jpg">
+			<br>
+			<p>Project 4</p>
+		</div>	
+		<div class="main2">
+			<img src="../img/pi.jpg">
+			<br>
+			<p>Project 5</p>
+	</div>
+		
+	<div class="modal fade" id="createNewDatabaseModal" tabindex="-1" aria-labelledby="createNewDatabaseModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="delete_database_modal_label">Delete Database</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			<h5 class="modal-title" id="createNewDatabaseModalLabel">Create New Database</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<div class="row">
-					<div class="main2">
-						<div class="img" style="height: 200px;"></div>
-						<form class="form">
-							<div class="project">
-								<label for="existing_project">Choose one of the following projects to delete:</label>
-									<select id="existing_project">
-										<option value="P1"> Project 1</option>
-										<option value="P2">Project 2</option>
-										<option value="P3">Project 3</option>
-										<option value="P4">Project 4</option>
-										<option value="P5">Project 5</option>
-									</select>
-							</div>
-						</form>
-					</div>
+			<div class="row">
+				<div class="main2">
+				<div class="img" style="height:200px;"></div>
+				<br>
+				<p>Project 1</p>
+				<!-- Drop-down menus for attribute selection -->
+				<select id="project1_attribute1">
+					<option value="attribute1_option1">Attribute 1 Option 1</option>
+					<option value="attribute1_option2">Attribute 1 Option 2</option>
+				</select>
+				<select id="project1_attribute2">
+					<option value="attribute2_option1">Attribute 2 Option 1</option>
+					<option value="attribute2_option2">Attribute 2 Option 2</option>
+				</select>
+				<!-- Text boxes for attribute names -->
+				<input type="text" id="project1_attributeName1" placeholder="Attribute 1 Name">
+				<input type="text" id="project1_attributeName2" placeholder="Attribute 2 Name">
 				</div>
 			</div>
+			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Delete</button>
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create SQL File</button>
+			<button type="button" class="btn btn-success" onclick="createUML()">Create UML</button>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<!-- The pop-up menu will appear on the screen when a user clicks on the 'Delete Database' buttton -->
+	<div class="modal fade" id="delete_database" tabindex="-1" role="dialog" aria-labelledby="delete_database_modal_label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="delete_database_modal_label">Delete Database</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="main2">
+							<div class="img" style="height: 200px;"></div>
+							<form class="form">
+								<div class="project">
+									<label for="existing_project">Choose one of the following projects to delete:</label>
+										<select id="existing_project">
+											<option value="P1"> Project 1</option>
+											<option value="P2">Project 2</option>
+											<option value="P3">Project 3</option>
+											<option value="P4">Project 4</option>
+											<option value="P5">Project 5</option>
+										</select>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Delete</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<script>
-    function createUML() {
-        const attribute1 = document.getElementById("project1_attribute1").value;
-        const attribute2 = document.getElementById("project1_attribute2").value;
-        const attributeName1 = document.getElementById("project1_attributeName1").value;
-        const attributeName2 = document.getElementById("project1_attributeName2").value;
+	<script>
+		function createUML() {
+			const attribute1 = document.getElementById("project1_attribute1").value;
+			const attribute2 = document.getElementById("project1_attribute2").value;
+			const attributeName1 = document.getElementById("project1_attributeName1").value;
+			const attributeName2 = document.getElementById("project1_attributeName2").value;
 
-        // Have some sort of shape for the uml diagram with squares for now, this will be changed
-        const umlDiagram = `
-            <div class="main2">
-                <div class="img" style="height:200px;">
-                    <svg width="200" height="200">
-                        <!-- Draw rectangles for attributes -->
-                        <rect x="10" y="10" width="80" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
-                        <rect x="10" y="50" width="80" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
-                        <!-- Attribute names -->
-                        <text x="20" y="30" font-family="Arial" font-size="12">${attributeName1}</text>
-                        <text x="20" y="70" font-family="Arial" font-size="12">${attributeName2}</text>
-                        <!-- Draw lines between attributes -->
-                        <line x1="50" y1="40" x2="50" y2="50" stroke="#000000" stroke-width="1"/>
-                    </svg>
-                </div>
-            </div>
-        `;
+			// Have some sort of shape for the uml diagram with squares for now, this will be changed
+			const umlDiagram = `
+				<div class="main2">
+					<div class="img" style="height:200px;">
+						<svg width="200" height="200">
+							<!-- Draw rectangles for attributes -->
+							<rect x="10" y="10" width="80" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+							<rect x="10" y="50" width="80" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+							<!-- Attribute names -->
+							<text x="20" y="30" font-family="Arial" font-size="12">${attributeName1}</text>
+							<text x="20" y="70" font-family="Arial" font-size="12">${attributeName2}</text>
+							<!-- Draw lines between attributes -->
+							<line x1="50" y1="40" x2="50" y2="50" stroke="#000000" stroke-width="1"/>
+						</svg>
+					</div>
+				</div>
+			`;
 
-        // Search for "Project 1" and add the UML diagram in the html page
-        const project1Element = document.querySelector(".main2:nth-of-type(1)");
-	    
-        if (project1Element) {
-            project1Element.innerHTML += umlDiagram;
-        }
-    }
-</script>
-
-<script>
-	function createNewDatabase() {
-		const attribute1 = document.getElementById("project1_attribute1").value;
-		const attribute2 = document.getElementById("project1_attribute2").value;
-		const attributeName1 = document.getElementById("project1_attributeName1").value;
-		const attributeName2 = document.getElementById("project1_attributeName2").value;
-
-		const attributes = [
-			{ name: attributeName1, type: convertAttributeToSQLType(attribute1) },
-			{ name: attributeName2, type: convertAttributeToSQLType(attribute2) }
-		];
-
-		createNewDatabase(attributes);
-	}
-
-	function convertAttributeToSQLType(attributeOption) {
-		switch (attributeOption) {
-			case "attribute1_option1":
-				return "VARCHAR(200)";
-			case "attribute1_option2":
-				return "INT";
-			default:
-				return "VARCHAR(200)";
+			// Search for "Project 1" and add the UML diagram in the html page
+			const project1Element = document.querySelector(".main2:nth-of-type(1)");
+			
+			if (project1Element) {
+				project1Element.innerHTML += umlDiagram;
+			}
 		}
-	}		
-</script>
+	</script>
 
-<!--Calls the funciton to retrieve the user's current profile picture function-->
-<script type="module">
-	import { getUserProfilePicture } from "../js/usersettings-functions.js";
-	getUserProfilePicture();
-</script>
+	<script>
+		function createNewDatabase() {
+			const attribute1 = document.getElementById("project1_attribute1").value;
+			const attribute2 = document.getElementById("project1_attribute2").value;
+			const attributeName1 = document.getElementById("project1_attributeName1").value;
+			const attributeName2 = document.getElementById("project1_attributeName2").value;
+
+			const attributes = [
+				{ name: attributeName1, type: convertAttributeToSQLType(attribute1) },
+				{ name: attributeName2, type: convertAttributeToSQLType(attribute2) }
+			];
+
+			createNewDatabase(attributes);
+		}
+
+		function convertAttributeToSQLType(attributeOption) {
+			switch (attributeOption) {
+				case "attribute1_option1":
+					return "VARCHAR(200)";
+				case "attribute1_option2":
+					return "INT";
+				default:
+					return "VARCHAR(200)";
+			}
+		}		
+	</script>
+
+
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

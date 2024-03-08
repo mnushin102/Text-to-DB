@@ -6,9 +6,10 @@ const router = express.Router();
 const jwt = require("jsonwebtoken")
 const uuid = require("uuid");
 const User = require("../models/Users");
-const val = "secretval" // Will change later for more security
-const multer = require("multer") // Used for profile picture uploads
-const path = require("path")
+const val = "secretval"; // Will change later for more security
+const multer = require("multer"); // Used for profile picture uploads
+const sharp = require("sharp");
+const path = require("path");
 
 // Statuses defined by https://expressjs.com/en/guide/error-handling.html
 const ERROR_400 = 400; // User inputs incorrect data
@@ -79,7 +80,20 @@ const storage = multer.diskStorage({
 });
 
 // Create multer instance with the specified storage options as defined above
-const upload = multer({ storage: storage });
+const upload = multer(
+    { storage: storage ,
+        // Filter function to make sure file is of correct type
+        fileFilter: function (req, file, cb) {
+            if (file.mimetype.startsWith('image/')) {
+                // If valid file type, image will be uploaded
+                // jpg, png, etc
+                cb(null, true);
+            } else {
+                // Else, file will not be accepted
+                cb(new Error('Only image files are allowed'));
+            }
+        }
+    });
 
 // Retrieves all users in the database
 router.get('/', async (req,res) => {
@@ -113,9 +127,15 @@ router.post('/uploadProfilePicture', authenticateToken, upload.single('profilePi
             return res.status(400).send('No file uploaded');
         }
 
+        // Resizing the uploaded image
+        const resizedImagePath = 'img/' + Date.now() + path.extname(req.file.originalname);
+        await sharp(req.file.path)
+            .resize(300, 300)
+            .toFile(resizedImagePath);
+
         // Associating the user's profile picture with a user
         const username = await User.findOne({email: req.user.name});
-        const profilePicturePath = req.file.path;
+        const profilePicturePath = resizedImagePath;
         // Finding the user with the email, and then replacing the 
         // current profile picture with the new one user provided
         await User.findOneAndUpdate(
