@@ -22,7 +22,8 @@
                     <img src="../img/logo.jpg" class="img-fluid w-50 h-auto float-start" alt="Logo">
                 </div>
                 <div class="col-4">
-                    <img src="../img/profile_picture.jpg" class="img-fluid w-25 h-auto float-end rounded-circle" alt="Profile Picture">
+                    <!--Profile Picture is fetched from user's saved profile picture-->
+                    <img id="user_profile_picture" class="img-fluid w-25 h-auto float-end rounded-circle" alt="Profile Picture">
                 </div>
             </div>
         </div>     
@@ -123,10 +124,21 @@
                                 </div>
                             </form>
                         </div>
+                        <!--Will change profile picture-->
+                        <div class="row">
+                            <div class="mb-3">
+                                <!--Uses bootstrap's form label component for file selection-->
+                                <label for="profilePictureInput" class="form-label">Choose Profile Picture</label>
+                                <input type="file" class="form-control" id="profilePictureInput" name="profilePicture">
+                            </div>
+                            <div class="col-auto">
+                                <button id="uploadProfilePictureButton" class="btn btn-primary mb-3">Upload Profile Picture</button>
+                            </div>
+                        </div>
                         <!--Button Will delete account forever (until new account is made)-->
                         <div class="row">
                             <div class="d-grid gap-2 col-4 mx-auto">
-                                <button type="button" class="btn btn-danger" id="delete_account_button">Delete Account FOREVER</button>
+                                <button type="button" class="btn btn-danger" id="delete_account_button">DELETE Account FOREVER</button>
                             </div>
                         </div>
                     </div>
@@ -152,6 +164,17 @@
         sidebar_selector();
     </script>
 
+    <!--Accesses and changes user's profile picture if the user decides to change it-->
+    <script type="module">
+        import { access_profile_picture } from "../js/usersettings-functions.js";
+        access_profile_picture()
+    </script>
+
+    <!--Fetches user's profile picture and displays it-->
+    <script type="module">
+        import { getUserProfilePicture } from "../js/usersettings-functions.js";
+        getUserProfilePicture();
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

@@ -7,6 +7,8 @@ const jwt = require("jsonwebtoken")
 const uuid = require("uuid");
 const User = require("../models/Users");
 const val = "secretval" // Will change later for more security
+const multer = require("multer") // Used for profile picture uploads
+const path = require("path")
 
 // Statuses defined by https://expressjs.com/en/guide/error-handling.html
 const ERROR_400 = 400; // User inputs incorrect data
@@ -64,6 +66,21 @@ router.post('/logout', async (req, res) => {
     res.json({ message: 'Logged out successfully' });
 });
 
+// Creating middleware function for Multer storage
+const storage = multer.diskStorage({
+    // storing profile picture to img folder
+    destination: function (req, file, cb) {
+        cb(null, 'img/');
+    },
+    filename: function (req, file, cb) {
+        // Profile Picture name updated to avoid confusion
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+
+// Create multer instance with the specified storage options as defined above
+const upload = multer({ storage: storage });
+
 // Retrieves all users in the database
 router.get('/', async (req,res) => {
     try {
@@ -89,6 +106,33 @@ router.get('/user', authenticateToken, async (req,res) => {
     }
     
 }); 
+
+router.post('/uploadProfilePicture', authenticateToken, upload.single('profilePicture'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).send('No file uploaded');
+        }
+
+        // Associating the user's profile picture with a user
+        const username = await User.findOne({email: req.user.name});
+        const profilePicturePath = req.file.path;
+        // Finding the user with the email, and then replacing the 
+        // current profile picture with the new one user provided
+        await User.findOneAndUpdate(
+            {email:username.email},
+            {$set: {profile_picture: profilePicturePath}},
+            {new: true}
+        );
+
+        // File uploaded successfully
+        return res.status(200).send('File uploaded successfully');
+
+    // Server error
+    } catch (error) {
+        console.error('Error uploading file:', error);
+        res.status(500).send('Internal server error');
+    }
+});
 
 // Creates a new user, using post
 router.post('/', async (req,res) => {

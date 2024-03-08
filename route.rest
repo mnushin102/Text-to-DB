@@ -29,3 +29,18 @@ Content-Type: application/json
     "email":"nijika@bocchi.jp",
     "password":"nijikadabest"
 }
+
+
+###
+POST http://localhost:3000/Users/login
+Content-Type: application/json
+
+{
+    "email" : "bocchi@bocchi.jp",
+    "password":"literallybocchi"
+}
+
+
+###
+GET http://localhost:3000/Users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYm9jY2hpQGJvY2NoaS5qcCIsImlhdCI6MTcwOTg0MjMzMH0.egdaa9JDeGkdkfSOy1dmNaoK8kkF8GppAKYJLRoX_tI
