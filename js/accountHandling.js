@@ -23,7 +23,7 @@ app.use("/users", userRouting);
 
 // Attempting to connect to our MongoDB
 // User info collection 
-dbConnect().then(() => {
+dbConnect("user_info").then(() => {
     app.listen(3000, () => {
         console.log("CONNECTED TO MONGODB");
     });
