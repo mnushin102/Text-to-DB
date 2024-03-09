@@ -66,6 +66,7 @@
 			<!--<img src="../img/pi.jpg">-->
 			<br>
 			<p>Project 1</p>
+			<div id="uml-diagram"></div>
 		</div>
 		<div class="main2">
 			<img src="../img/pi.jpg">
@@ -90,38 +91,35 @@
 		
 	<div class="modal fade" id="createNewDatabaseModal" tabindex="-1" aria-labelledby="createNewDatabaseModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-			<h5 class="modal-title" id="createNewDatabaseModalLabel">Create New Database</h5>
-			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-			<div class="row">
-				<div class="main2">
-				<div class="img" style="height:200px;"></div>
-				<br>
-				<p>Project 1</p>
-				<!-- Drop-down menus for attribute selection -->
-				<select id="project1_attribute1">
-					<option value="attribute1_option1">Attribute 1 Option 1</option>
-					<option value="attribute1_option2">Attribute 1 Option 2</option>
-				</select>
-				<select id="project1_attribute2">
-					<option value="attribute2_option1">Attribute 2 Option 1</option>
-					<option value="attribute2_option2">Attribute 2 Option 2</option>
-				</select>
-				<!-- Text boxes for attribute names -->
-				<input type="text" id="project1_attributeName1" placeholder="Attribute 1 Name">
-				<input type="text" id="project1_attributeName2" placeholder="Attribute 2 Name">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="createNewDatabaseModalLabel">Create New Database</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="main2">
+							<div class="img" style="height:200px;"></div>
+							<br>
+							<!-- Drop-down menu for choosing Class or Attribute -->
+							<select id="element_type">
+								<option value="class">Class</option>
+								<option value="attribute">Attribute</option>
+							</select>
+							<!-- Text boxes for naming Class and Attribute -->
+							<input type="text" id="class_name" placeholder="Class Name">
+							<input type="text" id="attribute_name" placeholder="Attribute Name" disabled>
+							<input type="text" id="attribute2_name" placeholder="Attribute 2 Name" disabled>
+							<input type="text" id="attribute3_name" placeholder="Attribute 3 Name" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create SQL File</button>
+					<button type="button" class="btn btn-success" onclick="createUML()">Create UML</button>
 				</div>
 			</div>
-			</div>
-			<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create SQL File</button>
-			<button type="button" class="btn btn-success" onclick="createUML()">Create UML</button>
-			</div>
-		</div>
 		</div>
 	</div>
 
@@ -161,38 +159,69 @@
 	</div>
 
 	<script>
-		function createUML() {
-			const attribute1 = document.getElementById("project1_attribute1").value;
-			const attribute2 = document.getElementById("project1_attribute2").value;
-			const attributeName1 = document.getElementById("project1_attributeName1").value;
-			const attributeName2 = document.getElementById("project1_attributeName2").value;
+	// Function to handle the change in the menu
+	document.getElementById("element_type").addEventListener("change", function () {
+    		const selectedValue = this.value;
+    		const classInput = document.getElementById("class_name");
+    		const attributeInput = document.getElementById("attribute_name");
+		const attributeInput2 = document.getElementById("attribute2_name");
+		const attributeInput3 = document.getElementById("attribute3_name");
 
-			// Have some sort of shape for the uml diagram with squares for now, this will be changed
-			const umlDiagram = `
-				<div class="main2">
-					<div class="img" style="height:200px;">
-						<svg width="200" height="200">
-							<!-- Draw rectangles for attributes -->
-							<rect x="10" y="10" width="80" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
-							<rect x="10" y="50" width="80" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
-							<!-- Attribute names -->
-							<text x="20" y="30" font-family="Arial" font-size="12">${attributeName1}</text>
-							<text x="20" y="70" font-family="Arial" font-size="12">${attributeName2}</text>
-							<!-- Draw lines between attributes -->
-							<line x1="50" y1="40" x2="50" y2="50" stroke="#000000" stroke-width="1"/>
-						</svg>
-					</div>
-				</div>
-			`;
+    		// Enable/disable text boxes based on the selected value
+    		if (selectedValue === "class") {
+        		classInput.disabled = false;
+        		attributeInput.disabled = true;
+			attributeInput2.disabled = true;
+			attributeInput3.disabled = true;
+    		} else if (selectedValue === "attribute") {
+        		classInput.disabled = true;
+        		attributeInput.disabled = false;
+			attributeInput2.disabled = false;
+			attributeInput3.disabled = false;
+    		}
+	});
 
-			// Search for "Project 1" and add the UML diagram in the html page
-			const project1Element = document.querySelector(".main2:nth-of-type(1)");
-			
-			if (project1Element) {
-				project1Element.innerHTML += umlDiagram;
-			}
-		}
+	// Function to create UML diagram
+	function createUML() {
+    	const elementType = document.getElementById("element_type").value;
+    	const className = document.getElementById("class_name").value;
+    	const attributeName = document.getElementById("attribute_name").value;
+    	const attribute2Name = document.getElementById("attribute2_name").value;
+    	const attribute3Name = document.getElementById("attribute3_name").value;
+
+     	// Calculate the center coordinates of the rectangles
+	const classRectX = 10;
+    	const classRectY = 10;
+    	const attrRectX = 10;
+    	const attrRectY = 40;
+
+    	// Construct the SVG code for the UML diagram
+    	const umlDiagram = `
+            <svg width="200" height="200">
+            	<!-- Draw rectangle for class -->
+            	<rect x="${classRectX}" y="${classRectY}" width="150" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+            	<!-- Class name -->
+            	<text x="${classRectX + 75}" y="${classRectY + 20}" font-family="Arial" font-size="14" text-anchor="middle" alignment-baseline="middle">${className}</text>
+            	<!-- Draw rectangle for attributes -->
+            	<rect x="${attrRectX}" y="${attrRectY}" width="150" height="90" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+            	<!-- Attribute 1 name -->
+            	<text x="${attrRectX + 10}" y="${attrRectY + 20}" font-family="Arial" font-size="12" alignment-baseline="middle">${attributeName}</text>
+            	<!-- Attribute 2 name -->
+            	<text x="${attrRectX + 10}" y="${attrRectY + 45}" font-family="Arial" font-size="12" alignment-baseline="middle">${attribute2Name}</text>
+            	<!-- Attribute 3 name -->
+            	<text x="${attrRectX + 10}" y="${attrRectY + 70}" font-family="Arial" font-size="12" alignment-baseline="middle">${attribute3Name}</text>
+            </svg>
+    	`;
+
+    	// Get the uml-diagram div and insert the SVG code
+    	const umlDiagramDiv = document.getElementById("uml-diagram");
+		
+    	if (umlDiagramDiv) {
+        	umlDiagramDiv.innerHTML = umlDiagram;
+    		}
+	}
 	</script>
+		
 <!-- The pop-up menu will appear on the screen when a user clicks on the 'Delete Database' buttton -->
 <div class="modal fade" id="delete_database" tabindex="-1" role="dialog" aria-labelledby="delete_database_modal_label" aria-hidden="true">
 	<div class="modal-dialog">
