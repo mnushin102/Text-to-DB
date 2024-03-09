@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon js/accountHandling.js",
-    "dbApp": "nodemon js/databaseApp.js"
+    "app": "nodemon js/app.js"
   },
   "repository": {
     "type": "git",
