@@ -5,20 +5,27 @@
     <link rel="stylesheet" href="../css/style.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project</title> 
+    <title>Collaboration</title> 
 </head>
 
 <body>
     
-    <div class="account_banner">
-        <div class="account_left_section">
-            <div class="logo_holder">
-                <img src="../img/logo.jpg" alt="logo">
-            </div>
-        </div>
-        <div class="account_right_section">
-            <div class="profile_picture_holder">
-                <img src="../img/profile_picture.jpg" alt="Profile Picture">
+    <!--Creates a container defined for the logo and the profile picture-->
+	<div class="container-fluid bg-primary">
+		<!--Profile Picture and Logo on same row-->
+		<div class="row align-items-center justify-content-between no-gutters">
+            <!--Diffenrent Columns however, taking up only 4 columns each (bootstrap uses a 12 column system)-->
+            <div class="col-4">
+				<img src="../img/logo.jpg" class="img-fluid w-50 h-auto float-start" alt="Logo">
+			</div>
+		</div>
+
+        <div class="dropdown">
+            <!--Profile Picture will be loaded with getUserProfilePicture function below-->
+            <img src="../img/profile_picture.jpg" id="user_profile_picture" class="img-fluid w-25 h-auto float-end rounded-circle" data-bs-toggle="dropdown" alt="Profile Picture">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="usersettings.html">Account Settings Page</a>
+                <a class="dropdown-item" href="login.html" id="logout">Logout</a>
             </div>
         </div>
     </div>
