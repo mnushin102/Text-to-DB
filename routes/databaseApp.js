@@ -1,6 +1,10 @@
+const router = express.Router(); 
+const uuid = require("uuid"); 
 const express = require("express"); 
-const router = express.Router();
-const insertRouting = require("../models/dataSchema"); 
+const session = require("express-session");
+const data = require("../models/dataSchema"); 
 
 async function insertData(){
 }
+
+module.exports = router; 
