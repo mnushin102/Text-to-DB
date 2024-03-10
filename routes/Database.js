@@ -5,6 +5,13 @@ const express = require("express");
 const router = express.Router();
 const Database = require("../models/Database");
 
+// Statuses defined by https://expressjs.com/en/guide/error-handling.html
+const ERROR_400 = 400; // User inputs incorrect data
+const ERROR_404 = 404; // Not found error
+const ERROR_500 = 500; // Server side error
+const SUCCESS_200 = 200; // Request was successful
+const SUCCESS_201 = 201; // Successfully created (an object)
+
 // Retrieves database projects based on the user
 router.get('/database', async (req,res) => {
     try{
@@ -22,13 +29,14 @@ router.get('/database', async (req,res) => {
 
 // Creates a new database project, using POST request
 router.post('/', async (req,res) => {
-    const database = new Database({
-        database_name: req.body.database_name,
-        database_owner: req.body.database_owner,
-        data_variable_1: req.body.data_variable_1,
-        data_variable_2: req.body.data_variable_2
-    });
-    try {
+    try{
+        const database = new Database({
+            database_name: req.body.database_name,
+            database_owner: req.body.database_owner,
+            data_variable_1: req.body.data_variable_1,
+            data_variable_2: req.body.data_variable_2
+        });
+    
         const newDatabase = await database.save();
         res.status(SUCCESS_201).json(newDatabase);
     } catch (err) {

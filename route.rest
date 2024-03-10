@@ -44,3 +44,15 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/Users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYm9jY2hpQGJvY2NoaS5qcCIsImlhdCI6MTcwOTg0MjMzMH0.egdaa9JDeGkdkfSOy1dmNaoK8kkF8GppAKYJLRoX_tI
+
+
+###
+POST http://localhost:3001/Databases
+Content-Type: application/json
+
+{
+    "database_name": "Bocchi's DB",
+    "database_owner": "Hitori Gotoh",
+    "data_variable_1": "Guitar",
+    "data_variable_2": "Pink"
+}
