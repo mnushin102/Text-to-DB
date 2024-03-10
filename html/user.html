@@ -49,6 +49,26 @@
 		</div>     
 	</div>
 
+	<script src="../js/spelling_correction.js" defer></script>
+    	<script>
+        	// Function to correct the text in the input field
+        	function correctText(inputId) {
+            		const input = document.getElementById(inputId);
+            		input.value = spelling_correction(input.value);
+        	}
+
+        	// Add event listeners to each input field
+        	document.addEventListener("DOMContentLoaded", function() {
+            		const inputIds = ["class_name", "attribute_name", "type1", "attribute2_name", "type2", "attribute3_name", "type3"];
+
+            		inputIds.forEach(inputId => {
+                	const input = document.getElementById(inputId);
+                	input.addEventListener("input", function() {
+                    		correctText(inputId);
+                	});
+            	});
+        });
+    	</script>
 
 	<!-- Zoe White, the navbar allows users to click buttons that have different functions-->
 	<div class="navbar">
