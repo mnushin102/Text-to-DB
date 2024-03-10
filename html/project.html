@@ -88,8 +88,27 @@
 	<button onclick="AddNewElement()">Add Element</button>
 
 	<script>
+	var divCreator=function (id){
+		newElement=document.createElement("div");
+		newNode=document.body.appendChild(newElement);
+		newNode.setAttribute("id",id);
+	}
+	</script>
+
+	<script>
+	var textAdder = function(id, text) {
+		target = document.getElementById(id)
+		target.appendChild(document.createTextNode(text));
+	}
+	</script>
+
+	<script>
 	function AddNewElement() {
-		var x = document.createElement("TEXTAREA");
+
+		divCreator("div");
+		textAdder("div", "this is paragraph 1");
+
+		var x = document.createElement("textarea");
 		var t = document.createTextNode("");
 		x.appendChild(t);
 		document.body.appendChild(x);
