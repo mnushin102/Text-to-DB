@@ -35,7 +35,7 @@ export async function display_collaborators(){
 }
 // Function updates the user's profile picture based
 // on what the user used as input
-export async function access_profile_picture(){
+export async function upload_profile_picture(){
 
     // Waiting for user to click "Update Profile Picture" Button
     document.getElementById("uploadProfilePictureButton").addEventListener("click", async function(){
