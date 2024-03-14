@@ -2,12 +2,12 @@
 
 // Import the dependencies for backend
 const bodyParser = require("body-parser"); 
-const databaseSchema = require("../models/dataSchema"); 
+//const databaseSchema = require("../models/dataSchema"); 
 const express = require('express'); 
 const app = express();
 const mongoose = require('mongoose');
 const schema = mongoose.Schema; 
-const insertRoute = require("../routes/databaseApp"); 
+//const insertRoute = require("../routes/databaseApp"); 
 
 app.use(bodyParser.urlencoded({extended: true})); 
 
@@ -19,11 +19,11 @@ const dataSchema = new schema({
     data_variable_2: String 
 })
 
-const Data = mongoose.model("Data", dataSchema); 
+const Data = mongoose.model("database", dataSchema); 
 
 // This function lets the user input the following data to upload to Mongo
-app.get("/home", function(req, res) {
-    res.render("project"); 
+app.get("/", function(req, res) {
+    res.sendFile(__dirname + "../html/project.html"); 
 }); 
 
 // Manually let the user insert the following fields
