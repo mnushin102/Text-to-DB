@@ -2,8 +2,8 @@ const db = require("./databaseApp");
 const mongoose = require("mongoose");
 const fs = require("fs");
 
-function generateSQLFile(attributes) {
-	let sqlContent = "Create table if it doesn't exist (The table name) (\n";
+function generateSQLFile(className, attributes) {
+	let sqlContent = "Create table if it doesn't exist ${className} (\n";
 
 	attributes.forEach((attribute, i) => {
 		sqlContent += "\t${attribute.name} ${attribute.type}";
