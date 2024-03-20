@@ -26,10 +26,10 @@ function generateSQLFile(className, attributes) {
 	});
 }
 
-async function createNewDatabase(attributes) {
+async function createNewDatabase(className, attributes) {
 	try
 	{
-		generateSQLFile(attributes);
+		generateSQLFile(className, attributes);
 		
 		console.log("The new database was created successfully!");
 	} catch (error) {
