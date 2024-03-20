@@ -11,8 +11,6 @@
 		getUserProfilePicture();
 	</script>
 
-	<!--<script src="./create_database.js"></script>-->
-
 	<!--Same as the one from user settings, but with search bar as well-->
 	<!--Creates a container defined for the logo and the profile picture-->
 	<div class="container-fluid bg-primary">
@@ -291,6 +289,7 @@
 	</div>
 </div>
 
+	<script src="../js/create_database.js"></script>
 	<script>
 		function createNewDatabase() {
 			const className = document.getElementById("class_name").value;
@@ -307,7 +306,7 @@
         			{ name: attribute3Name, type: type3 }
 			];
 
-			createNewDatabase(className, attributes);
+			createDatabase(className, attributes);
 		}
 	</script>
 
