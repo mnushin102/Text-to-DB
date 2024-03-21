@@ -11,8 +11,6 @@
 		getUserProfilePicture();
 	</script>
 
-	<!--<script src="./create_database.js"></script>-->
-
 	<!--Same as the one from user settings, but with search bar as well-->
 	<!--Creates a container defined for the logo and the profile picture-->
 	<div class="container-fluid bg-primary">
@@ -215,7 +213,6 @@
 
 	// Function to create UML diagram
 	function createUML() {
-    		const elementType = document.getElementById("element_type").value;
     		const className = document.getElementById("class_name").value;
     		const attributeName = document.getElementById("attribute_name").value;
     		const attribute2Name = document.getElementById("attribute2_name").value;
@@ -292,31 +289,25 @@
 	</div>
 </div>
 
+	<script src="../js/create_database.js"></script>
 	<script>
 		function createNewDatabase() {
-			const attribute1 = document.getElementById("project1_attribute1").value;
-			const attribute2 = document.getElementById("project1_attribute2").value;
-			const attributeName1 = document.getElementById("project1_attributeName1").value;
-			const attributeName2 = document.getElementById("project1_attributeName2").value;
+			const className = document.getElementById("class_name").value;
+    			const attributeName = document.getElementById("attribute_name").value;
+    			const attribute2Name = document.getElementById("attribute2_name").value;
+    			const attribute3Name = document.getElementById("attribute3_name").value;
+			const type1 = document.getElementById("type1").value;
+    			const type2 = document.getElementById("type2").value;
+    			const type3 = document.getElementById("type3").value;
 
 			const attributes = [
-				{ name: attributeName1, type: convertAttributeToSQLType(attribute1) },
-				{ name: attributeName2, type: convertAttributeToSQLType(attribute2) }
+				{ name: attributeName, type: type1 },
+        			{ name: attribute2Name, type: type2 },
+        			{ name: attribute3Name, type: type3 }
 			];
 
-			createNewDatabase(attributes);
+			createDatabase(className, attributes);
 		}
-
-		function convertAttributeToSQLType(attributeOption) {
-			switch (attributeOption) {
-				case "attribute1_option1":
-					return "VARCHAR(200)";
-				case "attribute1_option2":
-					return "INT";
-				default:
-					return "VARCHAR(200)";
-			}
-		}		
 	</script>
 
 

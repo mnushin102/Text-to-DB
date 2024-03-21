@@ -2,11 +2,11 @@ const db = require("./databaseApp");
 const mongoose = require("mongoose");
 const fs = require("fs");
 
-function generateSQLFile(attributes) {
-	let sqlContent = "Create table if it doesn't exist (The table name) (\n";
+function generateSQLFile(className, attributes) {
+	let sqlContent = `Create table if it doesn't exist ${className} (\n`;
 
 	attributes.forEach((attribute, i) => {
-		sqlContent += "\t${attribute.name} ${attribute.type}";
+		sqlContent += `\t${attribute.name} ${attribute.type}`;
 
 		if (i < attributes.length - 1) {
 			sqlContent += ",\n";
@@ -26,15 +26,15 @@ function generateSQLFile(attributes) {
 	});
 }
 
-async function createNewDatabase(attributes) {
+async function createDatabase(className, attributes) {
 	try
 	{
-		generateSQLFile(attributes);
+		generateSQLFile(className, attributes);
 		
-		console.log("The new database was created successfully!");
+		alert("The new database was created successfully!");
 	} catch (error) {
-		console.error("There was an error in creating the new database:", error);
+		alert("There was an error in creating the new database");
 	}
 }
 
-module.exports = createNewDatabase;
+module.exports = createDatabase;
