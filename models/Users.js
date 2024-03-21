@@ -11,7 +11,9 @@ const user = new mongoose.Schema({
     collaborators: {type: Array, default: []},
     profile_picture: {type: String, default: ""}
 });
-
-const User = mongoose.model('User', user);
+// Connecting to Database concerning users
+// used for reference: https://stackoverflow.com/questions/19474712/mongoose-and-multiple-database-in-single-node-js-project/38516153#38516153
+const myDB = mongoose.connection.useDb('user_info');
+const User = myDB.model('User', user);
 
 module.exports = User;

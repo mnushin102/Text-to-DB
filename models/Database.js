@@ -11,7 +11,10 @@ const schema = new mongoose.Schema({
 }); 
 
 // Create a model to insert the schema for all of the data variables 
-const Database = mongoose.model("Database", schema); 
+// Connecting to Database concerning database projects
+// used for reference: https://stackoverflow.com/questions/19474712/mongoose-and-multiple-database-in-single-node-js-project/38516153#38516153
+const myDB = mongoose.connection.useDb('database_projects');
+const Database = myDB.model("Database", schema); 
 
 // Export this file to databaseSchema
 module.exports = Database; 
