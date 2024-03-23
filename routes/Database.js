@@ -32,9 +32,9 @@ router.post('/', async (req,res) => {
     try{
         const database = new Database({
             database_name: req.body.database_name,
-            database_owner: req.body.database_owner,
-            data_variable_1: req.body.data_variable_1,
-            data_variable_2: req.body.data_variable_2
+            database_owner: req.body.database_owner, // Ownership won't be transferrable
+            database_elements: req.body.database_elements,
+            database_class_relationships: req.body.database_class_relationships
         });
     
         const newDatabase = await database.save();
@@ -50,13 +50,13 @@ router.patch('/', async(req,res) => {
     if (req.body.database_name != null){
         res.database.database_name = req.body.database_name;
     }
-    // Changes variable 1 if provided (WILL CHANGE LATER)
-    if (req.body.data_variable_1 != null){
-        res.database.data_variable_1 = req.body.data_variable_1;
+    // Updates elements in a database projects
+    if (req.body.database_elements != null){
+        res.database.database_elements = req.body.database_elements;
     }
-    // Changes variable 2 if provided (WILL CHANGE LATER)
-    if (req.body.data_variable_2 != null){
-        res.database.data_variable_2 = req.body.data_variable_2;
+    // Updates relationships between classes
+    if (req.body.database_class_relationships != null){
+        res.database.database_class_relationships = req.body.database_class_relationships;
     }
     try {
         const updatedDatabase = await res.database.save();

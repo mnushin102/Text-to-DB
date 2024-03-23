@@ -53,8 +53,24 @@ Content-Type: application/json
 {
     "database_name": "Bocchi's DB",
     "database_owner": "Hitori Gotoh",
-    "data_variable_1": "Guitar",
-    "data_variable_2": "Pink"
+    "database_elements":[
+        {
+            "class_name": "Guitar",
+            "attribute_list": [
+                {"attribute":"body", "type":"String"},
+                {"attribute":"neck", "type":"String"},
+                {"attribute":"strings", "type":"Int"}
+            ]
+        },
+        {
+            "class_name": "Job",
+            "attribute_list": [
+                {"attribute":"position", "type":"String"},
+                {"attribute":"pay", "type":"Float"}
+            ]
+        }
+    ],
+    "database_class_relationships": [] 
 }
 
 
