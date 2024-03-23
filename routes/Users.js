@@ -188,8 +188,8 @@ router.patch('/', authenticateToken, async(req,res) => {
 // Deletes an existing user
 router.delete('/', authenticateToken, async(req,res) => {
     try {
-        await User.findOneAndDelete({ email: req.params.email });
-        res.json({ message: "User deleted" });
+        await User.findOneAndDelete({ email: req.user.name });
+        res.json({ message: "User deleted" , deleted_user:deleted_user});
     } catch (err) {
         res.status(ERROR_500).json({message:err.message});
     }

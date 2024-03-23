@@ -15,7 +15,7 @@ const SUCCESS_201 = 201; // Successfully created (an object)
 // Retrieves database projects based on the user
 router.get('/database', async (req,res) => {
     try{
-    const database = await Database.findOne({database_id: req.database.database_id}); // FETCHES by ID rather than name
+    const database = await Database.findOne({database_id: req.body.database_id}); // FETCHES by ID rather than name
     if(!database){
         return res.status(404).json({ message: 'Database Project not found' });
     }
@@ -69,7 +69,7 @@ router.patch('/', async(req,res) => {
 // Deletes an existing database project
 router.delete('/', async(req,res) => {
     try {
-        await Database.findOneAndDelete({ database_id: req.params.database_id });
+        await Database.findOneAndDelete({ database_id: req.body.database_id });
         res.json({ message: "Database Project deleted" });
     } catch (err) {
         res.status(ERROR_500).json({message:err.message});

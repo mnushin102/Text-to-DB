@@ -56,3 +56,12 @@ Content-Type: application/json
     "data_variable_1": "Guitar",
     "data_variable_2": "Pink"
 }
+
+
+###
+GET http://localhost:3000/Databases/database
+Content-Type: application/json
+
+{
+    "database_id": "b65d592b-11f0-474b-9a75-2805a794619a"
+}

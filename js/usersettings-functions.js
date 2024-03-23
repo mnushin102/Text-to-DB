@@ -108,3 +108,34 @@ export async function getUserProfilePicture(){
         console.error('Error fetching profile picture:', error);
     }
 }
+
+export async function deleteCurrentUser(){
+
+    // Event listener that waits until user clicks "Delete Account button!"
+    document.getElementById("confirm_delete_account_button").addEventListener("click", async function(){
+
+    try {
+        //Getting the current user's JWT to use for the GET request
+        const token = localStorage.getItem("accessToken");
+        // Getting the user's profile picture to display
+        const response = await fetch("http://localhost:3000/Users", {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+        const data = await response.json();
+        // Using Bootstrap's Modal element to create a nice popup
+        var deletedUserModal = new bootstrap.Modal(document.getElementById('delete_account_confirmation_popup'));
+        deletedUserModal.show();
+        // Gives user time to read popup presented (3 seconds)
+        setTimeout(function(){
+            window.location.href = '../html/login.html';
+        }, 3000)
+        
+    } catch (error) {
+      console.error("Error deleting user:", error)  
+    }
+});
+}

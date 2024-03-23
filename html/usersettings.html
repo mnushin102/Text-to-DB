@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-4">
                     <!--Profile Picture is fetched from user's saved profile picture-->
-                    <img src="../img/profile_picture.jpg" id="user_profile_picture" class="img-fluid w-25 h-auto float-end rounded-circle" alt="Profile Picture">
+                    <img id="user_profile_picture" class="img-fluid w-25 h-auto float-end rounded-circle" alt="Profile Picture">
                 </div>
             </div>
         </div>     
@@ -140,10 +140,51 @@
                                 <button id="uploadProfilePictureButton" class="btn btn-primary mb-3">Upload Profile Picture</button>
                             </div>
                         </div>
-                        <!--Button Will delete account forever (until new account is made)-->
+                        <!--Button Will delete account forever (all information associated with user is lost)-->
                         <div class="row">
                             <div class="d-grid gap-2 col-4 mx-auto">
-                                <button type="button" class="btn btn-danger" id="delete_account_button">DELETE Account FOREVER</button>
+                                <button type="button" class="btn btn-danger" id="delete_account_button" data-bs-toggle="modal" data-bs-target="#delete_account_button_popup">
+                                    DELETE Account FOREVER
+                                </button>
+                                <!-- Delete User Modal -->
+                                <div class="modal fade" id="delete_account_button_popup" tabindex="-1" role="dialog" aria-labelledby="delete_account_button_popup" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteAccountLabel">DELETE ACCOUNT</h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ARE YOU SURE YOU WANT TO DELETE ACCOUNT FOREVER?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-danger" id="confirm_delete_account_button">PERMANENTLY DELETE ACCOUNT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- User Permanently Deleted Modal -->
+                                <div class="modal fade" id="delete_account_confirmation_popup" tabindex="-1" role="dialog" aria-labelledby="delete_account_confirmation_popup" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteAccountConfirmationLabel">DELETE ACCOUNT</h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body" style="margin-top: 30px; margin-bottom: 30px;">
+                                                ACCOUNT HAS BEEN PERMANENTLY DELETED!
+                                            </div>
+                                            <div class="modal-footer">
+                                               NOW RETURNING TO LOGIN PAGE! 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,8 +216,11 @@
         upload_profile_picture()
     </script>
 
-   
-
+   <!--Permanently Deletes an existing user-->
+    <script type="module">
+        import { deleteCurrentUser } from "../js/usersettings-functions.js";
+        deleteCurrentUser()
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
