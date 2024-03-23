@@ -23,7 +23,7 @@ const Data = mongoose.model("database", dataSchema);
 
 // This function lets the user input the following data to upload to Mongo
 app.get("/", function(req, res) {
-    res.sendFile(__dirname + "../html/project.html"); 
+    res.sendFile(__dirname + "/html/project.html"); 
 }); 
 
 // Manually let the user insert the following fields
@@ -36,10 +36,7 @@ app.post("/", function(req, res) {
     }); 
 
     // save the inputted fields to the database 
-    addData.save(function(err, addData){
-        if (err) throw error
-        res.json(addData); 
-    }); 
+    addData.save(); 
     res.redirect("/"); 
 }); 
 
