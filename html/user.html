@@ -137,7 +137,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create SQL File</button>
+					<button type="button" class="btn btn-primary" id="createNewDatabase">Create SQL File</button>
 					<button type="button" class="btn btn-success" onclick="createUML()">Create UML</button>
 				</div>
 			</div>
@@ -289,6 +289,14 @@
 	</div>
 </div>
 
+<script type="module">
+	import {createNewDatabase} from "../js/sqlfile.js";
+
+	document.addEventListener("DOMContentLoaded", function(){
+		createNewDatabase();
+	});
+</script>
+		
 	<script src="../js/create_database.js"></script>
 	<script>
 		function createNewDatabase() {
