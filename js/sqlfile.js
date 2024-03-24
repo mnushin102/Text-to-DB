@@ -1,6 +1,6 @@
 export function createNewDatabase()
 {
-    document.getElementById("createSQL").addEventListener("click", async function() {
+    document.getElementById("createNewDatabase").addEventListener("click", async function() {
             const className = document.getElementById("class_name").value;
             const attributeName = document.getElementById("attribute_name").value;
             const attribute2Name = document.getElementById("attribute2_name").value;
