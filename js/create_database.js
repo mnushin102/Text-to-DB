@@ -1,40 +1,44 @@
-const db = require("./databaseApp");
-const mongoose = require("mongoose");
-const fs = require("fs");
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
 
-function generateSQLFile(className, attributes) {
-	let sqlContent = `Create table if it doesn't exist ${className} (\n`;
+const app = express();
 
-	attributes.forEach((attribute, i) => {
-		sqlContent += `\t${attribute.name} ${attribute.type}`;
+app.use(bodyParser.json());
 
-		if (i < attributes.length - 1) {
-			sqlContent += ",\n";
-		} else {
-			sqlContent += "\n";
-		}
-	});
+app.post('/generate-sql', (req, res) => {
+    const { className, attributes } = req.body;
 
-	sqlContent += ");\n";
-	
-	fs.writeFile("generated_database.sql", sqlContent, (err) => {
-		if (err) {
-			console.error("There is an error writing the SQL file:", err);
-		} else {
-			console.log("The sql file was generated successfully!");
-		}
-	});
-}
+    // Generate SQL content based on the received data
+    let sqlContent = `Create table if not exists ${className} (\n`;
+    attributes.forEach((attribute, index) => {
+        sqlContent += `\t${attribute.name} ${attribute.type}`;
+        if (index < attributes.length - 1) {
+            sqlContent += ',\n';
+        } else {
+            sqlContent += '\n';
+        }
+    });
+    sqlContent += ');';
 
-async function createDatabase(className, attributes) {
-	try
-	{
-		generateSQLFile(className, attributes);
-		
-		alert("The new database was created successfully!");
-	} catch (error) {
-		alert("There was an error in creating the new database");
-	}
-}
+    // Write SQL content to a file
+    fs.writeFile('generated_database.sql', sqlContent, (err) => {
+        if (err) {
+            console.error('Error writing SQL file:', err);
+            res.status(500).send('Error generating SQL file');
+        } else {
+            console.log('SQL file generated successfully');
+            // Send the SQL content back to the client
+            res.send(sqlContent);
+        }
+    });
+});
 
-module.exports = createDatabase;
+app.listen(3002, () => {
+    try {
+        console.log("Successfully connected to MongoDB"); 
+    }
+    catch {
+        console.log("There was an error connecting to Mongo"); 
+    }
+});
