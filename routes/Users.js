@@ -169,10 +169,11 @@ router.post('/', async (req,res) => {
     
 });
 
-// Updates an existing user, given a username
-router.patch('/', authenticateToken, async(req,res) => {
-    if (req.body.email != null){
-        res.user.email = req.body.email;
+// Updates a user's display name and/or password (email cannot be changed)
+router.patch('/user_display_name_password', authenticateToken, async(req,res) => {
+    // Can only change user name and password
+    if (req.body.display_name != null){
+        res.user.display_name = req.body.display_name;
     }
     if (req.body.password != null){
         res.user.password = req.body.password;
@@ -184,6 +185,21 @@ router.patch('/', authenticateToken, async(req,res) => {
         res.status(ERROR_400).json({message:err.message});
     }
 });
+
+// Updates a user's display name and/or password (email cannot be changed)
+router.patch('/update_database_project_list', authenticateToken, async(req,res) => {
+    // Can only change user name and password
+    if (req.body.database_projects != null){
+        res.user.database_projects.push(req.body.display_name);
+    }
+    try {
+        const updatedUser = await res.user.save();
+        res.json(updatedUser);        
+    } catch (err) {
+        res.status(ERROR_400).json({message:err.message});
+    }
+});
+
 
 // Deletes an existing user
 router.delete('/', authenticateToken, async(req,res) => {

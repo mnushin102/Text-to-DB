@@ -117,21 +117,26 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="main2">
-							<div class="img" style="height:200px;"></div>
+							<!--<div class="img" style="height:200px;"></div> WHAT IS THIS FOR?-->
+							<input type="text" id="database_project_name" class="form-control mb-3" placeholder="Project Name">
 							<br>
-							<!-- Drop-down menu for choosing Class or Attribute -->
+							<div class="container mt-5">
+								<div id="database_classes_container"></div>
+								<button id="add_class_button" class="btn btn-success">Add Class</button>
+							</div>
+							<!-- Drop-down menu for choosing Class or Attribute
 							<select id="element_type">
 								<option value="class">Class</option>
 								<option value="attribute">Attribute</option>
-							</select>
-							<!-- Text boxes for naming Class and Attribute -->
+							</select>-->
+							<!-- Text boxes for naming Class and Attribute
 							<input type="text" id="class_name" placeholder="Class Name">
 							<input type="text" id="attribute_name" placeholder="Attribute Name" disabled>
 							<input type="text" id="type1" placeholder="Type 1" disabled>
 							<input type="text" id="attribute2_name" placeholder="Attribute 2 Name" disabled>
 							<input type="text" id="type2" placeholder="Type 2" disabled>
 							<input type="text" id="attribute3_name" placeholder="Attribute 3 Name" disabled>
-							<input type="text" id="type3" placeholder="Type 3" disabled>
+							<input type="text" id="type3" placeholder="Type 3" disabled>-->
 						</div>
 					</div>
 				</div>
@@ -139,6 +144,7 @@
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create SQL File</button>
 					<button type="button" class="btn btn-success" onclick="createUML()">Create UML</button>
+					<button type="button" class="btn btn-info" id="create_new_database_project_button">Generate New Database</button>
 				</div>
 			</div>
 		</div>
@@ -178,9 +184,8 @@
 			</div>
 		</div>
 	</div>
-
-	<script>
-	// Function to handle the change in the menu
+<!--
+// Function to handle the change in the menu
 	document.getElementById("element_type").addEventListener("change", function () {
     		const selectedValue = this.value;
     		const classInput = document.getElementById("class_name");
@@ -210,7 +215,8 @@
 			typeInput3.disabled = false;
     		}
 	});
-
+-->
+	<script>
 	// Function to create UML diagram
 	function createUML() {
     		const className = document.getElementById("class_name").value;
@@ -310,7 +316,17 @@
 		}
 	</script>
 
+ 	<!--Creates a new database-->
+    <script type="module">
+        import { generate_new_database } from "../js/userpage_functions.js";
+        generate_new_database()
+    </script>
 
+	<!--Creates a new database-->
+    <script type="module">
+        import { add_database_class } from "../js/userpage_functions.js";
+        add_database_class()
+    </script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

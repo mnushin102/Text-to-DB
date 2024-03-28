@@ -19,7 +19,7 @@ export function create_account() {
 
         try {
             // Fetching the user using HTTPS request given email as a parameter
-            const resp = await fetch(`http://localhost:3000/Users/email/${encodeURIComponent(userInfo.email)}`, {
+            const resp = await fetch('http://localhost:3000/Users/', {
                 method:"GET",
                 headers:{
                     "Content-Type":"application/json"
@@ -27,7 +27,10 @@ export function create_account() {
             });
             if (resp.ok){
                 // User is found and now retrieving the user's data
+                console.log("HERE")
                 responseData = await resp.json();
+                console.log(responseData)
+                console.log(responseData.includes(userInfo.email))
                 userFound = true;
             };
 
