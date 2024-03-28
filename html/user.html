@@ -73,7 +73,7 @@
 		<a><button type="button" class="btn btn-primary create-btn" data-bs-toggle="modal" data-bs-target="#createNewDatabaseModal">Create New Database</button></a>
 		<a><button type="button" class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#delete_database" onclick="delete_database">Delete Database</button></a>
 		<a><button class="btn btn-warning edit-btn" onclick="edit_database">Edit Database</button></a>
-		<a><button class="btn btn-success import-btn" onclick="import_file">Import File</button></a>
+		<a><button type="button" class="btn btn-success import-btn" data-bs-toggle="modal" data-bs-target="#file_import" onclick="file_import">Import File</button></a>
 		<a><button class="btn btn-info export-btn" onclick="export_file">Export File</button></a>
 		<a><button class="btn btn-secondary collaborate-btn" onclick="collaborate">Collaborate</button></a>
 	</div>
@@ -142,7 +142,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" onclick="createNewDatabase()">Create SQL File</button>
+					<button type="button" class="btn btn-primary" id="createNewDatabase">Create SQL File</button>
 					<button type="button" class="btn btn-success" onclick="createUML()">Create UML</button>
 					<button type="button" class="btn btn-info" id="create_new_database_project_button">Generate New Database</button>
 				</div>
@@ -295,26 +295,36 @@
 	</div>
 </div>
 
-	<script src="../js/create_database.js"></script>
-	<script>
-		function createNewDatabase() {
-			const className = document.getElementById("class_name").value;
-    			const attributeName = document.getElementById("attribute_name").value;
-    			const attribute2Name = document.getElementById("attribute2_name").value;
-    			const attribute3Name = document.getElementById("attribute3_name").value;
-			const type1 = document.getElementById("type1").value;
-    			const type2 = document.getElementById("type2").value;
-    			const type3 = document.getElementById("type3").value;
+<!-- Meraj: A user will click on the Import File button on the user page that takes them to where they want to import an existing SQL file-->
+<div class="modal fade" id="file_import" tabindex="-1" role="dialog" aria-labelledby="file_import_modal_label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="file_import_modal_label">Import File</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="main2">
+						<div class="img" style="height: 200px;"></div>
 
-			const attributes = [
-				{ name: attributeName, type: type1 },
-        			{ name: attribute2Name, type: type2 },
-        			{ name: attribute3Name, type: type3 }
-			];
+						<!-- Meraj: Set up an event handler for the user to choose an existing file to import from the user's computer -->
+						<form class="upload-form" method="post" enctype="multipart/form-data">
+							<label for="file_importing">File</label>
+							<input id="file_importing" name="file" type="file" multiple accept="text/sql" />
+						</form>
+					</div>
+				</div>
+			</div>
 
-			createDatabase(className, attributes);
-		}
-	</script>
+			<!-- Meraj: Once a user imported the file, a user can upload it to parse the document -->
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Upload</button>
+			</div>
+		</div>
+	</div>
+</div>
 
  	<!--Creates a new database-->
     <script type="module">

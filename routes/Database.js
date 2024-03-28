@@ -4,6 +4,7 @@
 const express = require("express");
 const router = express.Router();
 const Database = require("../models/Database");
+const generateSQLForClass = require("../js/create_database.js");
 
 // Statuses defined by https://expressjs.com/en/guide/error-handling.html
 const ERROR_400 = 400; // User inputs incorrect data
@@ -25,7 +26,18 @@ router.get('/database', async (req,res) => {
         res.status(500).json({message:"Server Error"});
     }
     
-}); 
+});
+
+// Generate SQL for a class schema
+router.get('/generate-sql/:className', async (req, res) => {
+    try {
+        const className = req.params.className;
+        const result = await generateSQLForClass(className);
+        res.send(result);
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
+    }
+});
 
 // Creates a new database project, using POST request
 router.post('/', async (req,res) => {
