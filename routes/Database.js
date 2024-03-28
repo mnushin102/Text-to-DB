@@ -4,7 +4,6 @@
 const express = require("express");
 const router = express.Router();
 const Database = require("../models/Database");
-const fs = require("fs");
 const generateSQLForClass = require("../js/create_database.js");
 
 // Statuses defined by https://expressjs.com/en/guide/error-handling.html
