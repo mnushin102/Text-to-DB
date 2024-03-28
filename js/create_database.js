@@ -1,44 +1,46 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 const fs = require('fs');
+const Database = require("../models/Database");
 
-const app = express();
-
-app.use(bodyParser.json());
-
-app.post('/generate-sql', (req, res) => {
-    const { className, attributes } = req.body;
-
-    // Generate SQL content based on the received data
-    let sqlContent = `Create table if not exists ${className} (\n`;
-    attributes.forEach((attribute, index) => {
-        sqlContent += `\t${attribute.name} ${attribute.type}`;
-        if (index < attributes.length - 1) {
-            sqlContent += ',\n';
-        } else {
-            sqlContent += '\n';
-        }
-    });
-    sqlContent += ');';
-
-    // Write SQL content to a file
-    fs.writeFile('generated_database.sql', sqlContent, (err) => {
-        if (err) {
-            console.error('Error writing SQL file:', err);
-            res.status(500).send('Error generating SQL file');
-        } else {
-            console.log('SQL file generated successfully');
-            // Send the SQL content back to the client
-            res.send(sqlContent);
-        }
-    });
-});
-
-app.listen(3002, () => {
+async function generateSQLForClass(className) {
     try {
-        console.log("Successfully connected to MongoDB"); 
+        // Find the document with the given class name
+        const databaseEntry = await Database.findOne({ "database_elements.class_name": className });
+        
+        if (!databaseEntry) {
+            return "Class not found in the database.";
+        }
+
+        // Find the class object within the database entry
+        const classObject = databaseEntry.database_elements.find(element => element.class_name === className);
+
+        if (!classObject) {
+            return "Class not found in the database.";
+        }
+
+        // Extract attribute list
+        const attributes = classObject.attribute_list;
+
+        // Generate SQL CREATE TABLE statement
+        let sql = `CREATE TABLE ${className} (\n`;
+
+        attributes.forEach(attribute => {
+            sql += `    ${attribute.attribute} ${attribute.type},\n`;
+        });
+
+        // Remove trailing comma and newline
+        sql = sql.slice(0, -2) + '\n';
+
+        // Closing bracket
+        sql += ');';
+
+        // Write SQL to file
+        fs.writeFileSync('generated_file.sql', sql);
+
+        return "SQL file successfully generated.";
+    } catch (error) {
+        console.error("Error generating SQL:", error);
+        return "An error occurred while generating SQL.";
     }
-    catch {
-        console.log("There was an error connecting to Mongo"); 
-    }
-});
+}
+
+module.exports = generateSQLForClass;
