@@ -102,3 +102,53 @@ export function add_database_class(){
         database_classes_container.appendChild(attribute_type_input);
     }
 }
+
+export async function sql_file(){
+    // Function to generate the SQL statements from entered data
+    function generateSQL() {
+        var sqlContent = "";
+        var classContainers = document.querySelectorAll(".class-container");
+        classContainers.forEach(function(container) {
+            var className = container.querySelector("input[type='text'][placeholder='Class Name']").value;
+            sqlContent += "CREATE TABLE " + className + " (\n";
+            var attributeInputs = container.querySelectorAll("input[type='text'][placeholder='Attribute Name']");
+            attributeInputs.forEach(function(attributeInput, index) {
+                var attributeName = attributeInput.value;
+                var attributeTypeInput = container.querySelectorAll("input[type='text'][placeholder='Type']")[index];
+                var attributeType = attributeTypeInput.value;
+                
+                // Convert attribute type to lowercase
+                attributeType = attributeType.toLowerCase();
+
+                // Convert "String" to "VARCHAR"
+                if (attributeType === "string") {
+                    attributeType = "varchar(255)";
+                }
+                
+                sqlContent += "\t" + attributeName + " " + attributeType;
+                if (index < attributeInputs.length - 1) {
+                    sqlContent += ",\n";
+                } else {
+                    sqlContent += "\n";
+                }
+            });
+            sqlContent += ");\n\n";
+        });
+        return sqlContent;
+    }
+
+    // Function to create/download the SQL file
+    document.getElementById("create_sql_file").addEventListener("click", function() {
+        var sqlContent = generateSQL();
+        var projectName = document.getElementById("database_project_name").value;
+        var blob = new Blob([sqlContent], { type: 'text/plain' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = projectName + ".sql";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.getElementById("create_sql_file").style.display = "none";
+    });
+}
