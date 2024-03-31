@@ -142,7 +142,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="createNewDatabase">Create SQL File</button>
+					<button type="button" class="btn btn-primary" id="create_sql_file">Create SQL File</button>
 					<button type="button" class="btn btn-success" onclick="createUML()">Create UML</button>
 					<button type="button" class="btn btn-info" id="create_new_database_project_button">Generate New Database</button>
 				</div>
@@ -336,6 +336,11 @@
     <script type="module">
         import { add_database_class } from "../js/userpage_functions.js";
         add_database_class()
+    </script>
+
+    <script type="module">
+	import { sql_file } from "../js/userpage_functions.js";
+	sql_file()
     </script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
