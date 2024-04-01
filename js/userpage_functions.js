@@ -149,7 +149,6 @@ export async function sql_file(){
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
-        document.getElementById("create_sql_file").style.display = "none";
     });
 }
 
