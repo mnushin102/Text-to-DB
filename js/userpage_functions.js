@@ -152,3 +152,87 @@ export async function sql_file(){
         document.getElementById("create_sql_file").style.display = "none";
     });
 }
+
+export async function uml_diagram(){
+    // Function to generate UML diagram from user input
+    function generateUMLDiagram() {
+        // Initialize the UML diagram string
+        let umlDiagram = '';
+
+        // Get all class containers
+        const classContainers = document.querySelectorAll(".class-container");
+    
+        // Loop through each class container
+        classContainers.forEach((container, index) => {
+            const classNameInput = container.querySelector("input[type='text'][placeholder='Class Name']");
+            const className = classNameInput ? classNameInput.value : `Class${index + 1}`;
+
+            // Calculate the y-coordinate for class rectangle and attributes
+            const classRectY = 10 + index * 150;
+            const attrRectY = 40 + index * 150;
+
+            // Construct SVG elements for class rectangle and text
+            umlDiagram += `
+                <!-- Draw rectangle for class -->
+                <rect x="10" y="${classRectY}" width="150" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+                <!-- Class name -->
+                <text x="85" y="${classRectY + 22}" font-family="Arial" font-size="14" text-anchor="middle" alignment-baseline="middle">${className}</text>
+            `;
+        
+            // Get all attribute inputs within the current class container
+            const attributeInputs = container.querySelectorAll("input[type='text'][placeholder='Attribute Name']");
+
+            // Draw the rectangle for attributes
+            umlDiagram += `
+                <rect x="10" y="${attrRectY}" width="150" height="${20 + attributeInputs.length * 25}" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+            `;
+
+            // Loop through each attribute input
+            attributeInputs.forEach((attributeInput, attrIndex) => {
+                const attributeName = attributeInput.value.trim(); // Trim any leading/trailing whitespace
+                if (attributeName !== '') {
+                    const attributeTypeInput = container.querySelectorAll("input[type='text'][placeholder='Type']")[attrIndex];
+                    const attributeType = attributeTypeInput ? attributeTypeInput.value.trim() : '';
+
+                    // Construct SVG elements for attribute text
+                    umlDiagram += `
+                        <!-- Attribute ${attrIndex + 1} -->
+                        <text x="20" y="${attrRectY + 20 + attrIndex * 25}" font-family="Arial" font-size="12" alignment-baseline="middle">+ ${attributeName} : ${attributeType}</text>
+                    `;
+                }
+            });
+        });
+
+        // Construct the complete SVG code for the UML diagram
+        const svgCode = `<svg width="300" height="${20 + classContainers.length * 150}">${umlDiagram}</svg>`;
+
+        // Get the uml-diagram div and insert the SVG code
+        const umlDiagramDiv = document.getElementById("uml-diagram");
+        if (umlDiagramDiv) {
+            umlDiagramDiv.innerHTML = svgCode;
+        }
+    }
+
+    // Call generateUMLDiagram function when the user clicks the "Create UML" button
+    document.getElementById("create_uml_diagram").addEventListener("click", function() {
+        generateUMLDiagram();
+    });
+}
+
+export async function projectName() {
+    // Function to update the project name
+    function updateProjectName() {
+        const projectNameInput = document.getElementById("database_project_name");
+         // Default to "Project Name" if input is empty
+        const projectName = projectNameInput ? projectNameInput.value : "Project Name";
+        const projectNameElement = document.getElementById("project_name");
+        if (projectNameElement) {
+            projectNameElement.textContent = projectName;
+        }
+    }
+
+    // Call updateProjectName function when the user changes the project name input
+    document.getElementById("database_project_name").addEventListener("input", function() {
+        updateProjectName();
+    });
+}
