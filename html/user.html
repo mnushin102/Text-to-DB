@@ -74,7 +74,7 @@
 		<a><button type="button" class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#delete_database" onclick="delete_database">Delete Database</button></a>
 		<a><button class="btn btn-warning edit-btn" onclick="edit_database">Edit Database</button></a>
 		<a><button type="button" class="btn btn-success import-btn" data-bs-toggle="modal" data-bs-target="#file_import" onclick="file_import">Import File</button></a>
-		<a><button class="btn btn-info export-btn" onclick="export_file">Export File</button></a>
+		<a><button type="button" class="btn btn-info export-btn" data-bs-toggle="modal" data-bs-target="#file_export" onclick="export_file">Export File</button></a>
 		<a><button class="btn btn-secondary collaborate-btn" onclick="collaborate">Collaborate</button></a>
 	</div>
 
@@ -117,7 +117,6 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="main2">
-							<!--<div class="img" style="height:200px;"></div> WHAT IS THIS FOR?-->
 							<input type="text" id="database_project_name" class="form-control mb-3" placeholder="Project Name">
 							<br>
 							<div class="container mt-5">
@@ -238,6 +237,31 @@
 	</div>
 </div>
 
+<div class="modal fade" id="file_export" tabindex="-1" aria-labelledby="file_export_modal_label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="file_export_modal_label">Export File</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="main2">
+						<br>
+						<div class="export container">
+							<div id="file_export_container"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="file_export_button">Export</button>
+			</div>
+		</div>
+	</div>
+</div>
+
  	<!--Creates a new database-->
     <script type="module">
         import { generate_new_database } from "../js/userpage_functions.js";
@@ -269,6 +293,11 @@
 	<script type="module">
 		import {file_import} from "../js/userpage_functions.js";
 		file_import(); 
+	</script>
+
+	<script type="module">
+		import { file_export } from "../js/userpage_functions.js";
+		file_export()
 	</script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
