@@ -104,51 +104,26 @@ export function add_database_class(){
 }
 
 export async function sql_file(){
-    // Function to generate the SQL statements from entered data
-    function generateSQL() {
-        var sqlContent = "";
-        var classContainers = document.querySelectorAll(".class-container");
-        classContainers.forEach(function(container) {
-            var className = container.querySelector("input[type='text'][placeholder='Class Name']").value;
-            sqlContent += "CREATE TABLE " + className + " (\n";
-            var attributeInputs = container.querySelectorAll("input[type='text'][placeholder='Attribute Name']");
-            attributeInputs.forEach(function(attributeInput, index) {
-                var attributeName = attributeInput.value;
-                var attributeTypeInput = container.querySelectorAll("input[type='text'][placeholder='Type']")[index];
-                var attributeType = attributeTypeInput.value;
-                
-                // Convert attribute type to lowercase
-                attributeType = attributeType.toLowerCase();
-
-                // Convert "String" to "VARCHAR"
-                if (attributeType === "string") {
-                    attributeType = "varchar(255)";
-                }
-                
-                sqlContent += "\t" + attributeName + " " + attributeType;
-                if (index < attributeInputs.length - 1) {
-                    sqlContent += ",\n";
-                } else {
-                    sqlContent += "\n";
-                }
-            });
-            sqlContent += ");\n\n";
-        });
-        return sqlContent;
-    }
-
-    // Function to create/download the SQL file
     document.getElementById("create_sql_file").addEventListener("click", function() {
-        var sqlContent = generateSQL();
+        // Get the project name
         var projectName = document.getElementById("database_project_name").value;
-        var blob = new Blob([sqlContent], { type: 'text/plain' });
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = projectName + ".sql";
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
+
+        // Create a new element to display the file name
+        var fileNameElement = document.createElement("div");
+        fileNameElement.textContent = projectName + ".sql";
+
+        // Center the file name
+        fileNameElement.style.textAlign = "center";
+
+        // Add rectangle styling to the created files
+        fileNameElement.style.border = "1px solid black";
+        fileNameElement.style.padding = "5px";
+        fileNameElement.style.margin = "5px 0";
+        fileNameElement.style.backgroundColor = "white";
+
+        // Append the file name to the export file pop-up menu
+        var fileExportContainer = document.getElementById("file_export_container");
+        fileExportContainer.appendChild(fileNameElement);
     });
 }
 
@@ -241,5 +216,69 @@ export async function file_import(){
 }
 
 export async function file_export(){
+    // Function to generate the SQL statements from entered data
+    function generateSQL() {
+        var sqlContent = "";
+        var classContainers = document.querySelectorAll(".class-container");
+        classContainers.forEach(function(container) {
+            var className = container.querySelector("input[type='text'][placeholder='Class Name']").value;
+            sqlContent += "CREATE TABLE " + className + " (\n";
+            var attributeInputs = container.querySelectorAll("input[type='text'][placeholder='Attribute Name']");
+            attributeInputs.forEach(function(attributeInput, index) {
+                var attributeName = attributeInput.value;
+                var attributeTypeInput = container.querySelectorAll("input[type='text'][placeholder='Type']")[index];
+                var attributeType = attributeTypeInput.value;
+            
+                // Convert attribute type to lowercase
+                attributeType = attributeType.toLowerCase();
+
+                // Convert "String" to "VARCHAR"
+                if (attributeType === "string") {
+                    attributeType = "varchar(255)";
+                }
+            
+                sqlContent += "\t" + attributeName + " " + attributeType;
+                if (index < attributeInputs.length - 1) {
+                    sqlContent += ",\n";
+                } else {
+                    sqlContent += "\n";
+                }
+            });
+            sqlContent += ");\n\n";
+        });
+        return sqlContent;
+    }
     
+    // Function to download all SQL files and display their names
+    document.getElementById("file_export_button").addEventListener("click", function() {
+        // Get all file names
+        var fileNames = [];
+        var fileNameElements = document.querySelectorAll("#file_export_container > div:not(:first-child)");
+        fileNameElements.forEach(function(element) {
+            fileNames.push(element.textContent);
+        });
+
+        // Download each file
+        fileNames.forEach(function(fileName) {
+            var blob = new Blob([generateSQL()], { type: 'text/plain' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        });
+    });
+
+    // Add text to the export file pop-up menu
+    var fileExportContainer = document.getElementById("file_export_container");
+    var filesText = document.createElement("div");
+    filesText.textContent = "Created Files";
+    filesText.style.textAlign = "center";
+
+    // Add margin to separate the text from file names
+    filesText.style.marginBottom = "5px";
+    fileExportContainer.insertBefore(filesText, fileExportContainer.firstChild);
 }
