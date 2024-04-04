@@ -34,8 +34,9 @@ router.post('/login', async (req, res) => {
 
         // JWT authentication here
         // Information from: https://www.youtube.com/watch?v=mbsmsi7l3r4
-        const username = user.email;
-        const current_user = {name: username}
+        const current_user = {
+            name: user.email,
+        }
         const accessToken = jwt.sign(current_user, val);
         res.json({ message: 'Login successful', accessToken: accessToken });
 
@@ -188,12 +189,13 @@ router.patch('/user_display_name_password', authenticateToken, async(req,res) =>
 
 // Updates a user's display name and/or password (email cannot be changed)
 router.patch('/update_database_project_list', authenticateToken, async(req,res) => {
+    const user = await User.findOne({ email: req.user.name });
     // Can only change user name and password
     if (req.body.database_projects != null){
-        res.user.database_projects.push(req.body.display_name);
+        user.database_projects.push(req.body.database_projects);
     }
     try {
-        const updatedUser = await res.user.save();
+        const updatedUser = await user.save();
         res.json(updatedUser);        
     } catch (err) {
         res.status(ERROR_400).json({message:err.message});
