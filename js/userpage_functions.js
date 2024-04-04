@@ -1,3 +1,43 @@
+// Define an array to store project names for which SQL files and UML diagrams have been created
+let createdProjects = [];
+
+// Function to check if a project has already been created
+function isProjectCreated(projectName) {
+    return createdProjects.hasOwnProperty(projectName);
+}
+
+// Function to disable the buttons and inputs within the modal body except for the project name
+function disableModalBody() {
+    const modalBody = document.querySelector("#createNewDatabaseModal .modal-body");
+    const buttons = modalBody.querySelectorAll("button");
+    const inputs = modalBody.querySelectorAll("input");
+
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+
+    inputs.forEach(input => {
+        if (input.id !== "database_project_name") {
+            input.disabled = true;
+        }
+    });
+}
+
+// Function to enable the buttons and inputs within the modal body except for the project name
+function enableModalBody() {
+    const modalBody = document.querySelector("#createNewDatabaseModal .modal-body");
+    const buttons = modalBody.querySelectorAll("button");
+    const inputs = modalBody.querySelectorAll("input");
+
+    buttons.forEach(button => {
+        button.disabled = false;
+    });
+
+    inputs.forEach(input => {
+        input.disabled = false;
+    });
+}
+
 // Funtion will add a newly generated database to user's database projects
 export async function update_user_database_project_list(database_id){
     try {
@@ -154,6 +194,15 @@ export async function sql_file(){
         // Get the project name
         var projectName = document.getElementById("database_project_name").value;
 
+        // Check if SQL file for this project has already been created
+        if (isProjectCreated(projectName) && createdProjects[projectName].sql) {
+            alert("The sql file has already been created for this project");
+            return;
+        }
+
+        // Disable all input elements and buttons within the body modal
+        disableModalBody();
+
         // Create a new element to display the file name
         var fileNameElement = document.createElement("div");
         fileNameElement.textContent = projectName + ".sql";
@@ -170,12 +219,35 @@ export async function sql_file(){
         // Append the file name to the export file pop-up menu
         var fileExportContainer = document.getElementById("file_export_container");
         fileExportContainer.appendChild(fileNameElement);
+
+        // Mark the SQL file as created for this project
+        if (!createdProjects.hasOwnProperty(projectName)) {
+            createdProjects[projectName] = {};
+        }
+        createdProjects[projectName].sql = true;
+
+        // Update the project name element
+        var projectNameElement = document.getElementById(`project_name_${Object.keys(createdProjects).length}`);
+        if (projectNameElement) {
+            projectNameElement.textContent = projectName;
+        }
+
+        alert("The sql file was created successfully!\n\nClose this pop up menu and click on the 'Export File' button to see the file");
     });
 }
 
 export async function uml_diagram(){
     // Function to generate UML diagram from user input
     function generateUMLDiagram() {
+        // Get the project name
+        var projectName = document.getElementById("database_project_name").value;
+
+        // Check if UML diagram for this project has already been created
+        if (isProjectCreated(projectName) && createdProjects[projectName].uml) {
+            alert("The uml diagram has already been created for this project");
+            return;
+        }
+
         // Initialize the UML diagram string
         let umlDiagram = '';
 
@@ -226,16 +298,26 @@ export async function uml_diagram(){
         // Construct the complete SVG code for the UML diagram
         const svgCode = `<svg width="300" height="${20 + classContainers.length * 150}">${umlDiagram}</svg>`;
 
-        // Get the uml-diagram div and insert the SVG code
-        const umlDiagramDiv = document.getElementById("uml-diagram");
+        // Mark the UML diagram as created for this project
+        if (!createdProjects.hasOwnProperty(projectName)) {
+            createdProjects[projectName] = {};
+        }
+        createdProjects[projectName].uml = true;
+
+        // Update the UML diagram element
+        var umlDiagramDiv = document.getElementById(`uml-diagram_${Object.keys(createdProjects).length}`);
         if (umlDiagramDiv) {
+            // Insert SVG code
             umlDiagramDiv.innerHTML = svgCode;
         }
+
+        alert("The uml diagram was created successfully!");
     }
 
     // Call generateUMLDiagram function when the user clicks the "Create UML" button
     document.getElementById("create_uml_diagram").addEventListener("click", function() {
         generateUMLDiagram();
+        disableModalBody();
     });
 }
 
@@ -243,9 +325,35 @@ export async function projectName() {
     // Function to update the project name
     function updateProjectName() {
         const projectNameInput = document.getElementById("database_project_name");
-         // Default to "Project Name" if input is empty
+        // Default to "Project Name" if input is empty
         const projectName = projectNameInput ? projectNameInput.value : "Project Name";
-        const projectNameElement = document.getElementById("project_name");
+
+        // Check if the project name already exists
+        const projectElements = document.querySelectorAll("[id^='project_name_']");
+        let isProjectExists = false;
+        projectElements.forEach(projectElement => {
+            if (projectElement.textContent.trim() === projectName.trim()) {
+                isProjectExists = true;
+            }
+        });
+
+        // If the project already exists, call disableModalBody()
+        if (isProjectExists) {
+            disableModalBody();
+        }
+        else
+        {
+            enableModalBody();
+        }
+
+        // Find the next available project name element
+        let projectIndex = 1;
+        while (document.getElementById(`project_name_${projectIndex}`)) {
+            projectIndex++;
+        }
+
+        // Set the project name
+        const projectNameElement = document.getElementById(`project_name_${projectIndex}`);
         if (projectNameElement) {
             projectNameElement.textContent = projectName;
         }
