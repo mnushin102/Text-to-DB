@@ -34,7 +34,7 @@
 						<img src="../img/profile_picture.jpg" id="user_profile_picture" class="img-fluid w-25 h-auto float-end rounded-circle" data-bs-toggle="dropdown" alt="Profile Picture">
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 							<a class="dropdown-item" href="usersettings.html">Account Settings Page</a>
-							<a class="dropdown-item" href="login.html" id="logout">Logout</a>
+							<a class="dropdown-item" id="logout">Logout</a>
 						</div>
 					</div>
 				</div>
@@ -134,5 +134,13 @@
 	}
 	</script>
 
+    <!--Listens to when logout button is pressed, maybe more flexible-->
+	<script type="module">
+		import { logout } from "../js/loginAccount.js";
+		document.getElementById("logout").addEventListener("click", function() {
+			// Calls the logout function
+			logout();
+		});	
+	</script>
 </body>
 </html>

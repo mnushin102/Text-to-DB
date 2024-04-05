@@ -1,4 +1,5 @@
 import { display_collaborators } from "./usersettings-functions.js";
+import { logout } from "./loginAccount.js"
 
 export function sidebar_selector(){
     document.querySelectorAll('.sidebar-item').forEach(item => {
@@ -17,7 +18,8 @@ export function sidebar_selector(){
                 const confirm_logout = window.confirm("Are you sure you want to log out?")
                 if (confirm_logout){
                     // Redirect to the login.html page
-                    window.location.href = 'login.html';
+                    //window.location.href = 'login.html';
+                    logout();
                     return; // Exit the function to prevent further execution
                 }
             }
