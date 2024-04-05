@@ -27,11 +27,14 @@ export function create_account() {
             });
             if (resp.ok){
                 // User is found and now retrieving the user's data
-                console.log("HERE")
                 responseData = await resp.json();
-                console.log(responseData)
-                console.log(responseData.includes(userInfo.email))
-                userFound = true;
+                var existing_emails = []
+                for (var i = 0; i < responseData.length; i++) {
+                    existing_emails.push(responseData[i].email)
+                };
+                if(existing_emails.includes(userInfo.email)){
+                    userFound = true;
+                }
             };
 
             // If email already in use, will not create account
