@@ -145,6 +145,10 @@ export function add_database_class(){
         var database_classes_container = document.getElementById("database_classes_container");
         var new_database_container = document.createElement("div")
         new_database_container.classList.add("class-container")
+
+        // Adds padding to the top of each class container
+        new_database_container.style.paddingTop = "20px";
+
         // Creates a new field for class input
         var class_name_input = document.createElement("input");
         class_name_input.type = "text";
