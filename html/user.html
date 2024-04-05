@@ -228,9 +228,12 @@
 
 						<!-- Meraj: Set up an event handler for the user to choose an existing file to import from the user's computer -->
 						<form class="upload-form" method="post" enctype="multipart/form-data">
-							<label for="file_importing">File</label>
-							<input id="file_importing" name="file" type="file" accept=".sql, .txt" multiple />
-							<p id="output"></p> 
+
+							<div class="input-group mb3">
+								<label for="file_importing">File</label>
+								<input class="form-control" id="file_importing" name="file" onchange="" type="file" accept=".sql, .txt" multiple /> 
+								<div id="output"></div>
+							</div>
 						</form>
 					</div>
 				</div>

@@ -370,14 +370,14 @@ export async function projectName() {
 }
 
 export async function file_import(){
-    document.getElementById('file_importing').addEventListener('change', function(){
-        let file_read = new FileReader(); 
-        file_read.onload = () => {
-            document.getElementById('output').textContent = file_read.result; 
-        }
-        
-        file_read.readAsText(this.file[0]); 
+    const readMe = document.getElementById('file_importing').files[0];
+
+    const readFile = new FileReader(); 
+
+    readFile.addEventListener("loadened", function(){
+        document.getElementById("output").innerHTML = readFile.result; 
     }); 
+    readFile.readAsText(readMe); 
 }
 
 export async function file_export(){
