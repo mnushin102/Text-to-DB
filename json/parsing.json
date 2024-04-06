@@ -1,0 +1,26 @@
+{
+    "Employee": [
+        {
+            "emp_id": 3221, 
+            "first_name": "Joseph",
+            "last_name": "Davison",
+            "career": "IT technician" 
+        }, 
+
+        {
+            "_id": 8421, 
+            "first_name": "Mason",
+            "last_name": "Edwards", 
+            "career": "Software Engineer"   
+        }
+    ], 
+
+    "Customer":
+    {
+        "customer_id": 5231, 
+        "first_name": "Jason", 
+        "last_name": "Oliver",
+        "company": "Google", 
+        "career": "Computer Engineering"
+    }
+} 

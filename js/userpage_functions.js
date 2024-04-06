@@ -371,24 +371,27 @@ export async function projectName() {
 
 export async function file_import(){
 
-    const output = document.querySelector('.output'); 
-    const fileSelector = document.querySelector("#file_importing"); 
-    fileSelector.addEventListener("change", () => {
-
-    for (const file of fileSelector.files){
-        output.innerText += `\n${file.name}`; 
+    function parseJson(){
+        fetch("../json/user_info.json")
+        .then(response => response.json()) 
+        .then((object) => {
+            console.log(object.properties); 
+        })
     }
-    }); 
-
-
-
-
     /*
     const reader = new FileReader(); 
     reader.onload = (evt) => {
         file.innerHTML = evt.target.result; 
     }
     reader.readAsText(file); */
+
+    document.getElementById("import_button").addEventListener("click", function(container){
+        const fileInput = document.getElementById("file_input"); 
+        
+        if (fileInput === container.querySelector("input[accept=.json]")){
+            parseJson(); 
+        }
+    }); 
 }
 export async function file_export(){
     // Function to generate the SQL statements from entered data
