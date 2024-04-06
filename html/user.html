@@ -110,11 +110,13 @@
 			<p id="project_name_5">Project 5</p>
 			<div id="uml-diagram_5"></div>
 	</div>
+	<!--Dynamically displaying a user's projects-->
 	<div class="main2">
 		<div class="row">
 			<div id="database_project_display_container"></div>
 		</div>
 	</div>	
+
 	<div class="modal fade" id="createNewDatabaseModal" tabindex="-1" aria-labelledby="createNewDatabaseModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -230,9 +232,8 @@
 						<form class="upload-form" method="post" enctype="multipart/form-data">
 
 							<div class="input-group mb3">
-								<label for="file_importing">File</label>
-								<input class="form-control" id="file_importing" name="file" onchange="" type="file" accept=".sql, .txt" multiple /> 
-								<div id="output"></div>
+								<label for="file_importing">Import an SQL file</label>
+								<input class="form-control" id="file_importing" name="file" onchange="" type="file" accept=".sql, .txt .json" multiple />
 							</div>
 						</form>
 					</div>
@@ -242,11 +243,13 @@
 			<!-- Meraj: Once a user imported the file, a user can upload it to parse the document -->
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary">Upload</button>
+				<button id="import_button" type="submit" class="btn btn-primary">Upload</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+<pre class="output">Selected Files: </pre>
 
 <div class="modal fade" id="file_export" tabindex="-1" aria-labelledby="file_export_modal_label" aria-hidden="true">
 	<div class="modal-dialog">

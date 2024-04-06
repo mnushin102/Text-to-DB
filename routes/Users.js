@@ -97,7 +97,7 @@ const upload = multer(
     });
 
 // Retrieves all users in the database
-router.get('/', async (req,res) => {
+router.get('/', authenticateToken, async (req,res) => {
     try {
         // Gathers all the users, and if found, returns all users within the collection
         const users = await User.find();
@@ -169,6 +169,16 @@ router.post('/', async (req,res) => {
     }
     
 });
+
+// Returns list of database projects a user has
+router.get('/return_db_projects', authenticateToken, async (req,res) => {
+    try{
+        const user = await User.findOne({email:req.user.name})
+        res.json({database_projects:user.database_projects})
+    }catch (error){
+        res.status(ERROR_400).json({message: error.message})
+    }
+})
 
 // Updates a user's display name and/or password (email cannot be changed)
 router.patch('/user_display_name_password', authenticateToken, async(req,res) => {

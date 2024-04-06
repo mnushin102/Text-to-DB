@@ -42,15 +42,35 @@ export function login() {
             if (userFound){
                     // If User is correctly authenticated, user will be able to go to the user page
                     // Authentication is handled on the server side
-                    window.location.href = '../html/user.html';
+                    storing_database_projects()
+                    setTimeout(function(){
+                        window.location.href = '../html/user.html';
+                    }, 250);
             }
-                        
         } catch (error) {
-            console.error("FETCH not working", error)           
+            console.error("FETCH not working", error);
         }
     });
 }
 
 export function logout(){
     window.location.href = 'login.html';
+    localStorage.clear();
+}
+
+async function storing_database_projects(){
+    const accessToken = localStorage.getItem("accessToken")
+    try{
+        // Fetching the user using HTTPS request given email as a parameter
+        const resp = await fetch(`http://localhost:3000/Users/return_db_projects`, {
+            method:"GET",
+            headers:{
+                "Authorization": `Bearer ${accessToken}`
+            }
+        });
+        const responseData = await resp.json()
+        localStorage.setItem("database_projects",JSON.stringify(responseData.database_projects));
+        }catch(error){
+            console.error("Error Fetching Database Projects", error);
+        }
 }
