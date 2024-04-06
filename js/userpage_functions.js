@@ -370,16 +370,26 @@ export async function projectName() {
 }
 
 export async function file_import(){
-    const readMe = document.getElementById('file_importing').files[0];
 
-    const readFile = new FileReader(); 
+    const output = document.querySelector('.output'); 
+    const fileSelector = document.querySelector("#file_importing"); 
+    fileSelector.addEventListener("change", () => {
 
-    readFile.addEventListener("loadened", function(){
-        document.getElementById("output").innerHTML = readFile.result; 
+    for (const file of fileSelector.files){
+        output.innerText += `\n${file.name}`; 
+    }
     }); 
-    readFile.readAsText(readMe); 
-}
 
+
+
+
+    /*
+    const reader = new FileReader(); 
+    reader.onload = (evt) => {
+        file.innerHTML = evt.target.result; 
+    }
+    reader.readAsText(file); */
+}
 export async function file_export(){
     // Function to generate the SQL statements from entered data
     function generateSQL() {
