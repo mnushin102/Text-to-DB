@@ -43,7 +43,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/Users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYm9jY2hpQGJvY2NoaS5qcCIsImlhdCI6MTcwOTg0MjMzMH0.egdaa9JDeGkdkfSOy1dmNaoK8kkF8GppAKYJLRoX_tI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYm9jY2hpQGJvY2NoaS5qcCIsImlhdCI6MTcxMjM2OTcxOH0.OewoH5K2O4s8duO6V1bs0wckNicGwSweI9QB1WdNmjM
 
 
 ###
@@ -81,3 +81,7 @@ Content-Type: application/json
 {
     "database_id": "b65d592b-11f0-474b-9a75-2805a794619a"
 }
+
+###
+GET http://localhost:3000/Users/return_db_projects
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYm9jY2hpQGJvY2NoaS5qcCIsImlhdCI6MTcxMjM3MDI1NH0.pLJfH1XR99j92STzGkat3snEePLNGzggON0V4yanvUQ
