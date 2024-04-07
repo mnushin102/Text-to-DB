@@ -1,5 +1,5 @@
 {
-    "Employee": [
+    "employee": [
         {
             "emp_id": 3221, 
             "first_name": "Joseph",
@@ -15,7 +15,7 @@
         }
     ], 
 
-    "Customer":
+    "customer":
     {
         "customer_id": 5231, 
         "first_name": "Jason", 

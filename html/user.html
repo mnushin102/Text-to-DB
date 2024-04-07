@@ -243,13 +243,15 @@
 			<!-- Meraj: Once a user imported the file, a user can upload it to parse the document -->
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button id="import_button" type="submit" class="btn btn-primary">Upload</button>
+				<button id="file_import_button" type="submit" class="btn btn-primary">Upload</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-<pre class="output">Selected Files: </pre>
+<!-- The line in the div section will have the 
+	html table outputted filled in with the JSON attributes for the rows and columns -->
+<div id="output"> </div>
 
 <div class="modal fade" id="file_export" tabindex="-1" aria-labelledby="file_export_modal_label" aria-hidden="true">
 	<div class="modal-dialog">
