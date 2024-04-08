@@ -378,12 +378,133 @@ export async function projectName() {
 export async function file_import(){
     const readMe = document.getElementById('file_importing').files[0];
 
+<<<<<<< HEAD
     const readFile = new FileReader(); 
 
     readFile.addEventListener("loadened", function(){
         document.getElementById("output").innerHTML = readFile.result; 
     }); 
     readFile.readAsText(readMe); 
+=======
+    // Meraj: parseSQL function reads an imported SQL file 
+    // to be parsred before it gets posted to the browser 
+    function parseSQL(){
+
+        // Get the input of the file from html 
+        const fileInput = document.getElementById('sqlFileInput');
+        const file = fileInput.files[0];
+
+        // Use a file object to specify a file to be read 
+        const reader = new FileReader();
+
+        // Read the file to output the results of a table 
+        reader.onload = (event) => {
+            const sqlContent = event.target.result;
+            const lines = sqlContent.split('\n');
+    
+            // Define a database name, a table name, 
+            // and a table structure posted to the browser 
+            let dbName = '';
+            let tableName = '';
+            let tableStructure = '<table>';
+
+            let insideCreateTable = false;
+            let serialNumber = 1; // Counter for serial number
+
+            // Read every line of the SQL file in a for-loop 
+            for (let line of lines) {
+
+                // Retrieve the name of the database by spliting the '`' in the SQL file 
+                if (line.trim().startsWith('-- Database:')) {
+                    dbName = line.trim().split('`')[1];
+                }
+                
+                // Get the name of the table by spliting the '`' in the file 
+                if (line.trim().startsWith('-- Table structure for table')) {
+                    tableName = line.trim().split('`')[1];
+                    insideCreateTable = true;
+                }
+
+                // Inside the created table, make sure each column is aligned in the table. 
+                if (insideCreateTable) {
+
+                    // Mach each column in the table 
+                    const columnsMatch = line.trim().match(/`([^`]+)` ([^ ]+) (.+)/);
+
+                    // If the columns are aligned, 
+                    // then output the database name, 
+                    // a type of each row in the column, 
+                    // and the details of the third column to the structure of the table
+                    if (columnsMatch) {
+                        const columnName = columnsMatch[1];
+                        const columnType = columnsMatch[2];
+                        const columnDetails = columnsMatch[3];
+                        tableStructure += `<tr><td>${serialNumber}</td><td>${columnName}</td><td>${columnType}</td><td>${columnDetails}</td></tr>`;
+                        serialNumber++; // Increment serial number
+                    }
+                }
+
+                // If a string in the file ends with ';', make the reading line by line stop 
+                if (insideCreateTable && line.trim().endsWith(';')) {
+                    break;
+                }
+            }
+    
+            // Concatenate '<table>' to '</table> 
+            tableStructure += '</table>';
+    
+            // These three names that we need to post to the brower will be called 
+            if (dbName && tableName && tableStructure) {
+
+              // Display database name, table name, and table structure on the web 
+              document.getElementById('mainHeading').innerText = dbName;
+              document.getElementById('tableContainer').innerHTML = `<h3>Table structure for table: ${tableName}</h3>${tableStructure}`;
+            } 
+            
+            // Otherwise, produce an error where the browser could not find these three names 
+            else {
+              document.getElementById('tableContainer').innerHTML = 'Database name, table name, or table structure not found in the SQL file.';
+            }
+          };
+          
+          reader.readAsText(file)
+    }
+
+    // This function is called when the user imports a file ending in .sql
+    /*
+    function parseJson(){
+
+    }
+    */
+
+    /*
+    const reader = new FileReader(); 
+    reader.onload = (evt) => {
+        file.innerHTML = evt.target.result; 
+    }
+    reader.readAsText(file); */
+
+    document.getElementById("file_import_button").addEventListener("click", function(container){
+
+        // Get the type of a file 
+        var fileType = document.getElementById("#file_input").value; 
+
+        // Get the extension of a file 
+        var fileExt = fileType.substring(fileName.lastIndexOf('.') + 1); 
+        
+        // Test these conditions if the user chooses a different type of file below 
+        if (fileExt === container.querySelector("input[accept=.sql]")){
+            parseSQL(); 
+        }
+
+        // G
+        else {
+            if (fileExt === container.querySelector("input[accept=.json]")){
+                //parseJson()
+            }
+        }
+    }); 
+>>>>>>> de92d6a7e347bc2465b6dae508926c293b731b20
 }
 
 export async function file_export(){
