@@ -117,6 +117,7 @@
 		</div>
 	</div>	
 
+	<!--Pop up screen to create new database-->
 	<div class="modal fade" id="createNewDatabaseModal" tabindex="-1" aria-labelledby="createNewDatabaseModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -144,41 +145,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- Meraj: The pop-up menu will appear on the screen when a user clicks on the 'Delete Database' buttton -->
-	<div class="modal fade" id="delete_database" tabindex="-1" role="dialog" aria-labelledby="delete_database_modal_label" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="delete_database_modal_label">Delete Database</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="main2">
-							<div class="img" style="height: 200px;"></div>
-							<form class="form">
-								<div class="project">
-									<label for="existing_project">Choose one of the following projects to delete:</label>
-										<select id="existing_project">
-											<option value="P1"> Project 1</option>
-											<option value="P2">Project 2</option>
-											<option value="P3">Project 3</option>
-											<option value="P4">Project 4</option>
-											<option value="P5">Project 5</option>
-										</select>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Delete</button>
-				</div>
-			</div>
-		</div>
-	</div>
 		
 <!-- The pop-up menu will appear on the screen when a user clicks on the 'Delete Database' buttton -->
 <div class="modal fade" id="delete_database" tabindex="-1" role="dialog" aria-labelledby="delete_database_modal_label" aria-hidden="true">
@@ -190,26 +156,17 @@
 			</div>
 			<div class="modal-body">
 				<div class="row">
-					<div class="main2">
-						<div class="img" style="height: 200px;"></div>
-						<form class="form">
-							<div class="project">
-								<label for="existing_project">Choose one of the following projects to delete:</label>
-									<select id="existing_project">
-										<option value="P1">Project 1</option>
-										<option value="P2">Project 2</option>
-										<option value="P3">Project 3</option>
-										<option value="P4">Project 4</option>
-										<option value="P5">Project 5</option>
-									</select>
-							</div>
-						</form>
-					</div>
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="database_project_dropdown_button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							  Dropdown button
+							</button>
+							<div class="dropdown-menu" id="existing_project" aria-labelledby="dropdownMenuButton"></div>
+						  </div>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Delete</button>
+				<button type="button" id="delete_database_forever_button_id" class="btn btn-danger">Delete</button>
 			</div>
 		</div>
 	</div>
@@ -321,6 +278,12 @@
 			// Calls the logout function
 			logout();
 		});	
+	</script>
+
+	<!--Listens to when "Delete Database Button" is clicked-->
+	<script type="module">
+		import { delete_database_project }  from "../js/userpage_functions.js";
+		delete_database_project();
 	</script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

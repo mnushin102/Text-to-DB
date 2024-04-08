@@ -10,6 +10,7 @@ const val = "secretval"; // Will change later for more security
 const multer = require("multer"); // Used for profile picture uploads
 const sharp = require("sharp");
 const path = require("path");
+const { route } = require("./Database");
 
 // Statuses defined by https://expressjs.com/en/guide/error-handling.html
 const ERROR_400 = 400; // User inputs incorrect data
@@ -122,6 +123,7 @@ router.get('/user', authenticateToken, async (req,res) => {
     
 }); 
 
+// Uploads profile picture for a user that is currently logged in
 router.post('/uploadProfilePicture', authenticateToken, upload.single('profilePicture'), async (req, res) => {
     try {
         if (!req.file) {
@@ -197,7 +199,7 @@ router.patch('/user_display_name_password', authenticateToken, async(req,res) =>
     }
 });
 
-// Updates a user's display name and/or password (email cannot be changed)
+// Updates a user's database project list
 router.patch('/update_database_project_list', authenticateToken, async(req,res) => {
     const user = await User.findOne({ email: req.user.name });
     // Can only change user name and password
@@ -222,5 +224,19 @@ router.delete('/', authenticateToken, async(req,res) => {
         res.status(ERROR_500).json({message:err.message});
     }
 }); 
+
+// Updates user's database project list
+router.patch('/delete_database_by_id', authenticateToken, async(req,res) => {
+    try {
+        const deleted_db = await User.findOneAndUpdate(
+            {email:req.user.name},
+            { $pull: {database_projects: req.body.database_id}},
+            { new: true }
+        );
+
+    } catch (error) {
+        res.status(ERROR_400).json({message:error.message})
+    }
+});
 
 module.exports = router;

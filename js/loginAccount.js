@@ -53,12 +53,15 @@ export function login() {
     });
 }
 
+// Logs out and clears local storage so it doesn't interfere with next user
 export function logout(){
     window.location.href = 'login.html';
     localStorage.clear();
 }
 
-async function storing_database_projects(){
+// Funciton updates the browser's localStorage to have
+// a user's database project list readily available
+export async function storing_database_projects(){
     const accessToken = localStorage.getItem("accessToken")
     try{
         // Fetching the user using HTTPS request given email as a parameter

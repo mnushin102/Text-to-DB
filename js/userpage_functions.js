@@ -1,3 +1,5 @@
+// WIll update currently stored db projects when a new database is generated
+import { storing_database_projects } from "./loginAccount.js"
 // Define an array to store project names for which SQL files and UML diagrams have been created
 let createdProjects = [];
 
@@ -126,13 +128,17 @@ export async function generate_new_database(){
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newDatabase)
-        })
+        });
         // When successfully created, getting the response
         const responseData = await response.json();
         // Adding newly generated user database to the user
-        update_user_database_project_list(responseData.database_id)
+        update_user_database_project_list(responseData.database_id);
+
+        // Updates stored projects in the browser's local storage
+        storing_database_projects();
+        alert("Database Created")
         } catch (error) {
-            console.error("Database could not be created:", error)
+            console.error("Database could not be created:", error);
         }
     })
 }
@@ -370,26 +376,16 @@ export async function projectName() {
 }
 
 export async function file_import(){
+    const readMe = document.getElementById('file_importing').files[0];
 
-    const output = document.querySelector('.output'); 
-    const fileSelector = document.querySelector("#file_importing"); 
-    fileSelector.addEventListener("change", () => {
+    const readFile = new FileReader(); 
 
-    for (const file of fileSelector.files){
-        output.innerText += `\n${file.name}`; 
-    }
+    readFile.addEventListener("loadened", function(){
+        document.getElementById("output").innerHTML = readFile.result; 
     }); 
-
-
-
-
-    /*
-    const reader = new FileReader(); 
-    reader.onload = (evt) => {
-        file.innerHTML = evt.target.result; 
-    }
-    reader.readAsText(file); */
+    readFile.readAsText(readMe); 
 }
+
 export async function file_export(){
     // Function to generate the SQL statements from entered data
     function generateSQL() {
@@ -456,4 +452,95 @@ export async function file_export(){
     // Add margin to separate the text from file names
     filesText.style.marginBottom = "5px";
     fileExportContainer.insertBefore(filesText, fileExportContainer.firstChild);
+}
+
+// Still needs work
+export async function display_database_projects(){
+
+}
+
+// Main delete function that updates the backend for
+// both Database and User collections
+async function delete_database_forever_button(db_to_delete){
+    try{
+    const deletion = await fetch(`http://localhost:3000/Databases/delete_database_by_id/${db_to_delete}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    
+    //Getting the current user's JWT to use for the GET request
+    const token = localStorage.getItem("accessToken");
+    const delete_db_from_user = await fetch('http://localhost:3000/Users/delete_database_by_id', {
+        method: "PATCH",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({database_id: db_to_delete})
+    });
+}catch(error){
+    console.error("Error:",error)
+}
+};
+// Function show's user's projects on dropdown menu, preparing to delete
+export async function delete_database_project(){
+    // Container that holds current databases
+    const existingProjectDropdown = document.getElementById("existing_project");
+    const dropdownButton = document.getElementById("database_project_dropdown_button");
+    const deleteButton = document.getElementById("delete_database_forever_button_id");
+    let db_to_delete;
+
+    // Event listener that is triggered when "Delete Database Button" is finally clicked
+    deleteButton.addEventListener("click", async function(event){
+            // Confirmation message before deletion
+            const confirmation = confirm("Are you sure you want to delete this database?");
+            if (confirmation) {
+                delete_database_forever_button(db_to_delete);
+                storing_database_projects();
+                alert("Database Successfully Deleted!")
+            }  
+    });
+    document.getElementById("delete_database").addEventListener("click", async function(event) {
+        storing_database_projects()
+        // Prevents form from being submitted when option clicked
+        event.preventDefault();
+        // Retrieving database project names to display to the user
+        const database_ids = {database_id : JSON.parse(localStorage.getItem("database_projects"))}
+        try{
+        // Making POST request to retrieve database projects pertaining to a user that is currently logged in
+        const response = await fetch("http://localhost:3000/Databases/retrieve_all_user_databases", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(database_ids)
+        });
+        // Returns a JSON object with database information
+        const responseData = await response.json();
+
+        // Clears existing database names to be updated now
+        existingProjectDropdown.innerHTML = "";
+
+        // Populate dropdown with database names
+        responseData.database_projects.forEach(database => {
+            const dropdownItem = document.createElement("a");
+            dropdownItem.classList.add("dropdown-item");
+            dropdownItem.href = "#"; // Add the appropriate href attribute
+            dropdownItem.textContent = database[0].database_name; // Set text to database name
+            dropdownItem.addEventListener("click", function() {
+                // Handle click event for the dropdown item (if needed)
+                dropdownButton.textContent = database[0].database_name;
+
+                //Actually will delete based on option
+                db_to_delete = database[0].database_id;
+            });
+            existingProjectDropdown.appendChild(dropdownItem);
+        });
+
+    }catch(error){
+        console.error("Error deleteing a database",error);
+    }
+    });
 }

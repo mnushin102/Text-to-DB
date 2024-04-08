@@ -56,6 +56,19 @@ router.post('/', async (req,res) => {
     } 
 });
 
+// Retrieves all database projects pertaining to a user
+router.post('/retrieve_all_user_databases', async (req,res) => {
+    try {
+        var database_projects = []
+        for (var i=0; i < req.body.database_id.length; i++){
+            database_projects.push(await Database.find({database_id: req.body.database_id[i]}))
+        };
+        res.json({database_projects: database_projects})
+    } catch (error) {
+        console.log(error)
+        res.status(ERROR_400).json({err:error.message});
+    }
+});
 // Updates an existing database project
 router.patch('/', async(req,res) => {
     // Changes database name if provided
@@ -79,9 +92,9 @@ router.patch('/', async(req,res) => {
 });
 
 // Deletes an existing database project
-router.delete('/', async(req,res) => {
+router.delete(`/delete_database_by_id/:db_to_delete`, async(req,res) => {
     try {
-        await Database.findOneAndDelete({ database_id: req.body.database_id });
+        const deleted_db = await Database.findOneAndDelete({ database_id: req.params.db_to_delete });
         res.json({ message: "Database Project deleted" });
     } catch (err) {
         res.status(ERROR_500).json({message:err.message});
