@@ -376,16 +376,7 @@ export async function projectName() {
 }
 
 export async function file_import(){
-    const readMe = document.getElementById('file_importing').files[0];
 
-<<<<<<< HEAD
-    const readFile = new FileReader(); 
-
-    readFile.addEventListener("loadened", function(){
-        document.getElementById("output").innerHTML = readFile.result; 
-    }); 
-    readFile.readAsText(readMe); 
-=======
     // Meraj: parseSQL function reads an imported SQL file 
     // to be parsred before it gets posted to the browser 
     function parseSQL(){
@@ -504,7 +495,6 @@ export async function file_import(){
             }
         }
     }); 
->>>>>>> de92d6a7e347bc2465b6dae508926c293b731b20
 }
 
 export async function file_export(){
