@@ -200,6 +200,39 @@ export function add_database_class(){
 }
 
 export async function sql_file(){
+    // Function to generate the SQL statements from entered data
+    function generateSQL() {
+        var sqlContent = "";
+        var classContainers = document.querySelectorAll(".class-container");
+        classContainers.forEach(function(container) {
+            var className = container.querySelector("input[type='text'][placeholder='Class Name']").value;
+            sqlContent += "CREATE TABLE " + className + " (\n";
+            var attributeInputs = container.querySelectorAll("input[type='text'][placeholder='Attribute Name']");
+            attributeInputs.forEach(function(attributeInput, index) {
+                var attributeName = attributeInput.value;
+                var attributeTypeInput = container.querySelectorAll("input[type='text'][placeholder='Type']")[index];
+                var attributeType = attributeTypeInput.value;
+
+                // Convert attribute type to lowercase
+                attributeType = attributeType.toLowerCase();
+
+                // Convert "String" to "VARCHAR"
+                if (attributeType === "string") {
+                    attributeType = "varchar(255)";
+                }
+
+                sqlContent += "\t" + attributeName + " " + attributeType;
+                if (index < attributeInputs.length - 1) {
+                    sqlContent += ",\n";
+                } else {
+                sqlContent += "\n";
+                }
+            });
+            sqlContent += ");\n\n";
+        });
+        return sqlContent;
+    }
+    
     document.getElementById("create_sql_file").addEventListener("click", function() {
         // Get the project name
         var projectName = document.getElementById("database_project_name").value;
@@ -210,33 +243,28 @@ export async function sql_file(){
             return;
         }
 
-        // Disable all input elements and buttons within the body modal
-        disableModalBody();
+        // Generate SQL content
+        var sqlContent = generateSQL();
 
-        // Create a new element to display the file name
+        // Store SQL content for the project
+        if (!createdProjects.hasOwnProperty(projectName)) {
+            createdProjects[projectName] = {};
+        }
+        createdProjects[projectName].sqlContent = sqlContent;
+        createdProjects[projectName].sql = true;
+
+        // Update UI
         var fileNameElement = document.createElement("div");
         fileNameElement.textContent = projectName + ".sql";
-
-        // Center the file name
         fileNameElement.style.textAlign = "center";
-
-        // Add rectangle styling to the created files
         fileNameElement.style.border = "1px solid black";
         fileNameElement.style.padding = "5px";
         fileNameElement.style.margin = "5px 0";
         fileNameElement.style.backgroundColor = "white";
 
-        // Append the file name to the export file pop-up menu
         var fileExportContainer = document.getElementById("file_export_container");
         fileExportContainer.appendChild(fileNameElement);
 
-        // Mark the SQL file as created for this project
-        if (!createdProjects.hasOwnProperty(projectName)) {
-            createdProjects[projectName] = {};
-        }
-        createdProjects[projectName].sql = true;
-
-        // Update the project name element
         var projectNameElement = document.getElementById(`project_name_${Object.keys(createdProjects).length}`);
         if (projectNameElement) {
             projectNameElement.textContent = projectName;
@@ -327,7 +355,6 @@ export async function uml_diagram(){
     // Call generateUMLDiagram function when the user clicks the "Create UML" button
     document.getElementById("create_uml_diagram").addEventListener("click", function() {
         generateUMLDiagram();
-        disableModalBody();
     });
 }
 
@@ -498,52 +525,24 @@ export async function file_import(){
 }
 
 export async function file_export(){
-    // Function to generate the SQL statements from entered data
-    function generateSQL() {
-        var sqlContent = "";
-        var classContainers = document.querySelectorAll(".class-container");
-        classContainers.forEach(function(container) {
-            var className = container.querySelector("input[type='text'][placeholder='Class Name']").value;
-            sqlContent += "CREATE TABLE " + className + " (\n";
-            var attributeInputs = container.querySelectorAll("input[type='text'][placeholder='Attribute Name']");
-            attributeInputs.forEach(function(attributeInput, index) {
-                var attributeName = attributeInput.value;
-                var attributeTypeInput = container.querySelectorAll("input[type='text'][placeholder='Type']")[index];
-                var attributeType = attributeTypeInput.value;
-            
-                // Convert attribute type to lowercase
-                attributeType = attributeType.toLowerCase();
-
-                // Convert "String" to "VARCHAR"
-                if (attributeType === "string") {
-                    attributeType = "varchar(255)";
-                }
-            
-                sqlContent += "\t" + attributeName + " " + attributeType;
-                if (index < attributeInputs.length - 1) {
-                    sqlContent += ",\n";
-                } else {
-                    sqlContent += "\n";
-                }
-            });
-            sqlContent += ");\n\n";
-        });
-        return sqlContent;
-    }
-    
     // Function to download all SQL files and display their names
     document.getElementById("file_export_button").addEventListener("click", function() {
-        // Get all file names
         var fileNames = [];
         var fileNameElements = document.querySelectorAll("#file_export_container > div:not(:first-child)");
         fileNameElements.forEach(function(element) {
             fileNames.push(element.textContent);
         });
 
-        // Download each file
         fileNames.forEach(function(fileName) {
-            var blob = new Blob([generateSQL()], { type: 'text/plain' });
+            // Retrieve SQL content for the file
+            var projectName = fileName.split(".")[0];
+            var sqlContent = createdProjects[projectName].sqlContent;
+
+            // Create Blob for the SQL content
+            var blob = new Blob([sqlContent], { type: 'text/plain' });
             var url = URL.createObjectURL(blob);
+
+            // Create anchor element to trigger download
             var a = document.createElement('a');
             a.href = url;
             a.download = fileName;
