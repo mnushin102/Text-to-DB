@@ -235,13 +235,17 @@
 	</div>
 </div>
 
- 	<!--Creates a new database-->
+ 	<!--Creates a new database
+    <script src="../js/generate_database.js"></script>
+	<script>generate_new_database</script>-->
+
+	<!--Creates a new database-->
     <script type="module">
-        import { generate_new_database } from "../js/userpage_functions.js";
+        import { generate_new_database } from "../js/generate_database.js";
         generate_new_database()
     </script>
 
-	<!--Creates a new database-->
+	<!--Creates a Database Modal Div-->
     <script type="module">
         import { add_database_class } from "../js/userpage_functions.js";
         add_database_class()
