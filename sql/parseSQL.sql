@@ -1,5 +1,5 @@
 
-  
+-- Meraj: This Data Definition Language (DDL) is a type of SQL that will be used to parse this document to convert to a table in the browser 
 --
 -- Database: `Customer Data`
 --

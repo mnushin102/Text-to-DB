@@ -66,14 +66,99 @@
                 	});
             	});
         });
-    	</script>
+    </script>
+
+	<!-- Meraj: this function is called using the onclick method to parse a document -->
+	<script>
+		function parseSQL() {
+
+			// Get the input of the file from html 
+			const fileInput = document.getElementById('input');
+			const file = fileInput.files[0];
+
+			// Use a file object to specify a file to be read 
+			const reader = new FileReader();
+	
+			// Read the file to output the results of a table 
+			reader.onload = function (event) {
+
+ 
+				const sqlContent = event.target.result;
+				const lines = sqlContent.split('\n');
+	
+				// Define a database name, a table name, 
+            	// and a table structure posted to the browser 
+				let dbName = '';
+				let tableName = '';
+				let tableStructure = '<table>';
+				let insideCreateTable = false;
+				let serialNo = 1; // Counter for serial number
+	
+				// Read every line of the SQL file in a for-loop 
+				for (let line of lines) {
+
+					// Retrieve the name of the database by spliting the '`' in the SQL file 
+					if (line.trim().startsWith('-- Database:')) {
+						dbName = line.trim().split('`')[1];
+					}
+
+					// Get the name of the table by spliting the '`' in the file 
+					if (line.trim().startsWith('-- Table structure for table')) {
+						tableName = line.trim().split('`')[1];
+						insideCreateTable = true;
+					}
+
+					// Inside the created table, make sure each column is aligned in the table.
+					if (insideCreateTable) {
+
+						// Mach each column in the table 
+						const columnsMatch = line.trim().match(/`([^`]+)` ([^ ]+) (.+)/);
+						if (columnsMatch) {
+
+							// If the columns are aligned, 
+                 			// then output the database name, 
+                    		// a type of each row in the column, 
+                    		// and the details of the third column to the structure of the table
+							const columnName = columnsMatch[1];
+							const columnType = columnsMatch[2];
+							const columnDetails = columnsMatch[3];
+							tableStructure += `<tr><td>${serialNo}</td><td>${columnName}</td><td>${columnType}</td><td>${columnDetails}</td></tr>`;
+							serialNo++; // Increment serial number
+						}
+					}
+
+					// If a string in the file ends with ';', make the reading line by line stop 
+					if (insideCreateTable && line.trim().endsWith(';')) {
+						break;
+					}
+				}
+
+				// Concatenate '<table>' to '</table> 
+				tableStructure += '</table>';
+
+				// These three names that we need to post to the brower will be called 
+				if (dbName && tableName && tableStructure) {
+					// Display database name, table name, and table structure
+					document.getElementById('mainHeading').innerText = dbName;
+					document.getElementById('tableContainer').innerHTML = `<h3>Table structure for table: ${tableName}</h3>${tableStructure}`;
+
+					
+				} else {
+					// Otherwise, produce an error where the browser could not find these three names 
+					document.getElementById('tableContainer').innerHTML = 'Database name, table name, or table structure not found in the SQL file.';
+				}
+			};
+	
+			reader.readAsText(file);
+		}
+	</script>
 
 	<!-- Zoe White, the navbar allows users to click buttons that have different functions-->
 	<div class="navbar">
 		<a><button type="button" class="btn btn-primary create-btn" data-bs-toggle="modal" data-bs-target="#createNewDatabaseModal">Create New Database</button></a>
 		<a><button type="button" class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#delete_database" onclick="delete_database">Delete Database</button></a>
 		<a><button class="btn btn-warning edit-btn" onclick="edit_database">Edit Database</button></a>
-		<a><button type="button" class="btn btn-success import-btn" data-bs-toggle="modal" data-bs-target="#file_import" onclick="file_import">Import File</button></a>
+		<a><button type="button" class="btn btn-success import-btn" data-bs-toggle="modal" data-bs-target="#file_import">Import File</button></a>
 		<a><button type="button" class="btn btn-info export-btn" data-bs-toggle="modal" data-bs-target="#file_export" onclick="export_file">Export File</button></a>
 		<a><button class="btn btn-secondary collaborate-btn" onclick="collaborate">Collaborate</button></a>
 	</div>
@@ -116,6 +201,18 @@
 			<div id="database_project_display_container"></div>
 		</div>
 	</div>	
+<!-- 
+	<script>
+		const proj2 = document.querySelector("project_name_4");
+		
+		fetch("../json/parsingJson.json")
+			.then(res => res.json())
+			.then(data => {
+				data.forEach(post => {
+					proj2.insertAdjacentHTML("beforeend", `${post.data}`)
+				}); 
+			})
+	</script> --> 
 
 	<!--Pop up screen to create new database-->
 	<div class="modal fade" id="createNewDatabaseModal" tabindex="-1" aria-labelledby="createNewDatabaseModalLabel" aria-hidden="true">
@@ -173,7 +270,7 @@
 </div>
 
 <!-- Meraj: A user will click on the Import File button on the user page that takes them to where they want to import an existing SQL file-->
-<div class="modal fade" id="file_import" tabindex="-1" role="dialog" aria-labelledby="file_import_modal_label" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="file_import_modal_label" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -189,7 +286,6 @@
 						<form class="upload-form" method="post" enctype="multipart/form-data">
 
 							<div class="input-group mb3">
-								<label for="file_importing">Import an SQL file</label>
 								<input class="form-control" id="file_input" name="file" onchange="" type="file" accept=".sql, .txt, .json" multiple />
 							</div>
 						</form>
@@ -206,11 +302,43 @@
 	</div>
 </div>
 
+<!-- Meraj: A user will import an existing file to parse so that an HTML table will be created on the user page -->
+<div class="modal fade" id="file_import" tabindex="-1" aria-labelledby="file_import_modal_label" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="file_import_modal_label">Import File</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="main2"> 
+					<div class="img" style="height: 200px;"></div>
+
+					<!-- Meraj: Allow a user to accept a file ending in .sql -->
+					<input type="file" id="input" accept=".sql">
+					
+					<!-- Meraj: Set up an event handler for the user to choose an existing file to import from the user's computer -->
+					<button onclick="parseSQL()">Upload File</button>
+				</div>
+			</div>
+		</div>
+	  </div>
+	</div>
+</div>
+
 <!-- The line in the div section will have the 
 	html table outputted filled in with the JSON attributes for the rows and columns -->
-<div id="output"> </div>
+<!-- <div id="output"> </div> --> 
 
-<div class="modal fade" id="file_export" tabindex="-1" aria-labelledby="file_export_modal_label" aria-hidden="true">
+<!-- Display the name of the database with a table created in the user page -->
+<div class="container">
+	<h1 id="mainHeading"></h1>
+
+	<div id="tableContainer"></div>
+</div>
+
+<div class="modal fade" id="file_export" tabindex="-1" aria-labelledby="file_export_modal_label " aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">

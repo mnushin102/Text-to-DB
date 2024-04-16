@@ -300,14 +300,12 @@ export async function projectName() {
     });
 }
 
-export async function file_import(){
+export function parseSQL(){
 
     // Meraj: parseSQL function reads an imported SQL file 
     // to be parsred before it gets posted to the browser 
-    function parseSQL(){
-
         // Get the input of the file from html 
-        const fileInput = document.getElementById('sqlFileInput');
+        const fileInput = document.getElementById('file_input');
         const file = fileInput.files[0];
 
         // Use a file object to specify a file to be read 
@@ -383,15 +381,14 @@ export async function file_import(){
             }
           };
           
-          reader.readAsText(file)
+          reader.readAsText(file); 
     }
 
     // This function is called when the user imports a file ending in .sql
-    /*
-    function parseJson(){
-
+    /*function parseJson(){
     }
-    */
+    */ 
+    
 
     /*
     const reader = new FileReader(); 
@@ -399,7 +396,7 @@ export async function file_import(){
         file.innerHTML = evt.target.result; 
     }
     reader.readAsText(file); */
-
+    /*
     document.getElementById("file_import_button").addEventListener("click", function(container){
 
         // Get the type of a file 
@@ -416,7 +413,7 @@ export async function file_import(){
         // G
         else {
             if (fileExt === container.querySelector("input[accept=.json]")){
-                //parseJson()
+                parseJson()
             }
         }
     }); 
