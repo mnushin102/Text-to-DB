@@ -58,6 +58,24 @@ export function add_database_class(){
         class_name_input.type = "text";
         class_name_input.classList.add("form-control", "mb-2");
         class_name_input.placeholder = "Class Name";
+
+        // Dropdown menu for selecting related classes
+        var related_classes_select = document.createElement("select");
+        related_classes_select.classList.add("form-control", "mb-2");
+        related_classes_select.innerHTML = '<option value="">Select Related Class</option>';
+
+        // Dynamically add options for related classes
+        var classContainers = document.querySelectorAll(".class-container");
+        classContainers.forEach(container => {
+            var classNameInput = container.querySelector("input[type='text'][placeholder='Class Name']");
+            if (classNameInput) {
+                var option = document.createElement("option");
+                option.value = classNameInput.value;
+                option.textContent = classNameInput.value;
+                related_classes_select.appendChild(option);
+            }
+        });
+
         // Dynamically adds attributes
         var add_attribute_button = document.createElement("button");
         add_attribute_button.textContent = "Add Attribute";
@@ -71,8 +89,10 @@ export function add_database_class(){
         remove_class_button.classList.add("btn", "btn-danger"); // Add Bootstrap classes for styling
         remove_class_button.addEventListener("click", function() {
             new_database_container.remove(); // Remove the entire class container
-        })
+        });
+
         new_database_container.appendChild(class_name_input);
+        new_database_container.appendChild(related_classes_select);
         new_database_container.appendChild(add_attribute_button);
         new_database_container.appendChild(remove_class_button);
 
@@ -177,76 +197,118 @@ export async function uml_diagram(){
     function generateUMLDiagram() {
         // Get the project name
         var projectName = document.getElementById("database_project_name").value;
-
+    
         // Check if UML diagram for this project has already been created
         if (isProjectCreated(projectName) && createdProjects[projectName].uml) {
             alert("The uml diagram has already been created for this project");
             return;
         }
-
+    
         // Initialize the UML diagram string
         let umlDiagram = '';
-
+    
         // Get all class containers
         const classContainers = document.querySelectorAll(".class-container");
+    
+        // Store the relationships between classes
+        const relationships = new Map();
     
         // Loop through each class container
         classContainers.forEach((container, index) => {
             const classNameInput = container.querySelector("input[type='text'][placeholder='Class Name']");
             const className = classNameInput ? classNameInput.value : `Class${index + 1}`;
-
+    
+            // Store the class name and its related class name (if any)
+            const relatedClassSelect = container.querySelector("select");
+            const relatedClassName = relatedClassSelect ? relatedClassSelect.value : '';
+            relationships.set(className, relatedClassName);
+    
+            // Calculate the x-coordinate for class rectangle and attributes
+            const classRectX = 10 + Math.floor(index / 2) * 300; // Adjusted to organize horizontally with space for two classes
+            const attrRectX = classRectX; // Attributes aligned with class rectangle
+    
             // Calculate the y-coordinate for class rectangle and attributes
-            const classRectY = 10 + index * 150;
-            const attrRectY = 40 + index * 150;
-
+            const classRectY = 10 + (index % 2) * 250; // Alternating between two vertical positions
+            const attrRectY = classRectY + 30; // Attributes below class rectangle
+    
             // Construct SVG elements for class rectangle and text
             umlDiagram += `
                 <!-- Draw rectangle for class -->
-                <rect x="10" y="${classRectY}" width="150" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+                <rect x="${classRectX}" y="${classRectY}" width="150" height="30" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
                 <!-- Class name -->
-                <text x="85" y="${classRectY + 22}" font-family="Arial" font-size="14" text-anchor="middle" alignment-baseline="middle">${className}</text>
+                <text x="${classRectX + 75}" y="${classRectY + 22}" font-family="Arial" font-size="14" text-anchor="middle" alignment-baseline="middle">${className}</text>
             `;
-        
+    
             // Get all attribute inputs within the current class container
             const attributeInputs = container.querySelectorAll("input[type='text'][placeholder='Attribute Name']");
-
+    
             // Draw the rectangle for attributes
             umlDiagram += `
-                <rect x="10" y="${attrRectY}" width="150" height="${20 + attributeInputs.length * 25}" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+                <rect x="${attrRectX}" y="${attrRectY}" width="150" height="${20 + attributeInputs.length * 25}" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
             `;
-
+    
             // Loop through each attribute input
             attributeInputs.forEach((attributeInput, attrIndex) => {
                 const attributeName = attributeInput.value.trim(); // Trim any leading/trailing whitespace
                 if (attributeName !== '') {
                     const attributeTypeInput = container.querySelectorAll("input[type='text'][placeholder='Type']")[attrIndex];
                     const attributeType = attributeTypeInput ? attributeTypeInput.value.trim() : '';
-
+    
                     // Construct SVG elements for attribute text
                     umlDiagram += `
                         <!-- Attribute ${attrIndex + 1} -->
-                        <text x="20" y="${attrRectY + 20 + attrIndex * 25}" font-family="Arial" font-size="12" alignment-baseline="middle">+ ${attributeName} : ${attributeType}</text>
+                        <text x="${attrRectX + 20}" y="${attrRectY + 20 + attrIndex * 25}" font-family="Arial" font-size="12" alignment-baseline="middle">+ ${attributeName} : ${attributeType}</text>
                     `;
                 }
             });
         });
+    
+        // Draw association lines between related classes
+        relationships.forEach((relatedClassName, className) => {
+            if (relatedClassName !== '') {
+                const relatedClassIndex = Array.from(relationships.keys()).indexOf(relatedClassName);
+                const classIndex = Array.from(relationships.keys()).indexOf(className);
 
+                if (relatedClassIndex !== -1 && classIndex !== -1) {
+                    // Calculate start and end points
+                    const startX = 10 + Math.floor(classIndex / 2) * 300 + 75; // Middle of the first class rectangle
+                    const startY = 10 + (classIndex % 2) * 250; // Top middle of the first class rectangle
+                    const endX = 10 + Math.floor(relatedClassIndex / 2) * 300 + 75; // Middle of the second class rectangle
+            
+                    // Calculate the number of attributes for the first class
+                    const firstClassAttributes = classContainers[classIndex].querySelectorAll("input[type='text'][placeholder='Attribute Name']");
+                    const endY = 10 + (relatedClassIndex % 2) * 250 + 30 + 20 + firstClassAttributes.length * 25; // Bottom middle of the second class rectangle
+
+                    // Draw association line with vertical and horizontal segments
+                    umlDiagram += `
+                        <line x1="${startX}" y1="${startY}" x2="${startX}" y2="${startY - 10}" stroke="#000000" stroke-width="1"/>
+                        <line x1="${startX}" y1="${startY - 10}" x2="${endX}" y2="${startY - 10}" stroke="#000000" stroke-width="1"/>
+                        <line x1="${endX}" y1="${startY - 10}" x2="${endX}" y2="${endY}" stroke="#000000" stroke-width="1"/>
+                    `;
+                }
+            }
+        });
+    
         // Construct the complete SVG code for the UML diagram
-        const svgCode = `<svg width="300" height="${20 + classContainers.length * 150}">${umlDiagram}</svg>`;
-
+        const svgCode = `
+            <svg width="${10 + Math.ceil(classContainers.length / 2) * 300}" height="${20 + 250 * (classContainers.length % 2 === 0 ? classContainers.length / 2 : Math.ceil(classContainers.length / 2))}">
+                ${umlDiagram}
+            </svg>
+        `;
+    
         // Mark the UML diagram as created for this project
         if (!createdProjects.hasOwnProperty(projectName)) {
             createdProjects[projectName] = {};
         }
         createdProjects[projectName].uml = true;
-
+    
         // Update the UML diagram element
         var umlDiagramDiv = document.getElementById(`uml-diagram_${Object.keys(createdProjects).length}`);
         if (umlDiagramDiv) {
             // Insert SVG code
             umlDiagramDiv.innerHTML = svgCode;
         }
-
+    
         alert("The uml diagram was created successfully!");
     }
 
