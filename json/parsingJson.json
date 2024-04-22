@@ -12,15 +12,27 @@
             "first_name": "Mason",
             "last_name": "Edwards", 
             "career": "Software Engineer"   
-        }
-    ], 
+        }, 
 
-    "customer":
-    {
-        "customer_id": 5231, 
-        "first_name": "Jason", 
-        "last_name": "Oliver",
-        "company": "Google", 
-        "career": "Computer Engineering"
-    }
+        {
+            "emp_id": 5232, 
+            "first_name": "Jeff",
+            "last_name": "Larson", 
+            "career": "Computer Engineer" 
+        }, 
+
+        {
+            "emp_id": 9764, 
+            "first_name": "Kelsey",
+            "last_name": "Lee", 
+            "career": "Software Engineer" 
+        }, 
+
+        {
+            "emp_id": 8574, 
+            "first_name": "George",
+            "last_name": "Rodriguez", 
+            "career": "Software Engineer" 
+        }
+    ] 
 } 

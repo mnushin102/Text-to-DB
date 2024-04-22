@@ -151,6 +151,58 @@
 	
 			reader.readAsText(file);
 		}
+
+		function parseJSON(){
+			
+			const fileInput = document.getElementById("input"); 
+			const file = fileInput.files[0]; 
+
+
+			const reader = new FileReader; 
+
+			reader.onload() = (event) => {
+
+				const jsonContent = even.target.result; 
+				const lines = jsonContent.split("\n"); 
+				
+				let tableStructure = "<table>";
+				let insideCreateTable = true; 
+				let counter = 1; 
+
+				for (let line of lines){
+
+					if (insideCreateTable){
+
+						const columnsMatch = line.trim().match(/`([^`]+)` ([^ ]+) (.+)/);
+
+						if (columnsMatch){
+
+							const columnName = columnsMatch[1];
+							counter++; 
+						}
+					}
+					
+				}
+			}
+		}
+
+		// Checks which type of file has been imported to the browser
+		function checkFileExtension(){
+
+			// Get the type of the file that has been imported  
+			let fileType = document.querySelector("#input").value; 
+
+			// Split the path of the fileType to get the extension of the file 
+			let extension = fileType.split(".").pop();
+
+			if (extension === "sql"){
+				parseSQL(); 
+			}
+
+			else if (extension === "json"){
+				parseJSON(); 
+			}
+		}
 	</script>
 
 	<!-- Zoe White, the navbar allows users to click buttons that have different functions-->
@@ -242,6 +294,42 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	<!-- Meraj: The pop-up menu will appear on the screen when a user clicks on the 'Delete Database' buttton 
+	<div class="modal fade" id="delete_database" tabindex="-1" role="dialog" aria-labelledby="delete_database_modal_label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="delete_database_modal_label">Delete Database</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="main2">
+							<div class="img" style="height: 200px;"></div>
+							<form class="form">
+								<div class="project">
+									<label for="existing_project">Choose one of the following projects to delete:</label>
+										<select id="existing_project">
+											<option value="P1"> Project 1</option>
+											<option value="P2">Project 2</option>
+											<option value="P3">Project 3</option>
+											<option value="P4">Project 4</option>
+											<option value="P5">Project 5</option>
+										</select>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div> -->
 		
 <!-- The pop-up menu will appear on the screen when a user clicks on the 'Delete Database' buttton -->
 <div class="modal fade" id="delete_database" tabindex="-1" role="dialog" aria-labelledby="delete_database_modal_label" aria-hidden="true">
@@ -315,11 +403,11 @@
 				<div class="main2"> 
 					<div class="img" style="height: 200px;"></div>
 
-					<!-- Meraj: Allow a user to accept a file ending in .sql -->
-					<input type="file" id="input" accept=".sql">
+					<!-- Meraj: Allow a user to accept a file ending in .sql or .json -->
+					<input type="file" id="input" accept=".sql, .json">
 					
 					<!-- Meraj: Set up an event handler for the user to choose an existing file to import from the user's computer -->
-					<button onclick="parseSQL()">Upload File</button>
+					<button class="btn btn-success" onclick="checkFileExtension()">Upload File</button>
 				</div>
 			</div>
 		</div>
