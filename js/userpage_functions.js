@@ -479,7 +479,7 @@ export function parseSQL(){
             }
         }
     }); 
-}
+}*/
 
 export async function file_export(){
     // Function to download all SQL files and display their names
@@ -610,4 +610,4 @@ export async function delete_database_project(){
         console.error("Error deleteing a database",error);
     }
     });
-}*/
+}
