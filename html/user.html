@@ -70,6 +70,10 @@
 
 	<!-- Meraj: this function is called using the onclick method to parse a document -->
 	<script>
+
+		/*
+			The SQL document parses the contents in the file
+		*/
 		function parseSQL() {
 
 			// Get the input of the file from html 
@@ -165,7 +169,6 @@
 
 			reader.onload = (event) => {
 
-				
 				const jsonContent = event.target.result;
 
 				// Parse the contents of a JSON file 
@@ -182,7 +185,7 @@
 				// Begin creating a table by making columns in the table 
 				let tableStructure = "<table><th>emp_id</th><th>first_name</th><th>last_name</th><th>career</th>";
 
-				// Each unique value of each employee will be outputted corresonding to the columns of the table 
+				// Each unique value of each employee will be outputted to the corresonding columns of the table 
 				for (let i = 0; i < 5; i++){
 					tableStructure += 
 						`<tr><td>${employees[i]}</td><td>${first_names[i]}</td><td>${last_names[i]}</td><td>${careers[i]}</td></tr>`;
@@ -435,7 +438,7 @@
 							  Dropdown button
 							</button>
 							<div class="dropdown-menu" id="existing_project" aria-labelledby="dropdownMenuButton"></div>
-						  </div>
+						</div>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -493,7 +496,7 @@
 					<div class="img" style="height: 200px;"></div>
 
 					<!-- Meraj: Allow a user to accept a file ending in .sql or .json -->
-					<input type="file" id="input" accept=".sql, .json">
+					<input class="btn btn-primary" type="file" id="input" accept=".sql, .json">
 					
 					<!-- Meraj: Set up an event handler for the user to choose an existing file to import from the user's computer -->
 					<button class="btn btn-success" onclick="checkFileExtension()">Upload File</button>

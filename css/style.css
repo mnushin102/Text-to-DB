@@ -113,6 +113,7 @@
 	padding: 20px
    }
 
+   /* Meraj: Moves the text boxes for data attributes on the project page */ 
    .data_variable_1{
       padding:10px; 
    }
@@ -131,7 +132,7 @@
       padding: 20px;
    }
 
-   /*  */ 
+   /* Meraj: These are used for formatting a table on the user page  */ 
    .container {
       max-width: 800px;
       margin: 20px auto;
