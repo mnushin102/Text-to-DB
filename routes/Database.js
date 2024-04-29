@@ -5,6 +5,8 @@ const express = require("express");
 const router = express.Router();
 const Database = require("../models/Database");
 const generateSQLForClass = require("../js/create_database.js");
+const spelling_correction  = require("../js/spelling_correction")
+const convention_checker  = require("../js/convention-checking")
 
 // Statuses defined by https://expressjs.com/en/guide/error-handling.html
 const ERROR_400 = 400; // User inputs incorrect data
@@ -42,13 +44,38 @@ router.get('/generate-sql/:className', async (req, res) => {
 // Creates a new database project, using POST request
 router.post('/', async (req,res) => {
     try{
+        // Using a bunch of lists and dictionaries to spell and convention check everything in database elements
+        var revised_list = []
+        var modified_class = ""
+        var modified_attr = ""
+        var temp_dict = {}
+        var temp_list = []
+        var temp_attr_dict = {}
+        // Going through all of the classes and its attributes
+        for (let  i = 0; i < req.body.database_elements.length; i++){
+            modified_class = convention_checker(spelling_correction(req.body.database_elements[i].class_name), "class")
+            temp_dict["class_name"] = modified_class
+            for (let j = 0; j < req.body.database_elements[i].attribute_list.length; j++){
+                modified_attr = convention_checker(spelling_correction(req.body.database_elements[i].attribute_list[j].attribute), "attribute")
+                temp_attr_dict["attribute"] = modified_attr;
+                temp_attr_dict["type"] = req.body.database_elements[i].attribute_list[j].type
+                temp_list.push(temp_attr_dict)
+                temp_attr_dict = {}
+            }
+            temp_dict["attribute_list"] = temp_list
+            revised_list.push(temp_dict)
+            temp_list = []
+            temp_dict = {}
+        }
+        // Creating a database object that can easily be saved into MongoDB following the Database.js schema
         const database = new Database({
             database_name: req.body.database_name,
             database_owner: req.body.database_owner, // Ownership won't be transferrable
-            database_elements: req.body.database_elements,
+            database_elements: revised_list,
             database_class_relationships: req.body.database_class_relationships
         });
     
+        // Saving the database to MongoDB
         const newDatabase = await database.save();
         res.status(SUCCESS_201).json(newDatabase);
     } catch (err) {

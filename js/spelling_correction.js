@@ -2,7 +2,7 @@ const natural = require("natural");
 const fs = require("fs");
 
 // Load the word_frequency.txt file
-const dictionaryPath = "word_frequency.txt";
+const dictionaryPath = "js/word_frequency.txt";
 const dictionaryContent = fs.readFileSync(dictionaryPath, "utf-8");
 
 // Pre-process the dictionary content into a set for better and faster lookups
@@ -11,7 +11,7 @@ const dictionarySet = new Set(dictionaryContent.split("\n").map(line => line.spl
 // This is the function that will perform the spelling correction
 function spelling_correction(text) {
     // Tokenize the input text into words and punctuations
-    const tokens = text.match(/\b\w+\b|\s/g);
+    const tokens = text.toString().match(/\b\w+\b|\s/g);
 
     // Correct each word
     let correctedText = "";
