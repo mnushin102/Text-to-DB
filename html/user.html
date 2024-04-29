@@ -191,6 +191,35 @@
 						`<tr><td>${employees[i]}</td><td>${first_names[i]}</td><td>${last_names[i]}</td><td>${careers[i]}</td></tr>`;
 				}
 
+				// Get the keys from the first employee entry to determine table columns
+				const keys = Object.keys(object.employee);
+
+				// Generate CREATE TABLE statement dynamically
+				let sql = `CREATE TABLE employee (\n`;
+				keys.forEach(key => {
+					sql += `\t${key} VARCHAR(255),\n`;
+				});
+				sql = sql.slice(0, -2); // Remove the last comma
+				sql += `\n);\n\n`;
+
+				// Insert data into the table
+				for (let i = 0; i < object.employee.emp_id.length; i++) {
+					sql += `INSERT INTO employee (`;
+					keys.forEach(key => {
+						sql += `${key}, `;
+					});
+					sql = sql.slice(0, -2); // Remove the last comma
+					sql += `) VALUES (`;
+					keys.forEach(key => {
+						sql += `'${object.employee[key][i]}', `;
+					});
+					sql = sql.slice(0, -2); // Remove the last comma
+					sql += `);\n`;
+				}
+
+				// Create a Blob object with SQL content
+				const blob = new Blob([sql], { type: "text/plain" });
+
 				/*
 				const first_names = first_name_obj.forEach( (f_name) => {
 					array +=  f_name; 
