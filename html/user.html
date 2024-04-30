@@ -220,10 +220,27 @@
 				// Create a Blob object with SQL content
 				const blob = new Blob([sql], { type: "text/plain" });
 
-				// Daniel Moreno, just download the sql file that was created, follow the steps of downloading it in the file_export() function in userpage_functions.js file
+				// Getting the URL of the blob object so user can donwload it
+				const url = URL.createObjectURL(blob)
+
+				// Create anchor element to trigger download, similar to the sql file export in userpage_settings.js
+				var anchor= document.createElement('a');
+            	anchor.href = url;
+				// exporting the file with the same original name, however, now an sql file
+            	anchor.download = fileInput.files[0].name.split('.')[0]+".sql";
+            	document.body.appendChild(anchor);
+				// When user clicks on the download, the pop up disappears
+            	anchor.click();
+            	document.body.removeChild(anchor);
+            	window.URL.revokeObjectURL(url);
+
+				// Add text to the import file pop-up menu
+				var fileExportContainer = document.getElementById("file_import_export_container");
+    			var filesText = document.createElement("div");
+    			filesText.textContent = "Generated SQL File";
+    			filesText.style.textAlign = "center";
 
 
-    				// Daniel Moreno, code ends here
 
 				/*
 				const first_names = first_name_obj.forEach( (f_name) => {
@@ -528,6 +545,10 @@
 			<div class="row">
 				<div class="main2"> 
 					<div class="img" style="height: 200px;"></div>
+
+					<div class="import_export_container">
+						<div id="file_import_export_container"></div>
+					</div>
 
 					<!-- Meraj: Allow a user to accept a file ending in .sql or .json -->
 					<input class="btn btn-primary" type="file" id="input" accept=".sql, .json">
