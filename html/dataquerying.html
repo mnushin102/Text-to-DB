@@ -52,10 +52,18 @@
         <h3>Data Querying</h3>
 	</div>
 
-	<ul>
-
-	</ul>
-
+	<div class="d-flex justify-content-center">
+		<div class="position-absolute bottom-50 end-50">
+			<input type="text" id="searchInput" placeholder="Search by name..." onkeyup="searchOnEnter(event)">
+			<button onclick="searchEmployee()">Search</button>
+		</div>
+	</div>
+	
+	<div class="position-absolute top-50 end-50"> 
+		<div id="searchResult"></div>
+	</div>
+	
+	<script src="../js/data-querying.js"></script>
 	<!-- <a><button type="button" class="btn btn-success query-btn" role="dialog" data-bs-toggle="modal" data-bs-target="#data_querying">Query a Database</button></a> --> 
 	<!-- <a><button type="button" class="btn btn-success search-btn" role="dialog" data-bs-toggle="modal" data-bs-target="#search_function">Search</button></a> -->
 
@@ -84,6 +92,7 @@
 		</div>
 	</div> -->
 
+	<!-- 
 	<script>
 			fetch("../json/parsingJson.json")
 				.then(res => {
@@ -99,10 +108,11 @@
 					});   
 				})
 				.catch(error => console.log(error));
-	</script>
+	</script> --> 
 
 	<!-- <script src="../js/data-querying.js"></script> --> 
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
