@@ -352,7 +352,7 @@
 	<div class="navbar">
 		<a><button type="button" class="btn btn-primary create-btn" data-bs-toggle="modal" data-bs-target="#createNewDatabaseModal">Create New Database</button></a>
 		<a><button type="button" class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#delete_database" onclick="delete_database">Delete Database</button></a>
-		<a><button class="btn btn-warning edit-btn" onclick="edit_database">Edit Database</button></a>
+		<a><button type="button" class="btn btn-warning edit-btn" data-bs-toggle="modal" data-bs-target="#edit_database" onclick="edit_database">Edit Database</button></a>
 		<a><button type="button" class="btn btn-success import-btn" data-bs-toggle="modal" data-bs-target="#file_import">Import File</button></a>
 		<a><button type="button" class="btn btn-info export-btn" data-bs-toggle="modal" data-bs-target="#file_export" onclick="export_file">Export File</button></a>
 		<a><button class="btn btn-secondary collaborate-btn" onclick="collaborate">Collaborate</button></a>
@@ -473,6 +473,32 @@
 			</div>
 		</div>
 	</div> -->
+
+<!-- The pop-up menu will appear on the screen when a user clicks on the 'Edit Database' buttton -->
+<div class="modal fade" id="edit_database" tabindex="-1" role="dialog" aria-labelledby="edit_database_modal_label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="edit_database_modal_label">Edit Database</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="database_project_dropdown_button2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							  Dropdown button
+							</button>
+							<div class="dropdown-menu" id="existing_project2" aria-labelledby="dropdownMenuButton"></div>
+						</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" id="edit_database_button_id" class="btn btn-primary">Edit</button>
+			</div>
+		</div>
+	</div>
+</div>
 		
 <!-- The pop-up menu will appear on the screen when a user clicks on the 'Delete Database' buttton -->
 <div class="modal fade" id="delete_database" tabindex="-1" role="dialog" aria-labelledby="delete_database_modal_label" aria-hidden="true">
@@ -654,6 +680,12 @@
 	<script type="module">
 		import { delete_database_project }  from "../js/userpage_functions.js";
 		delete_database_project();
+	</script>
+
+	<!--Listens to when "Delete Database Button" is clicked-->
+	<script type="module">
+		import { edit_database_redirect }  from "../js/userpage_functions.js";
+		edit_database_redirect();
 	</script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -590,24 +590,85 @@ export async function delete_database_project(){
         // Clears existing database names to be updated now
         existingProjectDropdown.innerHTML = "";
 
-        // Populate dropdown with database names
-        responseData.database_projects.forEach(database => {
-            const dropdownItem = document.createElement("a");
-            dropdownItem.classList.add("dropdown-item");
-            dropdownItem.href = "#"; // Add the appropriate href attribute
-            dropdownItem.textContent = database[0].database_name; // Set text to database name
-            dropdownItem.addEventListener("click", function() {
-                // Handle click event for the dropdown item (if needed)
-                dropdownButton.textContent = database[0].database_name;
+        if (responseData.database_projects != []){
+            // Populate dropdown with database names
+            responseData.database_projects.forEach(database => {
+                const dropdownItem = document.createElement("a");
+                dropdownItem.classList.add("dropdown-item");
+                dropdownItem.href = "#"; // Add the appropriate href attribute
+                dropdownItem.textContent = database[0].database_name; // Set text to database name
+                dropdownItem.addEventListener("click", function() {
+                    // Handle click event for the dropdown item (if needed)
+                    dropdownButton.textContent = database[0].database_name;
 
-                //Actually will delete based on option
-                db_to_delete = database[0].database_id;
+                    //Actually will delete based on option
+                    db_to_delete = database[0].database_id;
+                });
+                existingProjectDropdown.appendChild(dropdownItem);
             });
-            existingProjectDropdown.appendChild(dropdownItem);
-        });
+        }
 
     }catch(error){
         console.error("Error deleteing a database",error);
     }
     });
+}
+
+export async function edit_database_redirect(){
+        // Container that holds current databases
+        const existingProjectDropdown = document.getElementById("existing_project2");
+        const dropdownButton = document.getElementById("database_project_dropdown_button2");
+        const editButton = document.getElementById("edit_database_button_id");
+        let db_to_edit;
+    
+        // Event listener that is triggered when "Delete Database Button" is finally clicked
+        editButton.addEventListener("click", async function(event){
+                // Confirmation message before deletion
+                const confirmation = confirm("Are you sure you want to edit this database?");
+                if (confirmation) {
+                    // Go to next page
+                    window.location.href = "../html/edit.html"
+                }  
+        });
+        document.getElementById("edit_database").addEventListener("click", async function(event) {
+            storing_database_projects()
+            // Prevents form from being submitted when option clicked
+            event.preventDefault();
+            // Retrieving database project names to display to the user
+            const database_ids = {database_id : JSON.parse(localStorage.getItem("database_projects"))}
+            try{
+            // Making POST request to retrieve database projects pertaining to a user that is currently logged in
+            const response = await fetch("http://localhost:3000/Databases/retrieve_all_user_databases", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(database_ids)
+            });
+            // Returns a JSON object with database information
+            const responseData = await response.json();
+    
+            // Clears existing database names to be updated now
+            existingProjectDropdown.innerHTML = "";
+    
+            // Populate dropdown with database names
+            responseData.database_projects.forEach(database => {
+                const dropdownItem = document.createElement("a");
+                dropdownItem.classList.add("dropdown-item");
+                dropdownItem.href = "#"; // Add the appropriate href attribute
+                dropdownItem.textContent = database[0].database_name; // Set text to database name
+                dropdownItem.addEventListener("click", function() {
+                    // Handle click event for the dropdown item (if needed)
+                    dropdownButton.textContent = database[0].database_name;
+    
+                    //Actually will delete based on option
+                    db_to_edit = database[0].database_id;
+                });
+                existingProjectDropdown.appendChild(dropdownItem);
+            });
+    
+        }catch(error){
+            console.error("Error editing a database",error);
+        }
+        });
 }
