@@ -1,9 +1,9 @@
-
 /*
 Zoe White - Function to parse text to and from sql based off the parameters below
 */
 
 function parse(text = "", toSQL = True){
+    //console.log(text)
     var output = ""
     //parses the text into sql
     if(toSQL == true){
@@ -136,6 +136,7 @@ function parse(text = "", toSQL = True){
         if(didClass == true){
             output = output + '}'
         }
+        //console.log(output)
         return output  
     }
 }
