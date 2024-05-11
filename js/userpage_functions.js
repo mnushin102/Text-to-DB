@@ -627,7 +627,7 @@ export async function edit_database_redirect(){
                 const confirmation = confirm("Are you sure you want to edit this database?");
                 if (confirmation) {
                     // Go to next page
-                    window.location.href = "../html/edit.html"
+                    alert("Edit Wasn't Finished!")
                 }  
         });
         document.getElementById("edit_database").addEventListener("click", async function(event) {
