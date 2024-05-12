@@ -214,6 +214,28 @@ router.patch('/update_database_project_list', authenticateToken, async(req,res) 
     }
 });
 
+// Updating user's profile information
+router.patch('/update_profile', authenticateToken, async(req,res) => {
+    const user = await User.findOne();
+    const info = req.body
+    console.log(user)
+    console.log(info)
+    try {
+        const updatedUser = await User.findOneAndUpdate(
+            {email:req.user.name},
+            {$set: {
+                first_name:info.first_name,
+                last_name:info.last_name,
+                phone_number:info.phone,
+                user_bio:info.bio
+            }},
+            {new: true}
+        );
+        res.json(updatedUser);        
+    } catch (err) {
+        res.status(ERROR_400).json({message:err.message});
+    }
+});
 
 // Deletes an existing user
 router.delete('/', authenticateToken, async(req,res) => {

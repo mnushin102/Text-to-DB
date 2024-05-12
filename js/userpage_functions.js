@@ -446,41 +446,7 @@ export function parseSQL(){
           reader.readAsText(file); 
     }
 
-    // This function is called when the user imports a file ending in .sql
-    /*function parseJson(){
-    }
-    */ 
-    
-
-    /*
-    const reader = new FileReader(); 
-    reader.onload = (evt) => {
-        file.innerHTML = evt.target.result; 
-    }
-    reader.readAsText(file); */
-    /*
-    document.getElementById("file_import_button").addEventListener("click", function(container){
-
-        // Get the type of a file 
-        var fileType = document.getElementById("#file_input").value; 
-
-        // Get the extension of a file 
-        var fileExt = fileType.substring(fileName.lastIndexOf('.') + 1); 
-        
-        // Test these conditions if the user chooses a different type of file below 
-        if (fileExt === container.querySelector("input[accept=.sql]")){
-            parseSQL(); 
-        }
-
-        // G
-        else {
-            if (fileExt === container.querySelector("input[accept=.json]")){
-                parseJson()
-            }
-        }
-    }); 
-}*/
-
+// Exports a JSON file of the database project
 export async function file_export(){
     // Function to download all SQL files and display their names
     document.getElementById("file_export_button").addEventListener("click", function() {

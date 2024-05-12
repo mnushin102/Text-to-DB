@@ -53,7 +53,6 @@
                     <!--This page allows users to make modifications to their public profile-->
                     <div id="item-2" class="item" style="display: none;">
                         <h2 style="text-align: center;">User Information</h2>
-                        <form>
                             <div class="mb-3">
                                 <label for="firstname" class="form-label">First Name</label>
                                 <input type="text" class="form-control" id="firstname" placeholder="Hitori">
@@ -82,9 +81,8 @@
 
                             <div> 
                                 <!--Once Operational, user's changes will be saved-->
-                                <button type="submit" class="btn btn-primary mb-3" id="update_bio_button">Confirm Update</button>
+                                <button type="button" class="btn btn-primary mb-3" id="update_bio_button">Confirm Update</button>
                             </div>
-                        </form>
                     </div>
 
                     <!--THis page will allow users to make adjustments to their account, such as change password, change profile picture or delete account -->
@@ -208,6 +206,12 @@
     <script type="module">
         import { deleteCurrentUser } from "../js/usersettings-functions.js";
         deleteCurrentUser()
+    </script>
+
+    <!--Updates User Biography-->
+    <script type="module">
+        import { updateUserInfo } from "../js/usersettings-functions.js";
+        updateUserInfo()
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

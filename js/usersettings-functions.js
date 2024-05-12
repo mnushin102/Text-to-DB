@@ -139,3 +139,50 @@ export async function deleteCurrentUser(){
     }
 });
 }
+
+
+export async function updateUserInfo(){
+    // Event listener that waits until user clicks "Confirm Update" Button
+    document.getElementById("update_bio_button").addEventListener("click", async function(){
+        try {
+            event.preventDefault();
+            // Getting values inputted by user
+            const user = {}
+            if (document.getElementById("firstname").value != null){
+                Object.assign(user,{first_name : document.getElementById("firstname").value});
+            }
+
+            if (document.getElementById("lastname").value != null){
+                Object.assign(user,{last_name : document.getElementById("lastname").value});
+            }
+
+            if (document.getElementById("email").value != null){
+                Object.assign(user,{email : document.getElementById("email").value});
+            }
+
+            if (document.getElementById("phonenumber").value != null){
+                Object.assign(user,{phone : document.getElementById("phonenumber").value});
+            }
+
+            if (document.getElementById("bio").value != null){
+                Object.assign(user,{bio : document.getElementById("bio").value});
+            }
+            if (Object.keys(user).length != 0){
+                //Getting the current user's JWT to use for the GET request
+                const token = localStorage.getItem("accessToken");
+                // Getting the user's profile picture to display
+                const response = await fetch("http://localhost:3000/Users/update_profile", {
+                    method: "PATCH",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(user)
+                });
+            }
+            else{alert("NO INPUT GIVEN!")}
+        } catch (error) {
+            console.error("Error updating user biography:",error)
+        }
+    });
+}
