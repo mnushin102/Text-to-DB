@@ -216,10 +216,7 @@ router.patch('/update_database_project_list', authenticateToken, async(req,res) 
 
 // Updating user's profile information
 router.patch('/update_profile', authenticateToken, async(req,res) => {
-    const user = await User.findOne();
     const info = req.body
-    console.log(user)
-    console.log(info)
     try {
         const updatedUser = await User.findOneAndUpdate(
             {email:req.user.name},
@@ -232,6 +229,21 @@ router.patch('/update_profile', authenticateToken, async(req,res) => {
             {new: true}
         );
         res.json(updatedUser);        
+    } catch (err) {
+        res.status(ERROR_400).json({message:err.message});
+    }
+});
+
+// Updating user's password and username
+router.patch('/update_password', authenticateToken, async(req,res) => {
+    const info = req.body
+    try {
+        const updatedUser = await User.findOneAndUpdate(
+            {email:req.user.name},
+            {$set: {password:info.new}},
+            {new: true}
+        );
+        res.json(updatedUser);
     } catch (err) {
         res.status(ERROR_400).json({message:err.message});
     }

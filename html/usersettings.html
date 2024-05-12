@@ -89,20 +89,17 @@
                     <div id="item-3" class="item" style="display: none;">
                         <h2 style="text-align: center;">Account Settings</h2>
                         <div class="row">
-                            <form>
                                 <h3>Change User Name</h3>
                                 <div class="col-auto">
                                     <label for="new_username">New Username</label>
                                     <input type="text" class="form-control" id="new_username" placeholder="New Usename">
                                 </div>
                                 <div class="col-auto">
-                                    <button type="submit" class="btn btn-primary mb-3" id="update_username_button">Confirm Username Change</button>
+                                    <button type="button" class="btn btn-primary mb-3" id="update_username_button">Confirm Username Change</button>
                                 </div>
-                            </form>
                         </div>
                         <!--Button Will update User password if password isn't the same from previous, and new passwords match>-->
                         <div class="row">
-                            <form>
                                 <!--User Can Change Password-->
                                 <h3>Change Password</h3>
                                 <div class="col-auto">
@@ -117,13 +114,12 @@
 
                                 <div class="col-auto">
                                     <label for="newpassconfirm" class="visually-hidden">Confirm New Password</label>
-                                    <input type="password" class="form-control" id="newpassconfirm" placeholder="NewPassword">
+                                    <input type="password" class="form-control" id="newpassconfirm" placeholder="Confirm NewPassword">
                                 </div>
 
                                 <div class="col-auto">
-                                    <button type="submit" class="btn btn-primary mb-3" id="update_password_button">Confirm Password Change</button>
+                                    <button type="button" class="btn btn-primary mb-3" id="update_password_button">Confirm Password Change</button>
                                 </div>
-                            </form>
                         </div>
                         <!--Will change profile picture-->
                         <div class="row">
@@ -212,6 +208,12 @@
     <script type="module">
         import { updateUserInfo } from "../js/usersettings-functions.js";
         updateUserInfo()
+    </script>
+
+    <!--Updates User Password-->
+    <script type="module">
+        import { updatePassword } from "../js/usersettings-functions.js";
+        updatePassword()
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

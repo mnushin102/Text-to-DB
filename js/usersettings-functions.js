@@ -170,7 +170,7 @@ export async function updateUserInfo(){
             if (Object.keys(user).length != 0){
                 //Getting the current user's JWT to use for the GET request
                 const token = localStorage.getItem("accessToken");
-                // Getting the user's profile picture to display
+                // Getting the user's profile and updating
                 const response = await fetch("http://localhost:3000/Users/update_profile", {
                     method: "PATCH",
                     headers: {
@@ -183,6 +183,71 @@ export async function updateUserInfo(){
             else{alert("NO INPUT GIVEN!")}
         } catch (error) {
             console.error("Error updating user biography:",error)
+        }
+    });
+}
+
+export async function updatePassword(){
+    // Event listener that waits until user clicks "Confirm Update" Button
+    document.getElementById("update_password_button").addEventListener("click", async function(){
+        try {
+            event.preventDefault();
+            // Getting values inputted by user
+            const user = {}
+            if (document.getElementById("oldpass").value != ""){
+                Object.assign(user,{old_pass : document.getElementById("oldpass").value});
+            }
+
+            if (document.getElementById("newpass").value != ""){
+                Object.assign(user,{new_pass : document.getElementById("newpass").value});
+            }
+            if (document.getElementById("newpassconfirm").value != ""){
+                Object.assign(user,{confirm_pass : document.getElementById("newpassconfirm").value});
+            }
+
+            
+            //Getting the current user's JWT to use for the GET request
+            const token = localStorage.getItem("accessToken");
+            const pass = await fetch("http://localhost:3000/Users/user", {
+                method: "GET",
+                headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+            });
+            const data = await pass.json()
+            console.log(data.user.password)
+            // Making sure list is not empty
+            const cond1 = Object.keys(user).length != 0 && user.hasOwnProperty("old_pass") && user.hasOwnProperty("new_pass") && user.hasOwnProperty("confirm_pass")
+            let flag = false;
+            if (cond1){
+                if(user["old_pass"]==data.user.password){
+                    if (user["new_pass"] == user["confirm_pass"]){
+                        flag = true;
+                    }
+                    else{alert("New Password and Confirm Passwords Don't Match")}
+                }
+                else{alert("Old Password Doesn't Match Database")}
+                
+                if (flag){
+                    // Getting the user's profile picture to display
+                    const response = await fetch("http://localhost:3000/Users/update_password", {
+                        method: "PATCH",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({"new":user["new_pass"]})
+                    });
+                    alert("Password Change Successful, Logging out...")
+                    setTimeout(function(){
+                        window.location.href = '../html/login.html';
+                    }, 250);
+                }
+            }
+            else{alert("Input Missing!")}
+        } catch (error) {
+            console.error("Error updating user password:",error)
         }
     });
 }
