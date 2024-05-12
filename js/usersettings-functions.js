@@ -251,3 +251,23 @@ export async function updatePassword(){
         }
     });
 }
+
+export async function updateUsername(){
+    // Event listener that waits until user clicks "Confirm Update" Button
+    document.getElementById("update_username_button").addEventListener("click", async function(){
+        try {
+            const token = localStorage.getItem("accessToken");
+            const response = await fetch("http://localhost:3000/Users/update_username", {
+                method: "PATCH",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({"user_name":document.getElementById("new_username").value})
+            });
+            alert("Display Name Has Updated");
+        } catch (error) {
+            console.error("Error updating username:",error)
+        }
+    })
+}

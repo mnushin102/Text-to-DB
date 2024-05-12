@@ -234,13 +234,28 @@ router.patch('/update_profile', authenticateToken, async(req,res) => {
     }
 });
 
-// Updating user's password and username
+// Updating user's password
 router.patch('/update_password', authenticateToken, async(req,res) => {
     const info = req.body
     try {
         const updatedUser = await User.findOneAndUpdate(
             {email:req.user.name},
             {$set: {password:info.new}},
+            {new: true}
+        );
+        res.json(updatedUser);
+    } catch (err) {
+        res.status(ERROR_400).json({message:err.message});
+    }
+});
+
+// Updating user's username
+router.patch('/update_username', authenticateToken, async(req,res) => {
+    const info = req.body
+    try {
+        const updatedUser = await User.findOneAndUpdate(
+            {email:req.user.name},
+            {$set: {display_name:info.user_name}},
             {new: true}
         );
         res.json(updatedUser);
