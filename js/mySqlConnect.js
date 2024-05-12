@@ -20,18 +20,6 @@ config.connect(err => {
 
     else{
         console.log("Connection to SQL Server has been Successful!"); 
-        /*
-        const req = new sql.Request(); 
-
-        req.query('SELECT * FROM Databses', (error, req) => {
-            if (error){
-                console.log('Error querying data', error); 
-            }
-
-            else{
-                console.log(result.recordset); 
-            }
-        }) */
     }
 }); 
 

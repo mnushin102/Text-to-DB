@@ -219,76 +219,6 @@
     			filesText.textContent = "Generated SQL File";
     			filesText.style.textAlign = "center";
 
-
-
-				/*
-				const first_names = first_name_obj.forEach( (f_name) => {
-					array +=  f_name; 
-				})
-				
-				emp_id_obj.forEach( (emp_ids) => { 
-					tableStructure += `<tr><td>${emp_ids}</td><td>${array}</td></tr>`; 
-				});  */
-
-
-		/*
-				first_name_obj.forEach( (f_name) => {
-					tableStructure += `<td>${f_name}</td></col>`;
-				}); */
-				
-				/*
-				for (name1 in first_name_obj){
-					tableStructure += `<td>${first_name_obj[name1]}</td></tr>`;
-				} */
-
-				/*
-				const emp_id = JSON.stringify(emp_id_obj); 
-				const first_name = JSON.stringify(first_name_obj); 
-				const last_name = JSON.stringify(last_name_obj); 
-				const career = JSON.stringify(career_obj); 
-				*/
-				
-				//console.log(typeof(JSON.stringify(emp_id))); 
-
-				
-				//tableStructure += `<tr><td>${counter}</td><td>${employeeID}</td><td>${firstName}</td><td>${lastName}</td><td>${career}</td></tr>`;
-				//counter++;  
-				
-				/*
-				for (let line of lines){
-					console.log(line); 
-					if (insideCreateTable){
-
-						
-						
-						const employeeID = line[3].split(":")[0];
-						const firstName = line[3].split(":")[0];
-						const lastName = line[3].split(":")[0];
-						const career = line[3].split(":")[0];
-						tableStructure += `<tr><td>${counter}</td><td>${employeeID}</td><td>${firstName}</td><td>${lastName}</td><td>${career}</td></tr>`;
-						counter++;  
-						tableStructure = "<table>"; 
-
-						//document.querySelector(".displayData").innerHTML = JSON.stringify(intern).match("first_name");
-						console.log(JSON.stringify(line).match("emp_id"));
-						let emp_id = JSON.stringify(line).match("emp_id"); 
-						let first_name = JSON.stringify(line).match("first_name"); 
-						let last_name = JSON.stringify(line).match("last_name"); 
-						let career = JSON.stringify(line).match("career"); 
-						//console.log(emp_id);
-						//tableStructure += `<tr><td>${emp_id}</td><td>${first_name}</td><td>${last_name}</td><td>${career}</td></tr>`; 
-						
-						tableStructure += "</table"; 
-						
-					}
-					
-					
-					if (line.trim().endsWith("]")){
-						break; 
-					}
-				}
-				*/
-
 				tableStructure += "</table>"; 
 
 				if (tableStructure){
@@ -374,18 +304,6 @@
 			<div id="database_project_display_container"></div>
 		</div>
 	</div>	
-<!-- 
-	<script>
-		const proj2 = document.querySelector("project_name_4");
-		
-		fetch("../json/parsingJson.json")
-			.then(res => res.json())
-			.then(data => {
-				data.forEach(post => {
-					proj2.insertAdjacentHTML("beforeend", `${post.data}`)
-				}); 
-			})
-	</script> --> 
 
 	<!--Pop up screen to create new database-->
 	<div class="modal fade" id="createNewDatabaseModal" tabindex="-1" aria-labelledby="createNewDatabaseModalLabel" aria-hidden="true">
@@ -416,41 +334,6 @@
 		</div>
 	</div>
 	
-	
-	<!-- Meraj: The pop-up menu will appear on the screen when a user clicks on the 'Delete Database' buttton 
-	<div class="modal fade" id="delete_database" tabindex="-1" role="dialog" aria-labelledby="delete_database_modal_label" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="delete_database_modal_label">Delete Database</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="main2">
-							<div class="img" style="height: 200px;"></div>
-							<form class="form">
-								<div class="project">
-									<label for="existing_project">Choose one of the following projects to delete:</label>
-										<select id="existing_project">
-											<option value="P1"> Project 1</option>
-											<option value="P2">Project 2</option>
-											<option value="P3">Project 3</option>
-											<option value="P4">Project 4</option>
-											<option value="P5">Project 5</option>
-										</select>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Delete</button>
-				</div>
-			</div>
-		</div>
-	</div> -->
 
 <!-- The pop-up menu will appear on the screen when a user clicks on the 'Edit Database' buttton -->
 <div class="modal fade" id="edit_database" tabindex="-1" role="dialog" aria-labelledby="edit_database_modal_label" aria-hidden="true">
@@ -566,9 +449,6 @@
 	</div>
 </div>
 
-<!-- The line in the div section will have the 
-	html table outputted filled in with the JSON attributes for the rows and columns -->
-<!-- <div id="output"> </div> --> 
 
 <!-- Display the name of the database with a table created in the user page -->
 <div class="container">
@@ -602,10 +482,6 @@
 	</div>
 </div>
 
- 	<!--Creates a new database
-    <script src="../js/generate_database.js"></script>
-	<script>generate_new_database</script>-->
-
 	<!--Creates a new database-->
     <script type="module">
         import { generate_new_database } from "../js/generate_database.js";
@@ -632,13 +508,6 @@
 	import { projectName } from "../js/userpage_functions.js";
 	projectName()
     </script>
-
-	<!-- Imports a file to parse it -->
-	<!--
-	<script type="module">
-	import {file_import} from "../js/userpage_functions.js";
-	file_import() 
-	</script> -->
 
 	<script type="module">
 		import { file_export } from "../js/userpage_functions.js";

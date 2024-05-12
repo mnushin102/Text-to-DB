@@ -1,5 +1,3 @@
-//const { spelling_correction } = require("./spelling_correction")
-//const { convention_checker } = require("./convention-checking")
 // Funtion will add a newly generated database to user's database projects
 async function update_user_database_project_list(database_id){
     try {
@@ -123,7 +121,3 @@ async function storing_database_projects(){
             console.error("Error Fetching Database Projects", error);
         }
 }
-/*
-module.exports = {
-    generate_new_database
-}*/
